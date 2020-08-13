@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import './bot';
 
 @Component({
-  selector: 'app-root',
+  selector: 'ngtwitch-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
