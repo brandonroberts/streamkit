@@ -82,7 +82,10 @@ export class ChatBotService {
   gifAlert(user: string, gif: string, audio: HTMLAudioElement, type: string) {
     this.chatQueueService.add(async () => {
       const container: any = document.querySelector(".alerts");
-      audio.play();
+      try {
+        await audio.play().catch(e => {console.warn(e)});
+      } catch(e) {}
+
       container.innerHTML = `
         <h1 class="text-shadows">${user + (this.titles[type] || '')}</h1>
         <img src="${gif}" />
@@ -91,9 +94,11 @@ export class ChatBotService {
   
       await wait(DISPLAY_DURATION);
   
-      if (!this.chatQueueService.isLooping) {
-        container.style.opacity = 0;
-      }
+      setTimeout(() => {
+        if (!this.chatQueueService.isLooping) {
+          container.style.opacity = 0;
+        }
+      });
     });
   }  
 }
