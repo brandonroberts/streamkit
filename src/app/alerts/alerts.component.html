@@ -1,2 +1,8 @@
-<div class="alerts" id="content"></div>
-<audio style="display: none;" controls muted="muted" autoplay></audio>
+<div #alerts class="alerts"
+  id="content"
+  [style.opacity]="opacity$ | async"
+  [innerHTML]="text$ | async">
+</div>
+
+<audio style="display: none;" controls muted="muted" autoplay>
+</audio>
