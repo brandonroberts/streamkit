@@ -5,10 +5,6 @@ import { Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 import { environment } from '../environments/environment';
-import { ChatQueueService } from './chat-queue.service';
-
-/* Config */
-const PAUSE_DURATION = 30 * 1000; // 30 seconds
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +16,6 @@ export class ChatBotService {
   command$ = this._command$.asObservable();
   broadcast$ = this._command$.pipe(filter(({flags}) => flags.broadcaster));
   chat$ = this._chat$.asObservable();
-
-  constructor(private chatQueueService: ChatQueueService){}
 
   init() {
     ComfyJS.Init(environment.twitchTvHandle);
@@ -41,27 +35,11 @@ export class ChatBotService {
         flags
       })
     };
-
-    this.broadcast$.subscribe(({command}) => {
-      if (command == "pause") {
-        // Clear GIF queue and pause for PAUSE_DURATION
-        this.chatQueueService.clear();
-        this.chatQueueService.pause(PAUSE_DURATION);
-      }      
-    });     
   }
 
   setupChatListener() {
     ComfyJS.onChat = (user, message, flags, self, extra) => {
       console.log(user + ":", message);
     };
-  }
-
-  addAlert(item: () => Promise<void>) {
-    this.chatQueueService.add(item);    
-  }
-
-  isIdle(){
-    return !this.chatQueueService.isLooping;
   }
 }

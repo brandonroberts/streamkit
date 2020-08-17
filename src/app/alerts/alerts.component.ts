@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, merge } from 'rxjs';
-import { map, filter, tap } from 'rxjs/operators';
+import { BehaviorSubject, merge, Subject, from, of } from 'rxjs';
+import { map, filter, tap, concatMap, delay, skipWhile, switchMap } from 'rxjs/operators';
 
 import { ChatBotService } from '../chatbot.service';
-import { wait } from '../utils';
 
-import { Alert, alerts } from './config';
+import { Alert, alerts, PAUSE_DURATION } from './config';
 
 @Component({
   selector: 'ngtwitch-alerts',
@@ -17,6 +16,8 @@ export class AlertsComponent implements OnInit {
   broadcast$ = this.chatbotService.broadcast$;
   text$ = new BehaviorSubject<string>(null);
   opacity$ = this.text$.pipe(map(text => text ? 1 : 0));
+  alert$ = new Subject<{ user: string, alert: Alert }>();
+  paused = false;
 
   constructor(private chatbotService: ChatBotService) {}
 
@@ -25,33 +26,46 @@ export class AlertsComponent implements OnInit {
     
     merge(this.commands$, this.broadcast$).pipe(
       filter(({command}) => !!alerts[command]),
-      tap(({command, user, message}) => {
+      map(({command, user, message}) => {
         const alert = alerts[command];
-        this.addAlert(alert.showMessage ? message : user, alert);
+        
+        return {
+          user: alert.showMessage ? message : user,
+          alert
+        };
+      })
+    ).subscribe(this.alert$);
+
+    this.alert$.pipe(
+      skipWhile(() => this.paused),
+      concatMap(({user, alert}) => {
+        return from(alert.audio.play().catch((e) => console.warn(e)))
+          .pipe(
+            tap(() => {
+              this.text$.next(`
+                <h1 class="text-shadows">${user}${alert.title}</h1>
+                <img src="${alert.gif}" />
+              `);
+            }),
+            delay(alert.duration),
+            tap(() => {
+              this.text$.next(null);
+            })
+          );
+      })
+    )
+    .subscribe();
+
+    this.broadcast$.pipe(
+      filter(({command}) => command === 'pause'),
+      switchMap(() => {
+        return of(true)
+          .pipe(
+            tap(() => this.paused = true),
+            delay(PAUSE_DURATION),
+            tap(() => this.paused = false)
+          );
       })
     ).subscribe();
-  }
-
-  addAlert(user: string, alert: Alert) {
-    this.chatbotService.addAlert(async () => {
-      await alert.audio.play();
-
-      this.text$.next(`
-        <h1 class="text-shadows">${user}${alert.title}</h1>
-        <img src="${alert.gif}" />
-      `);
-
-      await wait(alert.duration);
-
-      this.cleanupAlert();
-    });
-  }
-
-  cleanupAlert() {
-    setTimeout(() => {
-      if (this.chatbotService.isIdle()) {
-        this.text$.next(null);
-      }
-    });
   }
 }

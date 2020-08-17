@@ -1,3 +1,6 @@
+/* Config */
+export const PAUSE_DURATION = 30 * 1000; // 30 seconds
+
 /* Sound Effects */
 export const pewAudio = new Audio("/assets/horn.wav");
 export const magicChime = new Audio("/assets/Magic_Chime.mp3");
