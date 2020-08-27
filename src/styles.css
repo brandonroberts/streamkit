@@ -22,7 +22,7 @@ img {
   text-align: center;
 }
 
-#content {
+content {
   display: flex;
   align-content: center;
   justify-content: center;

@@ -3,6 +3,7 @@ import { BehaviorSubject, merge, Subject, from, of } from 'rxjs';
 import { map, filter, tap, concatMap, delay, skipWhile, switchMap } from 'rxjs/operators';
 
 import { ChatBotService } from '../chatbot.service';
+import { GifSearchService } from '../gif-search.service';
 
 import { Alert, alerts, PAUSE_DURATION } from './config';
 
@@ -19,7 +20,10 @@ export class AlertsComponent implements OnInit {
   alert$ = new Subject<{ user: string, alert: Alert }>();
   paused = false;
 
-  constructor(private chatbotService: ChatBotService) {}
+  constructor(
+    private chatbotService: ChatBotService,
+    private gifSearchService: GifSearchService
+  ) {}
 
   ngOnInit(): void {
     this.chatbotService.init();
@@ -64,6 +68,25 @@ export class AlertsComponent implements OnInit {
             tap(() => this.paused = true),
             delay(PAUSE_DURATION),
             tap(() => this.paused = false)
+          );
+      })
+    ).subscribe();
+
+    merge(this.commands$, this.broadcast$).pipe(
+      filter(({command}) => command === 'gif'),
+      concatMap(({message}) => {
+        return this.gifSearchService.search(message)
+          .pipe(
+            tap(gifUrl => {
+              this.text$.next(`
+                <h1 class="text-shadows">${message}</h1>
+                <img src="${gifUrl}" />
+              `);
+            }),
+            delay(5000),
+            tap(() => {
+              this.text$.next(null);
+            })
           );
       })
     ).subscribe();
