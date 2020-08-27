@@ -1,11 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, merge, Subject, from, of } from 'rxjs';
+import { BehaviorSubject, merge, Subject, from, of, Observable } from 'rxjs';
 import { map, filter, tap, concatMap, delay, skipWhile, switchMap } from 'rxjs/operators';
 
 import { ChatBotService } from '../chatbot.service';
 import { GifSearchService } from '../gif-search.service';
 
 import { Alert, alerts, PAUSE_DURATION } from './config';
+
+const onCommand = (chatCommand: string) => (source$: Observable<{ command: string, message: string }>) => {
+  return source$.pipe(
+    filter(({command}) => command === chatCommand)
+  );
+}
 
 @Component({
   selector: 'ngtwitch-alerts',
@@ -61,7 +67,7 @@ export class AlertsComponent implements OnInit {
     .subscribe();
 
     this.broadcast$.pipe(
-      filter(({command}) => command === 'pause'),
+      onCommand('pause'),
       switchMap(() => {
         return of(true)
           .pipe(
@@ -73,7 +79,7 @@ export class AlertsComponent implements OnInit {
     ).subscribe();
 
     merge(this.commands$, this.broadcast$).pipe(
-      filter(({command}) => command === 'gif'),
+      onCommand('gif'),
       concatMap(({message}) => {
         return this.gifSearchService.search(message)
           .pipe(
