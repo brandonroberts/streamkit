@@ -4,6 +4,7 @@
 
 export const environment = {
   twitchTvHandle: 'brandontroberts',
+  giphyApiKey: '',
   production: false
 };
 
