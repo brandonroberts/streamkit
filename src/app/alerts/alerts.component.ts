@@ -1,100 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, merge, Subject, from, of, Observable } from 'rxjs';
-import { map, filter, tap, concatMap, delay, skipWhile, switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
-import { ChatBotService } from '../chatbot.service';
-import { GifSearchService } from '../gif-search.service';
-
-import { Alert, alerts, PAUSE_DURATION } from './config';
-
-const onCommand = (chatCommand: string) => (source$: Observable<{ command: string, message: string }>) => {
-  return source$.pipe(
-    filter(({command}) => command === chatCommand)
-  );
-}
+import { AlertsStore } from './alerts.store';
 
 @Component({
   selector: 'ngtwitch-alerts',
   templateUrl: './alerts.component.html',
-  styleUrls: ['./alerts.component.css']
+  styleUrls: ['./alerts.component.css'],
+  providers: [AlertsStore]
 })
 export class AlertsComponent implements OnInit {
-  commands$ = this.chatbotService.command$;
-  broadcast$ = this.chatbotService.broadcast$;
-  text$ = new BehaviorSubject<string>(null);
+  text$ = this.alertsStore.text$;
   opacity$ = this.text$.pipe(map(text => text ? 1 : 0));
-  alert$ = new Subject<{ user: string, alert: Alert }>();
-  paused = false;
 
-  constructor(
-    private chatbotService: ChatBotService,
-    private gifSearchService: GifSearchService
-  ) {}
+  constructor(private alertsStore: AlertsStore) {}
 
-  ngOnInit(): void {
-    this.chatbotService.init();
-    
-    merge(this.commands$, this.broadcast$).pipe(
-      filter(({command}) => !!alerts[command]),
-      map(({command, user, message}) => {
-        const alert = alerts[command];
-        
-        return {
-          user: alert.showMessage ? message : user,
-          alert
-        };
-      })
-    ).subscribe(this.alert$);
-
-    this.alert$.pipe(
-      skipWhile(() => this.paused),
-      concatMap(({user, alert}) => {
-        return from(alert.audio.play().catch((e) => console.warn(e)))
-          .pipe(
-            tap(() => {
-              this.text$.next(`
-                <h1 class="text-shadows">${user}${alert.title}</h1>
-                <img src="${alert.gif}" />
-              `);
-            }),
-            delay(alert.duration),
-            tap(() => {
-              this.text$.next(null);
-            })
-          );
-      })
-    )
-    .subscribe();
-
-    this.broadcast$.pipe(
-      onCommand('pause'),
-      switchMap(() => {
-        return of(true)
-          .pipe(
-            tap(() => this.paused = true),
-            delay(PAUSE_DURATION),
-            tap(() => this.paused = false)
-          );
-      })
-    ).subscribe();
-
-    merge(this.commands$, this.broadcast$).pipe(
-      onCommand('gif'),
-      concatMap(({message}) => {
-        return this.gifSearchService.search(message)
-          .pipe(
-            tap(gifUrl => {
-              this.text$.next(`
-                <h1 class="text-shadows">${message}</h1>
-                <img src="${gifUrl}" />
-              `);
-            }),
-            delay(5000),
-            tap(() => {
-              this.text$.next(null);
-            })
-          );
-      })
-    ).subscribe();
+  ngOnInit(): void {  
+    this.alertsStore.init();
   }
 }
