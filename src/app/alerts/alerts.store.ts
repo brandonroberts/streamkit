@@ -6,7 +6,7 @@ import { filter, map, tap, skipWhile, concatMap, delay, switchMap } from 'rxjs/o
 
 import { ChatBotService } from '../chatbot.service';
 import { GifSearchService } from '../gif-search.service';
-import { Alert, alerts, PAUSE_DURATION } from './config';
+import { Alert, alerts, PAUSE_DURATION, commandResponses } from './config';
 
 export interface AlertsState {
   text: string | null;
@@ -120,6 +120,15 @@ export class AlertsStore extends ComponentStore<AlertsState> {
     })
   );
 
+  responseCommand$ = this.commands$.pipe(
+    filter(incomingCommand => !!commandResponses[incomingCommand.command]),
+    tap(commandInfo => {
+      const responseInfo = commandResponses[commandInfo.command];
+
+      this.chatbotService.respond(responseInfo.response);
+    })
+  );
+
   init = this.effect(() => {
     this.chatbotService.init();
 
@@ -127,7 +136,8 @@ export class AlertsStore extends ComponentStore<AlertsState> {
       this.alertTriggers$,
       this.showAlerts$,
       this.broadcasts$,
-      this.gifs$
+      this.gifs$,
+      this.responseCommand$
     );
   });
 }

@@ -18,7 +18,7 @@ export class ChatBotService {
   chat$ = this._chat$.asObservable();
 
   init() {
-    ComfyJS.Init(environment.twitchTvHandle);
+    ComfyJS.Init(environment.twitchTvHandle, environment.chatbotOauthKey);
 
     this.setupCommandListener();
     this.setupChatListener();
@@ -41,5 +41,9 @@ export class ChatBotService {
     ComfyJS.onChat = (user, message, flags, self, extra) => {
       console.log(user + ":", message);
     };
+  }
+
+  respond(message: string) {
+    ComfyJS.Say(message, environment.twitchTvHandle);
   }
 }

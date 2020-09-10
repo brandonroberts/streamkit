@@ -42,3 +42,15 @@ export const alerts: { [name: string]: Alert } = {
     duration: 5000
   }
 };
+
+export const commandResponses: { [name: string]: { response: string } } = {
+  ngrx: {
+    response: `
+      NgRx is an open source framework for building reactive Angular applications:
+      https://ngrx.io https://github.com/ngrx/platform
+    `
+  },
+  discord: {
+    response: 'Check out our discord server at: https://discord.gg/gCEj4zC'
+  }
+};
