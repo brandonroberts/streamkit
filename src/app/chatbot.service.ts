@@ -18,7 +18,7 @@ export class ChatBotService {
   chat$ = this._chat$.asObservable();
 
   init() {
-    ComfyJS.Init(environment.twitchTvHandle, environment.chatbotOauthKey);
+    ComfyJS.Init(environment.twitchTvHandle, environment.chatbotOauthKey, ['brandontroberts']);
 
     this.setupCommandListener();
     this.setupChatListener();
@@ -44,6 +44,6 @@ export class ChatBotService {
   }
 
   respond(message: string) {
-    ComfyJS.Say(message, environment.twitchTvHandle);
+    ComfyJS.Say(message, undefined);
   }
 }
