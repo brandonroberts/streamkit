@@ -1037,6 +1037,29 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
+"@giphy/js-fetch-api@^1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@giphy/js-fetch-api/-/js-fetch-api-1.6.2.tgz#46f73392616a52378cdff2824dafb1c14bf3cb45"
+  integrity sha512-uGfiWxyGda235vHXKqtUga+z3vW3OIX3Eo++2viQSJnuCi5GjT3kMHXa1LK2lYGyMzmC6yUHygLswVYg94Czlw==
+  dependencies:
+    "@giphy/js-types" "^2.1.0"
+    "@giphy/js-util" "^1.9.2"
+    cookie "0.4.1"
+    qs "^6.9.4"
+
+"@giphy/js-types@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@giphy/js-types/-/js-types-2.1.0.tgz#a264ddecd2e276d6af7ec297e01a1c2899b13c6a"
+  integrity sha512-s67HZskpuIEViUTTdpoZk4LMwjaU7M0ZbMZuG2ZAzlSIgsJHH0AbrR2U+0DU93oKVY3uJThqGMDrSyDz6GCNjQ==
+
+"@giphy/js-util@^1.9.2":
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/@giphy/js-util/-/js-util-1.9.2.tgz#b0aafad497fa6b37ecdd582d4147d63ba0c9f026"
+  integrity sha512-Otmm7TiSCAoZQNuUwOQ+/P7LipMLNmClkVwa5H8zk7BDCR3kqCu4y5hTDWNdJH2vtlf4UHX+1obEwdE20O6Q9A==
+  dependencies:
+    "@giphy/js-types" "^2.1.0"
+    dompurify "^2.0.12"
+
 "@istanbuljs/schema@^0.1.2":
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@istanbuljs/schema/-/schema-0.1.2.tgz#26520bf09abe4a5644cd5414e37125a8954241dd"
@@ -1052,6 +1075,13 @@
     loader-utils "^1.4.0"
     merge-source-map "^1.1.0"
     schema-utils "^2.6.4"
+
+"@ngrx/component-store@^10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/component-store/-/component-store-10.0.0.tgz#c8604d5ce57a53e6f43ff41a70dece3b21a43574"
+  integrity sha512-m4AvA9I0aAazPERkbyPJzhQzrnbLfzkpgAIDjNDX0jYfPx10F0AYbXsKiqCEcIWSbikhqac5NXTduKyidZzn3g==
+  dependencies:
+    tslib "^2.0.0"
 
 "@ngtools/webpack@10.0.5":
   version "10.0.5"
@@ -2583,6 +2613,11 @@ cookie@0.4.0:
   resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.4.0.tgz#beb437e7022b3b6d49019d088665303ebe9c14ba"
   integrity sha512-+Hp8fLp57wnUSt0tY0tHEXh4voZRDnoIrZPqlo3DPiI4y9lwg/jqx+1Om94/W6ZaPDOUbnjOt/99w66zk+l1Xg==
 
+cookie@0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.4.1.tgz#afd713fe26ebd21ba95ceb61f9a8116e50a537d1"
+  integrity sha512-ZwrFkGJxUR3EIoXtO+yVE69Eb7KlixbaeAWfBQB9vVsNn/o+Yw69gBWSSDK825hQNdN+wF8zELf3dFNl/kxkUA==
+
 copy-concurrently@^1.0.0:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/copy-concurrently/-/copy-concurrently-1.0.5.tgz#92297398cae34937fcafd6ec8139c18051f0b5e0"
@@ -3177,6 +3212,11 @@ domelementtype@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/domelementtype/-/domelementtype-2.0.1.tgz#1f8bdfe91f5a78063274e803b4bdcedf6e94f94d"
   integrity sha512-5HOHUDsYZWV8FGWN0Njbr/Rn7f/eWSQi1v7+HsUVwXgn8nWWlL64zKDkS0n8ZmQ3mlWOMuXOnR+7Nx/5tMO5AQ==
+
+dompurify@^2.0.12:
+  version "2.0.15"
+  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-2.0.15.tgz#80e300fc3e89547bd0af1aff2eba88ce17fc9dea"
+  integrity sha512-8AnYW8iXOC7xC7K3FBvQ7+GdmtOsgDGZC5dDXaewCC674qcId7G5mhz5VIEnVShJVjQdlcaPjxpaOzaV9JC3Tg==
 
 domutils@^1.7.0:
   version "1.7.0"
@@ -6812,6 +6852,11 @@ qs@6.7.0:
   version "6.7.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
   integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
+
+qs@^6.9.4:
+  version "6.9.4"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.4.tgz#9090b290d1f91728d3c22e54843ca44aea5ab687"
+  integrity sha512-A1kFqHekCTM7cz0udomYUoYNWjBebHm/5wzU/XqrBRBNWectVH0QIiN+NEcZ0Dte5hvzHwbr8+XQmguPhJ6WdQ==
 
 qs@~6.5.2:
   version "6.5.2"
