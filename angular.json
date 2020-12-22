@@ -1,39 +1,37 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "newProjectRoot": "projects",
+  "newProjectRoot": "",
   "projects": {
     "ngtwitch": {
       "projectType": "application",
       "schematics": {},
-      "root": "",
-      "sourceRoot": "src",
+      "root": "apps/ngtwitch",
+      "sourceRoot": "apps/ngtwitch/src",
       "prefix": "ngtwitch",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ngtwitch",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.app.json",
+            "outputPath": "dist/apps/ngtwitch",
+            "index": "apps/ngtwitch/src/index.html",
+            "main": "apps/ngtwitch/src/main.ts",
+            "polyfills": "apps/ngtwitch/src/polyfills.ts",
+            "tsConfig": "apps/ngtwitch/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "apps/ngtwitch/src/favicon.ico",
+              "apps/ngtwitch/src/assets"
             ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "styles": ["apps/ngtwitch/src/styles.css"],
             "scripts": []
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "replace": "apps/ngtwitch/src/environments/environment.ts",
+                  "with": "apps/ngtwitch/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -79,17 +77,15 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
+            "main": "apps/ngtwitch/src/test.ts",
+            "polyfills": "apps/ngtwitch/src/polyfills.ts",
+            "tsConfig": "apps/ngtwitch/tsconfig.spec.json",
+            "karmaConfig": "apps/ngtwitch/karma.conf.js",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "apps/ngtwitch/src/favicon.ico",
+              "apps/ngtwitch/src/assets"
             ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "styles": ["apps/ngtwitch/src/styles.css"],
             "scripts": []
           }
         },
@@ -97,19 +93,22 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
+              "apps/ngtwitch/tsconfig.app.json",
+              "apps/ngtwitch/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
-        },
+        }
+      }
+    },
+    "ngtwitch-e2e": {
+      "projectType": "application",
+      "root": "apps/ngtwitch-e2e",
+      "architect": {
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
+            "protractorConfig": "apps/ngtwitch-e2e/protractor.conf.js",
             "devServerTarget": "ngtwitch:serve"
           },
           "configurations": {
@@ -117,8 +116,75 @@
               "devServerTarget": "ngtwitch:serve:production"
             }
           }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/ngtwitch-e2e/tsconfig.json",
+            "exclude": ["**/node_modules/**"]
+          }
         }
       }
-    }},
-  "defaultProject": "ngtwitch"
+    },
+    "api": {
+      "root": "apps/api",
+      "sourceRoot": "apps/api/src",
+      "projectType": "application",
+      "prefix": "api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/api",
+            "main": "apps/api/src/main.ts",
+            "tsConfig": "apps/api/tsconfig.app.json",
+            "assets": ["apps/api/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/api/src/environments/environment.ts",
+                  "with": "apps/api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "api:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/api/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "inlineStyle": true,
+      "inlineTemplate": true
+    }
+  },
+  "defaultProject": "ngtwitch",
+  "cli": {
+    "defaultCollection": "@nrwl/nest"
+  }
 }
