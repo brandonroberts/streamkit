@@ -182,7 +182,17 @@ export class AlertsStore extends ComponentStore<AlertsState> {
     tap(commandInfo => {
       const responseInfo = commandResponses[commandInfo.command];
 
-      this.chatbotService.respond(responseInfo.response);
+      let message = `${responseInfo.response}`;
+
+      if (responseInfo.response.includes('{{message}}')) {
+        message = message.replace('{{message}}', commandInfo.message.substr(1));
+      }
+
+      if (responseInfo.response.includes('~message~')) {
+        message = message.replace('~message~', commandInfo.message);
+      }
+
+      this.chatbotService.respond(message);
     })
   );
 

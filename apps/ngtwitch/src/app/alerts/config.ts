@@ -26,7 +26,6 @@ export const alerts: { [name: string]: Alert } = {
   sup: {
     title: '',
     gif: welcomeGif,
-    audio: pewAudio,
     showMessage: false,
     duration: 3000,
     subsOnly: false
@@ -37,7 +36,7 @@ export const alerts: { [name: string]: Alert } = {
     audio: magicChime,
     showMessage: false,
     duration: 3000,
-    subsOnly: true
+    subsOnly: false
   }
 };
 
@@ -49,12 +48,20 @@ export const commandResponses: { [name: string]: { response: string } } = {
     `
   },
   discord: {
-    response: 'Check out our discord server at: https://discord.gg/gCEj4zC'
+    response: 'Check out our NgRx discord server at: https://discord.gg/ngrx'
   },
   bot: {
     response: 'I\'m a bot powered by Angular! Source: https://github.com/brandonroberts/ngtwitch'
   },
+  support: {
+    response: `You can support my channel by subscribing for free with Amazon Prime! You can
+      also sponsor me on GitHub! https://github.com/sponsors/brandonroberts
+    `
+  },
+  so: {
+    response: `Shoutout to ~message~ and follow their channel at https://twitch.tv/{{message}}!`
+  },
   commands: {
-    response: 'Bot commands: !ngrx !discord !bot !commands'
+    response: 'Bot commands: !ngrx !discord !bot !support !commands'
   }
 };
