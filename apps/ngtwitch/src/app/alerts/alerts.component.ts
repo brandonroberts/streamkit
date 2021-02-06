@@ -5,8 +5,30 @@ import { AlertsStore } from './alerts.store';
 
 @Component({
   selector: 'ngtwitch-alerts',
-  templateUrl: './alerts.component.html',
-  styleUrls: ['./alerts.component.css'],
+  template: `
+    <div class="alerts"
+      [style.opacity]="opacity$ | async"
+      [innerHTML]="text$ | async">
+    </div>
+
+    <audio
+      style="display: none;"
+      control
+      muted="muted"
+      autoplay>
+    </audio>
+  `,
+  styles: [`
+    :host {
+      display: grid;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .alerts {
+      color: white;
+    }
+  `],
   providers: [AlertsStore]
 })
 export class AlertsComponent implements OnInit {
