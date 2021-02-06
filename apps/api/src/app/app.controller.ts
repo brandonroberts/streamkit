@@ -1,6 +1,5 @@
 import { Controller, Get, Post, Body, Response, Query } from '@nestjs/common';
 
-import { AppService } from './app.service';
 import { ChatBotService } from './chatbot.service';
 import { FollowEvent } from './models/follow-event';
 
