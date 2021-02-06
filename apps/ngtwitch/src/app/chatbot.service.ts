@@ -4,7 +4,7 @@ import ComfyJS, { OnMessageFlags } from 'comfy.js';
 import { Subject } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
-import { environment } from '../environments/environment';
+import { AppConfigService } from './app-config.service';
 import { Command, Sub, Raid, Chat } from './events';
 
 @Injectable({
@@ -21,18 +21,22 @@ export class ChatBotService {
   chat$ = this._chat$.asObservable();
   raid$ = this._raid$.asObservable();
   subs$ = this._sub$.asObservable();
+
   follows$ = this._chat$.pipe(
     filter(({ user, message }) => {
-      return user === environment.twitchTvHandle && message.startsWith('Thanks for the follow');
+      return user === this.appConfig.twitchTvHandle && message.startsWith('Thanks for the follow');
     }),
     map(({ message }) => {
       const followerInfo = message.match(/the follow (.*?)!$/);
       return followerInfo ? followerInfo[1] : '';
     })
   );
+  private appConfig = this.appConfigService.get();
+
+  constructor(private appConfigService: AppConfigService) {}
 
   init() {
-    ComfyJS.Init(environment.twitchTvHandle, environment.chatbotOauthKey, ['brandontroberts']);
+    ComfyJS.Init(this.appConfig.twitchTvHandle, this.appConfig.chatbotOauthKey, ['brandontroberts']);
 
     this.setupCommandListener();
     this.setupChatListener();

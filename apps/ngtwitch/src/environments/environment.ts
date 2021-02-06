@@ -3,11 +3,6 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  twitchTvHandle: 'asknotbrandon',
-  twitchClientId: '',
-  giphyApiKey: '',
-  chatbotOauthKey: '',
-  callbackRoot: '',
   production: false
 };
 

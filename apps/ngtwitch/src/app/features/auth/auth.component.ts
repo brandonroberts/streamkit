@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from '../../../environments/environment';
+
+import { AppConfigService } from '../../app-config.service';
 
 @Component({
   selector: 'ngtwitch-auth',
@@ -10,15 +11,18 @@ import { environment } from '../../../environments/environment';
   ]
 })
 export class AuthComponent implements OnInit {
+  private apiConfig = this.appConfigService.get();
 
-  constructor() { }
+  constructor(
+    private appConfigService: AppConfigService
+  ) { }
 
   ngOnInit(): void {
   }
 
   onAuthorize() {
     let url = `https://id.twitch.tv/oauth2/authorize`;
-    url += `?client_id=${environment.twitchClientId}`;
+    url += `?client_id=${this.apiConfig.twitchClientId}`;
     url += `&redirect_uri=http://localhost:4200/auth-callback`;
     url += `&response_type=token`;
     url += `&scope=chat:read+user:read:email`;

@@ -8,6 +8,7 @@ import { AlertsComponent } from './alerts/alerts.component';
 import { HomePageComponent } from './features/home-page/home-page.component';
 import { AuthComponent } from './features/auth/auth.component';
 import { AuthCallbackComponent } from './features/auth-callback/auth-callback.component';
+import { AppConfigInitializer } from './app-config.initializer';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,9 @@ import { AuthCallbackComponent } from './features/auth-callback/auth-callback.co
       { path: 'auth-callback', component: AuthCallbackComponent }
     ])
   ],
-  providers: [],
+  providers: [
+    AppConfigInitializer
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

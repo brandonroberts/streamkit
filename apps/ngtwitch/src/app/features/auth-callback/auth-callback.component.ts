@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { first, switchMap, catchError, mergeMap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
 import { EMPTY } from 'rxjs';
+
+import { AppConfigService } from '../../app-config.service';
 
 @Component({
   selector: 'ngtwitch-auth-callback',
@@ -16,10 +17,12 @@ import { EMPTY } from 'rxjs';
   ]
 })
 export class AuthCallbackComponent implements OnInit {
+  private apiConfig = this.appConfigService.get();
 
   constructor(
     private route: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    private appConfigService: AppConfigService
   ) { }
 
   ngOnInit(): void {
@@ -30,7 +33,7 @@ export class AuthCallbackComponent implements OnInit {
         console.log(token);
         const headers = {
           'Authorization': `Bearer ${token}`,
-          'Client-ID': environment.twitchClientId
+          'Client-ID': this.apiConfig.twitchClientId
         };
 
         return this.http.get<{ data: any[] }>('https://api.twitch.tv/helix/users?login=brandontroberts', { headers }).pipe(
@@ -38,7 +41,7 @@ export class AuthCallbackComponent implements OnInit {
             let url = `https://api.twitch.tv/helix/users/follows?first=1&to_id=${data[0].id}`;
             // url = `https://api.twitch.tv/helix/streams?user_id=${data[0].id}`;
             const hubData = {
-              'hub.callback': `${environment.callbackRoot}/api/follows`,
+              'hub.callback': `${this.apiConfig.callbackRoot}/api/follows`,
               'hub.mode': 'subscribe',
               'hub.topic': url,
               'hub.lease_seconds': 3600

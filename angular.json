@@ -60,7 +60,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ngtwitch:build"
+            "browserTarget": "ngtwitch:build",
+            "proxyConfig": "apps/ngtwitch/src/proxy.conf.json"
           },
           "configurations": {
             "production": {
@@ -175,6 +176,20 @@
           }
         }
       }
+    },
+    "api-interfaces": {
+      "root": "libs/api-interfaces",
+      "sourceRoot": "libs/api-interfaces/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/api-interfaces/**/*.ts"]
+          }
+        }
+      }
     }
   },
   "schematics": {
@@ -185,6 +200,6 @@
   },
   "defaultProject": "ngtwitch",
   "cli": {
-    "defaultCollection": "@nrwl/nest"
+    "defaultCollection": "@nrwl/node"
   }
 }
