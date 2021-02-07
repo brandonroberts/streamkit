@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import ComfyJS, { OnMessageFlags } from 'comfy.js';
-import { Subject } from 'rxjs';
+import { merge, Subject } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
 import { Command, Sub, Raid, Chat, FollowerInfo, FollowEvent } from '@ngtwitch/models';
@@ -21,6 +21,14 @@ export class ChatBotService {
   raid$ = this._raid$.pipe(map(raid => TwitchActions.raid({ raid })));
   subs$ = this._sub$.pipe(map(sub => TwitchActions.sub({ sub })));
   follows$ = this._follow$.pipe(map(follower => TwitchActions.follow({ follower: follower.from_name })));
+  events$ = merge(
+    this.command$,
+    this.broadcast$,
+    this.chat$,
+    this.raid$,
+    this.subs$,
+    this.follows$
+  );
 
   init() {
     ComfyJS.Init(process.env.twitchTvHandle, process.env.chatbotOauthKey, ['brandontroberts']);
@@ -76,7 +84,6 @@ export class ChatBotService {
       this._follow$.next(followerInfo);
     })
   }
-
 
   respond(message: string) {
     ComfyJS.Say(message, undefined);

@@ -8,6 +8,8 @@ import { ChatBotService } from '../chatbot.service';
 import { GifSearchService } from '../gif-search.service';
 import { Command } from '@ngtwitch/models';
 import { Alert, alerts, PAUSE_DURATION, commandResponses, raidGif, subGif, welcomeGif, followGif } from './config';
+import { Actions, ofType } from '@ngrx/effects';
+import { TwitchActions } from '@ngtwitch/actions';
 
 export interface AlertsState {
   text: string | null;
@@ -35,7 +37,10 @@ const onCommand = (chatCommand: string) =>
   providedIn: 'root'
 })
 export class AlertsStore extends ComponentStore<AlertsState> {
-  commands$ = this.chatbotService.command$;
+  commands$ = this.actions$.pipe(
+    ofType(TwitchActions.command),
+    map(action => action.command)
+  );
   broadcast$ = this.chatbotService.broadcast$;
   raid$ = this.chatbotService.raid$;
   sub$ = this.chatbotService.subs$;
@@ -44,6 +49,7 @@ export class AlertsStore extends ComponentStore<AlertsState> {
   text$ = this.select(state => state.text);
 
   constructor(
+    private actions$: Actions,
     private chatbotService: ChatBotService,
     private gifSearchService: GifSearchService
   ) {

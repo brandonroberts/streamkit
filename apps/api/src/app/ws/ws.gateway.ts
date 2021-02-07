@@ -8,6 +8,6 @@ export class WsGateway {
 
   @SubscribeMessage('subscribe')
   handleMessage() {
-    return this.chatbotService.command$;
+    return this.chatbotService.events$;
   }
 }

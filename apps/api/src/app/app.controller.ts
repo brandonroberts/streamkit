@@ -16,10 +16,7 @@ export class AppController {
 
   @Post('follows')
   postFollows(@Body() followEvent: FollowEvent, @Response() resp) {
-    followEvent.data.forEach(followerInfo => {
-      console.log(followerInfo);
-      this.chatbotService.sendFollow(followEvent);
-    });
+    this.chatbotService.sendFollow(followEvent);
 
     return resp.json({ success: true });
   }
