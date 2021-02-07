@@ -4,7 +4,7 @@ import { FollowEvent } from '@ngtwitch/models';
 import { ChatBotService } from './chatbot.service';
 
 @Controller()
-export class AppController {
+export class TwitchWebookController {
   constructor(private chatbotService: ChatBotService) {
     chatbotService.init();
   }

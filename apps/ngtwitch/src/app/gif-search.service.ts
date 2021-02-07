@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { GiphyFetch } from '@giphy/js-fetch-api';
 import { from, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
@@ -9,12 +9,23 @@ import { AppConfigService } from './app-config.service';
   providedIn: 'root'
 })
 export class GifSearchService {
-  private apiConfig = this.appConfigService.get();
-  private gifSearch = new GiphyFetch(this.apiConfig.giphyApiKey);
+  private _gifSearch: GiphyFetch;
 
   constructor(
-    private appConfigService: AppConfigService
+    private injector: Injector
   ) { }
+
+  get apiConfig() {
+    return this.injector.get(AppConfigService).get();
+  }
+
+  get gifSearch() {
+    if (!this._gifSearch) {
+      this._gifSearch = new GiphyFetch(this.apiConfig.giphyApiKey);
+    }
+
+    return this._gifSearch;
+  }
 
   search(searchTerms: string) {
     return from(this.gifSearch.search(searchTerms)).pipe(

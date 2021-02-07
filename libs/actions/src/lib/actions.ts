@@ -2,7 +2,12 @@ import { createAction, props } from '@ngrx/store';
 import { Command, Chat, Raid, Sub } from '@ngtwitch/models';
 
 export const command = createAction(
-  '[Twitch] Command',
+  '[Twitch] Chat Command',
+  props<{ command: Command }>()
+);
+
+export const broadcast = createAction(
+  '[Twitch] Broadcaster Command',
   props<{ command: Command }>()
 );
 

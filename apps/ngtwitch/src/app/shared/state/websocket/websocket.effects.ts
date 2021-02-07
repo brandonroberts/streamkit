@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
-import { Action, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Actions, createEffect, OnInitEffects, ofType } from "@ngrx/effects";
 import { webSocket } from 'rxjs/webSocket';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 import { init } from "./websocket.actions";
 

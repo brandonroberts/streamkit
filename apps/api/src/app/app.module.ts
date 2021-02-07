@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 
-import { AppController } from './app.controller';
 import { ChatBotService } from './chatbot.service';
 import { ApiConfigController } from './config.controller';
+import { TwitchWebookController } from './twitch-webhook.controller';
 import { WsGateway } from './ws/ws.gateway';
 
 @Module({
-  controllers: [AppController, ApiConfigController],
+  controllers: [TwitchWebookController, ApiConfigController],
   providers: [WsGateway, ChatBotService]
 })
 export class AppModule {}

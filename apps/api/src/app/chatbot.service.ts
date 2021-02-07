@@ -2,10 +2,12 @@ import { Injectable } from '@nestjs/common';
 
 import ComfyJS, { OnMessageFlags } from 'comfy.js';
 import { merge, Subject } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 
 import { Command, Sub, Raid, Chat, FollowerInfo, FollowEvent } from '@ngtwitch/models';
 import { TwitchActions } from '@ngtwitch/actions';
+
+import { commandResponses } from './config';
 
 @Injectable()
 export class ChatBotService {
@@ -15,12 +17,38 @@ export class ChatBotService {
   private _chat$ = new Subject<Chat>();
   private _follow$ = new Subject<FollowerInfo>();
 
-  command$ = this._command$.pipe(map(command => TwitchActions.command({ command })));
-  broadcast$ = this._command$.pipe(filter(({ flags }) => flags.broadcaster));
+  command$ = this._command$.pipe(
+    filter(({ flags }) => !flags.broadcaster),
+    map(command => TwitchActions.command({ command }))
+  );
+  broadcast$ = this._command$.pipe(
+    filter(({ flags }) => flags.broadcaster),
+    map(command => TwitchActions.broadcast({ command }))
+  );
   chat$ = this._chat$.pipe(map(message => TwitchActions.message({ message })));
   raid$ = this._raid$.pipe(map(raid => TwitchActions.raid({ raid })));
   subs$ = this._sub$.pipe(map(sub => TwitchActions.sub({ sub })));
   follows$ = this._follow$.pipe(map(follower => TwitchActions.follow({ follower: follower.from_name })));
+  
+  responder$ = this._command$.pipe(
+    filter(incomingCommand => !!commandResponses[incomingCommand.command]),
+    tap(commandInfo => {
+      const responseInfo = commandResponses[commandInfo.command];
+
+      let message = `${responseInfo.response}`;
+
+      if (responseInfo.response.includes('{{message}}')) {
+        message = message.replace('{{message}}', commandInfo.message.substr(1));
+      }
+
+      if (responseInfo.response.includes('~message~')) {
+        message = message.replace('~message~', commandInfo.message);
+      }
+
+      this.respond(message);
+    })
+  );
+
   events$ = merge(
     this.command$,
     this.broadcast$,
@@ -31,12 +59,17 @@ export class ChatBotService {
   );
 
   init() {
-    ComfyJS.Init(process.env.twitchTvHandle, process.env.chatbotOauthKey, ['brandontroberts']);
+    ComfyJS.Init(process.env.TWITCH_HANDLE, process.env.CHATBOT_OAUTH_KEY, ['brandontroberts']);
 
     this.setupCommandListener();
+    this.setupResponseListener();
     this.setupChatListener();
     this.setupRaidListener();
     this.setupSubListener();
+  }
+
+  setupResponseListener() {
+    this.responder$.subscribe();
   }
 
   setupCommandListener() {
@@ -53,7 +86,6 @@ export class ChatBotService {
 
   setupChatListener() {
     ComfyJS.onChat = (user, message) => {
-      console.log(user + ":", message);
       this._chat$.next({ user, message });
     };
   }

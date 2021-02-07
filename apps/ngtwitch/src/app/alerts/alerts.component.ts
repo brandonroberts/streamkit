@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 
-import { AlertsStore } from './alerts.store';
+import { AlertsSelectors } from '../shared/state/alerts';
 
 @Component({
   selector: 'ngtwitch-alerts',
@@ -26,18 +27,15 @@ import { AlertsStore } from './alerts.store';
     }
 
     .alerts {
-      color: white;
+      color: gray;
     }
-  `],
-  providers: [AlertsStore]
+  `]
 })
 export class AlertsComponent implements OnInit {
-  text$ = this.alertsStore.text$;
+  text$ = this.store.select(AlertsSelectors.selectCurrentText);
   opacity$ = this.text$.pipe(map(text => text ? 1 : 0));
 
-  constructor(private alertsStore: AlertsStore) {}
+  constructor(private store: Store) {}
 
-  ngOnInit(): void {  
-    this.alertsStore.init();
-  }
+  ngOnInit(): void {}
 }
