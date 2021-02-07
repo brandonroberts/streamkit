@@ -4,8 +4,9 @@ import ComfyJS, { OnMessageFlags } from 'comfy.js';
 import { Subject } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
+import { Command, Sub, Raid, Chat } from '@ngtwitch/models';
+
 import { AppConfigService } from './app-config.service';
-import { Command, Sub, Raid, Chat } from './events';
 
 @Injectable({
   providedIn: 'root'

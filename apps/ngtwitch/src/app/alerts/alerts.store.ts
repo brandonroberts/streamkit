@@ -6,7 +6,7 @@ import { filter, map, tap, skipWhile, concatMap, delay, switchMap } from 'rxjs/o
 
 import { ChatBotService } from '../chatbot.service';
 import { GifSearchService } from '../gif-search.service';
-import { Command } from '../events';
+import { Command } from '@ngtwitch/models';
 import { Alert, alerts, PAUSE_DURATION, commandResponses, raidGif, subGif, welcomeGif, followGif } from './config';
 
 export interface AlertsState {

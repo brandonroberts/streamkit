@@ -23,6 +23,12 @@
     },
     "api-interfaces": {
       "tags": []
+    },
+    "actions": {
+      "tags": []
+    },
+    "models": {
+      "tags": []
     }
   }
 }

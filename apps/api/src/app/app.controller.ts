@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Response, Query } from '@nestjs/common';
 
+import { FollowEvent } from '@ngtwitch/models';
 import { ChatBotService } from './chatbot.service';
-import { FollowEvent } from './models/follow-event';
 
 @Controller()
 export class AppController {
@@ -18,7 +18,7 @@ export class AppController {
   postFollows(@Body() followEvent: FollowEvent, @Response() resp) {
     followEvent.data.forEach(followerInfo => {
       console.log(followerInfo);
-      this.chatbotService.respond(`Thanks for the follow ${followerInfo.from_name}!`)
+      this.chatbotService.sendFollow(followEvent);
     });
 
     return resp.json({ success: true });
