@@ -31,6 +31,11 @@ export const gifAlert = createAction(
   props<{ text: string, searchTerms: string; gifUrl: string }>()
 );
 
+export const githubStarAlert = createAction(
+  '[Alerts] GitHub Star',
+  props<ChatAlert>()
+);
+
 export const alertCleared = createAction('[Alerts] Alert Cleared');
 
 export const gifCleared = createAction('[Alerts] Gif Cleared');

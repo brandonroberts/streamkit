@@ -1,3 +1,4 @@
-import * as TwitchActions from './lib/actions';
+import * as TwitchActions from './lib/twitch.actions';
+import * as GitHubActions from './lib/github.actions';
 
-export { TwitchActions };
+export { TwitchActions, GitHubActions };

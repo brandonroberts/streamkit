@@ -5,7 +5,7 @@ import { merge, Subject } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
 
 import { Command, Sub, Raid, Chat, FollowerInfo, FollowEvent } from '@ngtwitch/models';
-import { TwitchActions } from '@ngtwitch/actions';
+import { GitHubActions, TwitchActions } from '@ngtwitch/actions';
 
 import { commandResponses } from './config';
 
@@ -16,6 +16,7 @@ export class ChatBotService {
   private _sub$ = new Subject<Sub>();
   private _chat$ = new Subject<Chat>();
   private _follow$ = new Subject<FollowerInfo>();
+  private _githubStar$ = new Subject<string>();
 
   command$ = this._command$.pipe(
     filter(({ flags }) => !flags.broadcaster),
@@ -29,7 +30,8 @@ export class ChatBotService {
   raid$ = this._raid$.pipe(map(raid => TwitchActions.raid({ raid })));
   subs$ = this._sub$.pipe(map(sub => TwitchActions.sub({ sub })));
   follows$ = this._follow$.pipe(map(follower => TwitchActions.follow({ follower: follower.from_name })));
-  
+  githubStar$ = this._githubStar$.pipe(map(username => GitHubActions.githubStar({username})));
+
   responder$ = this._command$.pipe(
     filter(incomingCommand => !!commandResponses[incomingCommand.command]),
     tap(commandInfo => {
@@ -55,7 +57,8 @@ export class ChatBotService {
     this.chat$,
     this.raid$,
     this.subs$,
-    this.follows$
+    this.follows$,
+    this.githubStar$
   );
 
   init() {
@@ -115,6 +118,10 @@ export class ChatBotService {
     followEvent.data.forEach(followerInfo => {
       this._follow$.next(followerInfo);
     })
+  }
+
+  sendGitHubStar(username: string) {
+    this._githubStar$.next(username);
   }
 
   respond(message: string) {

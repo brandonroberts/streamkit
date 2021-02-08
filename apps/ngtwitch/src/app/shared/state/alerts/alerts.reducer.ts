@@ -27,9 +27,10 @@ export const reducer = createReducer(
     AlertsActions.raidAlert,
     AlertsActions.followAlert,
     AlertsActions.subAlert,
+    AlertsActions.githubStarAlert,
     (state, action) => {
       const text = `
-      <h1 class="text-shadows">${action.user}${action.alert.title}</h1>
+      <h1>${action.user}${action.alert.title}</h1>
       <img src="${action.alert.gif}" />
     `;
 
@@ -51,7 +52,7 @@ export const reducer = createReducer(
   }),
   on(AlertsActions.gifAlert, (state, action) => {
     const text = `
-      <h1 class="text-shadows">${action.searchTerms}</h1>
+      <h1>${action.searchTerms}</h1>
       <img src="${action.gifUrl}" />
     `;
 

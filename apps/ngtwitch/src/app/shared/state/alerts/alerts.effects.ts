@@ -4,10 +4,10 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { concatMap, delay, filter, map } from 'rxjs/operators';
 import { from, Observable } from 'rxjs';
 
-import { TwitchActions } from '@ngtwitch/actions';
+import { GitHubActions, TwitchActions } from '@ngtwitch/actions';
 import { Command } from '@ngtwitch/models';
 
-import { alerts, followGif, raidGif, subGif } from '../../../config';
+import { alerts, followGif, githubStarGif, raidGif, subGif } from '../../../config';
 import { GifSearchService } from '../../../gif-search.service';
 import * as AlertsActions from './alerts.actions';
 
@@ -84,6 +84,22 @@ export class AlertsEffects {
     })
   ));
 
+  githubStar$ = createEffect(() => this.actions$.pipe(
+    ofType(GitHubActions.githubStar),
+    map(action => {
+      return AlertsActions.githubStarAlert({
+        user: action.username,
+        alert: {
+          title: ``,
+          gif: githubStarGif,
+          showMessage: false,
+          duration: 5000,
+          subsOnly: false
+        }
+      });
+    })
+  ));
+
   showGif$ = createEffect(() => this.actions$.pipe(
     ofType(TwitchActions.broadcast),
     map(action => action.command),
@@ -111,7 +127,8 @@ export class AlertsEffects {
       AlertsActions.commandAlert,
       AlertsActions.raidAlert,
       AlertsActions.followAlert,
-      AlertsActions.subAlert
+      AlertsActions.subAlert,
+      AlertsActions.githubStarAlert
     ),
     concatMap(({ alert }) => {
       const audio = alert.audio ? alert.audio.play().catch((e) => console.warn(e)) : Promise.resolve(true);

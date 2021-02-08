@@ -11,6 +11,7 @@ export const subGif = "/assets/sub.gif";
 export const raidGif = "/assets/raid.gif";
 export const boilerplateGif = "/assets/boilerplate.gif";
 export const followGif = '/assets/follow.gif';
+export const githubStarGif = '/assets/octocat.gif';
 
 export interface Alert {
   title: string;
