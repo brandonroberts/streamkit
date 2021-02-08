@@ -36,6 +36,8 @@ export const githubStarAlert = createAction(
   props<ChatAlert>()
 );
 
+export const subOnlyAlert = createAction('[Twitch] Sub-Only Command');
+
 export const alertCleared = createAction('[Alerts] Alert Cleared');
 
 export const gifCleared = createAction('[Alerts] Gif Cleared');

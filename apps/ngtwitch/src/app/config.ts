@@ -32,12 +32,12 @@ export const alerts: { [name: string]: Alert } = {
     subsOnly: false
   },
   boilerplate: {
-    title: ' wants more',
+    title: '',
     gif: boilerplateGif,
     audio: magicChime,
-    showMessage: false,
-    duration: 3000,
-    subsOnly: false
+    showMessage: true,
+    duration: 5000,
+    subsOnly: true
   }
 };
 

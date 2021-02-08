@@ -29,7 +29,7 @@ export class AlertsEffects {
       const user = alert.showMessage ? commandInfo.message : commandInfo.user;
 
       if (alert.subsOnly && !commandInfo.flags.subscriber && !commandInfo.flags.broadcaster) {
-        return null;
+        return AlertsActions.subOnlyAlert();
       }
 
       return AlertsActions.commandAlert({ user, alert })
