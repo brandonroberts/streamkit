@@ -12,8 +12,9 @@ export const commandResponses: { [name: string]: { response: string } } = {
     response: 'I\'m a bot powered by Angular! Source: https://github.com/brandonroberts/ngtwitch'
   },
   support: {
-    response: `You can support my channel by subscribing for free with Amazon Prime! You can
-      also sponsor me on GitHub! https://github.com/sponsors/brandonroberts
+    response: `You can support my channel by subscribing for free with Amazon Prime, learn more at 
+    https://twitch.amazon.com/tp!
+    You can also sponsor me on GitHub! https://github.com/sponsors/brandonroberts
     `
   },
   so: {
