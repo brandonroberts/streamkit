@@ -47,7 +47,9 @@ export class ChatBotService {
         message = message.replace('~message~', commandInfo.message);
       }
 
-      this.respond(message);
+      if (!responseInfo.restricted || (responseInfo.restricted && (commandInfo.flags.broadcaster || commandInfo.flags.mod))) {
+        this.respond(message);
+      }
     })
   );
 

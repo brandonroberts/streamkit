@@ -1,4 +1,4 @@
-export const commandResponses: { [name: string]: { response: string } } = {
+export const commandResponses: { [name: string]: { response: string, restricted?: boolean } } = {
   ngrx: {
     response: `
       NgRx is an open source framework for building reactive Angular applications:
@@ -15,10 +15,12 @@ export const commandResponses: { [name: string]: { response: string } } = {
     response: `You can support my channel by subscribing for free with Amazon Prime, learn more at 
     https://twitch.amazon.com/tp!
     You can also sponsor me on GitHub! https://github.com/sponsors/brandonroberts
-    `
+    `,
+    restricted: true
   },
   so: {
-    response: `Shoutout to ~message~ and follow their channel at https://twitch.tv/{{message}}!`
+    response: `Shoutout to ~message~ and follow their channel at https://twitch.tv/{{message}}!`,
+    restricted: true
   },
   commands: {
     response: 'Bot commands: !ngrx !discord !bot !support !commands'
