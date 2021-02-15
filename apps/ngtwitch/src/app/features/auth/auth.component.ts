@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { environment } from '../../../environments/environment';
+
 import { AppConfigService } from '../../app-config.service';
 
 @Component({
@@ -23,7 +25,7 @@ export class AuthComponent implements OnInit {
   onAuthorize() {
     let url = `https://id.twitch.tv/oauth2/authorize`;
     url += `?client_id=${this.apiConfig.twitchClientId}`;
-    url += `&redirect_uri=http://localhost:4200/auth-callback`;
+    url += `&redirect_uri=${environment.authHost}/auth-callback`;
     url += `&response_type=token`;
     url += `&scope=chat:read+user:read:email`;
 
