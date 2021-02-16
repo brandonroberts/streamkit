@@ -21,7 +21,12 @@
             "aot": true,
             "assets": [
               "apps/ngtwitch/src/favicon.ico",
-              "apps/ngtwitch/src/assets"
+              "apps/ngtwitch/src/assets",
+              {
+                "glob": "_redirects",
+                "input": "apps/ngtwitch/src/configs",
+                "output": "."
+              }
             ],
             "styles": ["apps/ngtwitch/src/styles.css"],
             "scripts": []
