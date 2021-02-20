@@ -9,10 +9,8 @@ export class ApiConfigController {
     const envConfig = process.env as unknown as EnvConfig;
 
     const config: ApiConfig = {
-      twitchTvHandle: envConfig.TWITCH_HANDLE,
       twitchClientId: envConfig.TWITCH_CLIENT_ID,
       giphyApiKey: envConfig.GIPHY_API_KEY,
-      chatbotOauthKey: envConfig.CHATBOT_OAUTH_KEY,
       callbackRoot: envConfig.TWITCH_WEBHOOK_ROOT
     };
 
