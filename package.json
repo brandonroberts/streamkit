@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "nx",
     "start": "nx run-many --target serve --all --parallel",
-    "prestart:api": "nx build api --prod",
+    "heroku-postbuild": "nx build api --prod",
     "start:api": "node dist/apps/api/main.js",
     "build": "nx build --prod",
     "prebuild": "ts-node ./tools/scripts/write-environment.ts",
