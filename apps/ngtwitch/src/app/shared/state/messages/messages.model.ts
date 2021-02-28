@@ -47,13 +47,14 @@ export function collectEmoteReplacements(message: Chat) {
     });
   });
 
-  emotesUrls.sort((a, b) => parseInt(a.start, 10) > parseInt(b.start, 10) ? 1 : -1);
+  emotesUrls.sort((a, b) => parseInt(b.start, 10) > parseInt(a.start, 10) ? 1 : -1);
 
   return emotesUrls;
 }
 
 export function formatMessage(message: Chat, emotesUrls: EmoteReplacement[]) {
   let formattedMessage = message.message;
+  console.log(emotesUrls);
 
   emotesUrls.forEach(emoteUrl => {
     const emoteImg = `<img src="${emoteUrl.url}" width="24px" height="24px">`;
