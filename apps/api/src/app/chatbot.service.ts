@@ -90,8 +90,15 @@ export class ChatBotService {
   }
 
   setupChatListener() {
-    ComfyJS.onChat = (user, message) => {
-      this._chat$.next({ user, message });
+    ComfyJS.onChat = (user, message, flags, self, extra) => {
+      console.log(extra);
+      this._chat$.next({
+        id: extra.id,
+        user,
+        userColor: extra.userColor,
+        message,
+        emotes: extra.messageEmotes
+      });
     };
   }
 

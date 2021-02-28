@@ -1,8 +1,11 @@
-import { OnMessageFlags } from 'comfy.js';
+import { EmoteSet, OnMessageFlags } from 'comfy.js';
 
 export interface Chat {
+  id: string;
   user: string;
+  userColor: string;
   message: string;
+  emotes?: EmoteSet;
 }
 
 export interface Command {

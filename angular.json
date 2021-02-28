@@ -247,6 +247,6 @@
   },
   "defaultProject": "ngtwitch",
   "cli": {
-    "defaultCollection": "@nrwl/node"
+    "defaultCollection": "@nrwl/angular"
   }
 }

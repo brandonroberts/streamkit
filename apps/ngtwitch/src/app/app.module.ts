@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
@@ -13,6 +14,7 @@ import { AuthComponent } from './features/auth/auth.component';
 import { AuthCallbackComponent } from './features/auth-callback/auth-callback.component';
 import { AppConfigInitializer } from './app-config.initializer';
 import { SharedStateModule } from './shared/state/shared-state.module';
+import { MessagesComponent } from './features/messages/messages.component';
 
 @NgModule({
   declarations: [
@@ -20,15 +22,18 @@ import { SharedStateModule } from './shared/state/shared-state.module';
     AlertsComponent,
     HomePageComponent,
     AuthComponent,
-    AuthCallbackComponent
+    AuthCallbackComponent,
+    MessagesComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     RouterModule.forRoot([
       { path: '', pathMatch: 'full', component: HomePageComponent },
       { path: 'auth', component: AuthComponent },
-      { path: 'auth-callback', component: AuthCallbackComponent }
+      { path: 'auth-callback', component: AuthCallbackComponent },
+      { path: 'messages', component: MessagesComponent }
     ]),
     StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument(),
