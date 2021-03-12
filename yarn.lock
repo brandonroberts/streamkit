@@ -1608,6 +1608,13 @@
   dependencies:
     tslib "^2.0.0"
 
+"@ngrx/entity@^10.1.2":
+  version "10.1.2"
+  resolved "https://registry.yarnpkg.com/@ngrx/entity/-/entity-10.1.2.tgz#17c93af662de3083a6914af7400182f75924d61f"
+  integrity sha512-peit/zjLUxl8zQgNuPlPXDf4FmNZYMMNGsKQHiFpShIpWjLFTnR1wCeeLw8LMrqSy9vxLO3JpXwkDFZb8a+FDg==
+  dependencies:
+    tslib "^2.0.0"
+
 "@ngrx/schematics@^10.1.2":
   version "10.1.2"
   resolved "https://registry.yarnpkg.com/@ngrx/schematics/-/schematics-10.1.2.tgz#21ff7d5c1cbaee1abb75f8561bcedd017c99bc94"
