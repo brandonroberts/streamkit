@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import ComfyJS, { OnMessageFlags } from 'comfy.js';
 import { merge, Subject } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
+import uuid from 'uuid';
 
 import { Command, Sub, Raid, Chat, FollowerInfo, FollowEvent } from '@ngtwitch/models';
 import { GitHubActions, TwitchActions } from '@ngtwitch/actions';
@@ -40,11 +41,7 @@ export class ChatBotService {
       let message = `${responseInfo.response}`;
 
       if (responseInfo.response.includes('{{message}}')) {
-        message = message.replace('{{message}}', commandInfo.message.substr(1));
-      }
-
-      if (responseInfo.response.includes('~message~')) {
-        message = message.replace('~message~', commandInfo.message);
+        message = message.replace(/{{message}}/g, commandInfo.message);
       }
 
       if (!responseInfo.restricted || (responseInfo.restricted && (commandInfo.flags.broadcaster || commandInfo.flags.mod))) {
@@ -91,9 +88,8 @@ export class ChatBotService {
 
   setupChatListener() {
     ComfyJS.onChat = (user, message, flags, self, extra) => {
-      console.log(extra);
       this._chat$.next({
-        id: extra.id,
+        id: extra.id || uuid(),
         user,
         userColor: extra.userColor,
         message,
@@ -125,6 +121,8 @@ export class ChatBotService {
 
   sendFollow(followEvent: FollowEvent) {
     followEvent.data.forEach(followerInfo => {
+      this.respond(`Thanks for the follow ${followerInfo.from_name}!`);
+
       this._follow$.next(followerInfo);
     })
   }

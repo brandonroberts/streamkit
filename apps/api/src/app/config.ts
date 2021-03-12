@@ -19,7 +19,7 @@ export const commandResponses: { [name: string]: { response: string, restricted?
     restricted: true
   },
   so: {
-    response: `Shoutout to ~message~ and follow their channel at https://twitch.tv/{{message}}!`,
+    response: `Shoutout to {{message}} and follow their channel at https://twitch.tv/{{message}}!`,
     restricted: true
   },
   commands: {
