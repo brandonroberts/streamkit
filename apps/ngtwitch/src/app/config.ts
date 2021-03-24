@@ -34,7 +34,6 @@ export const alerts: { [name: string]: Alert } = {
   boilerplate: {
     title: '',
     gif: boilerplateGif,
-    audio: magicChime,
     showMessage: true,
     duration: 5000,
     subsOnly: true

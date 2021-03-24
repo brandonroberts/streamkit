@@ -2,18 +2,20 @@ import { Action, createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { collectEmoteReplacements, formatMessage, Message } from './messages.model';
 import * as MessagesActions from './messages.actions';
-import { TwitchActions } from '@ngtwitch/actions';
+import { MessageActions, TwitchActions } from '@ngtwitch/actions';
 
 export const messagesFeatureKey = 'messages';
 
 export interface State extends EntityState<Message> {
   // additional entities state properties
+  pinnedMessageId: string | null;
 }
 
 export const adapter: EntityAdapter<Message> = createEntityAdapter<Message>();
 
 export const initialState: State = adapter.getInitialState({
   // additional entity state properties
+  pinnedMessageId: null
 });
 
 
@@ -34,6 +36,10 @@ export const reducer = createReducer(
       };
     }, state)
   ),
+  on(MessageActions.pinMessage, (state, action) => ({
+    ...state,
+    pinnedMessageId: action.id
+  }))
 );
 
 
@@ -43,3 +49,5 @@ export const {
   selectAll,
   selectTotal,
 } = adapter.getSelectors();
+
+export const selectPinnedMessageId = (state: State) => state.pinnedMessageId;

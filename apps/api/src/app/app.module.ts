@@ -3,6 +3,8 @@ import { Module } from '@nestjs/common';
 import { ChatBotService } from './chatbot.service';
 import { ApiConfigController } from './config.controller';
 import { GitHubWebookController } from './github-webhook.controller';
+import { MessageController } from './message.controller';
+import { MessageService } from './message.service';
 import { TwitchWebookController } from './twitch-webhook.controller';
 import { WsGateway } from './ws/ws.gateway';
 
@@ -10,8 +12,9 @@ import { WsGateway } from './ws/ws.gateway';
   controllers: [
     TwitchWebookController,
     ApiConfigController,
-    GitHubWebookController
+    GitHubWebookController,
+    MessageController
   ],
-  providers: [WsGateway, ChatBotService]
+  providers: [WsGateway, ChatBotService, MessageService]
 })
 export class AppModule {}

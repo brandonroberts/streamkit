@@ -1,13 +1,18 @@
 import { SubscribeMessage, WebSocketGateway } from '@nestjs/websockets';
+import { merge } from 'rxjs';
 
 import { ChatBotService } from '../chatbot.service';
+import { MessageService } from '../message.service';
 
 @WebSocketGateway()
 export class WsGateway {
-  constructor(private chatbotService: ChatBotService) {}
+  constructor(
+    private chatbotService: ChatBotService,
+    private messageService: MessageService
+  ) {}
 
   @SubscribeMessage('subscribe')
   handleMessage() {
-    return this.chatbotService.events$;
+    return merge(this.chatbotService.events$, this.messageService.pinnedMessages$);
   }
 }
