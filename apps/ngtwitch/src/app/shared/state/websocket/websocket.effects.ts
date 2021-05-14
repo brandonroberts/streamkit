@@ -30,6 +30,15 @@ export class WebSocketEffects implements OnInitEffects {
               flags: {}
             } }))
           }
+
+          if (event.event_type === "subscribe") {
+            this.store.dispatch(TwitchActions.sub({ sub: {
+              user: event.event_data.data.message.user_name,
+              message: ``,
+              flags: { subscriber: true }
+            } }));
+          }
+
         });
 
         subj.next({
