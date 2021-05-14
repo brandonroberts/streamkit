@@ -10,6 +10,7 @@ import { Command } from '@ngtwitch/models';
 import { alerts, followGif, githubStarGif, raidGif, subGif } from '../../../config';
 import { GifSearchService } from '../../../gif-search.service';
 import * as AlertsActions from './alerts.actions';
+import { WebSocketEventSerivce } from '../websocket/websocket-events.service';
 
 const onCommand = (chatCommand: string) =>
   (source$: Observable<Command>) => {
@@ -17,6 +18,12 @@ const onCommand = (chatCommand: string) =>
       filter(({ command }) => command === chatCommand)
     );
   }
+
+const ofEvent = (event: string) => (source$: Observable<any>) => {
+  return source$.pipe(
+    filter(eventData => eventData.event_type === event)
+  )
+}
 
 @Injectable()
 export class AlertsEffects {
@@ -36,13 +43,13 @@ export class AlertsEffects {
     })
   ));
 
-  raided$ = createEffect(() => this.actions$.pipe(
-    ofType(TwitchActions.raid),
-    map(action => {
+  raided$ = createEffect(() => this.wsEventService.events$.pipe(
+    ofEvent('raid'),
+    map(event => {
       return AlertsActions.raidAlert({
-        user: action.raid.user,
+        user: event.event_data.from_broadcaster_user_name,
         alert: {
-          title: action.raid.message,
+          title: ` raided with ${event.event_data.viewers} viewers`,
           gif: raidGif,
           showMessage: true,
           duration: 8000,
@@ -52,11 +59,11 @@ export class AlertsEffects {
     })
   ));
 
-  followed$ = createEffect(() => this.actions$.pipe(
-    ofType(TwitchActions.follow),
-    map(action => {
+  followed$ = createEffect(() =>  this.wsEventService.events$.pipe(
+    ofEvent('follow'),
+    map(event => {
       return AlertsActions.followAlert({
-        user: action.follower,
+        user: event.event_data.user_name,
         alert: {
           title: '',
           gif: followGif,
@@ -68,11 +75,11 @@ export class AlertsEffects {
     })
   ));
 
-  subscribed$ = createEffect(() => this.actions$.pipe(
-    ofType(TwitchActions.sub),
-    map(action => {
+  subscribed$ = createEffect(() => this.wsEventService.events$.pipe(
+    ofEvent('subscribe'),
+    map(event => {
       return AlertsActions.subAlert({
-        user: action.sub.user,
+        user: event.event_data.data.message.user_name,
         alert: {
           title: ` subscribed!`,
           gif: subGif,
@@ -142,7 +149,8 @@ export class AlertsEffects {
 
   constructor(
     private actions$: Actions,
-    private gifSearchService: GifSearchService
+    private gifSearchService: GifSearchService,
+    private wsEventService: WebSocketEventSerivce
   ) { }
 
 }

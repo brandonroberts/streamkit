@@ -1,55 +1,25 @@
 import { Injectable } from "@angular/core";
-import { Store } from '@ngrx/store';
 import { Actions, createEffect, OnInitEffects, ofType } from "@ngrx/effects";
-import { webSocket } from 'rxjs/webSocket';
-import { tap } from 'rxjs/operators';
+import { mergeMap } from 'rxjs/operators';
 
 import { environment } from "../../../../environments/environment";
 
 import { init } from "./websocket.actions";
-import { TwitchActions } from '@ngtwitch/actions';
+import { WebSocketEventSerivce } from './websocket-events.service';
 
 @Injectable()
 export class WebSocketEffects implements OnInitEffects {
   init$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(init),
-      tap(() => {
-        const subj = webSocket(`ws://localhost:8000/ws/twitch-events/`)
-        // subj.subscribe(this.store);
-        subj.subscribe((event: any) => {
-          console.log(event);
-          if (event.event_type === "follow") {
-            this.store.dispatch(TwitchActions.follow({ follower: event.event_data.user_name }))
-          }
-          if (event.event_type === "raid") {
-            this.store.dispatch(TwitchActions.raid({ raid: {
-              user: event.event_data.from_broadcaster_user_name,
-              message: ``,
-              viewers: event.event_data.viewers,
-              flags: {}
-            } }))
-          }
-
-          if (event.event_type === "subscribe") {
-            this.store.dispatch(TwitchActions.sub({ sub: {
-              user: event.event_data.data.message.user_name,
-              message: ``,
-              flags: { subscriber: true }
-            } }));
-          }
-
-        });
-
-        subj.next({
-          // event: 'subscribe'
-          token: environment.wsToken
-        });
-      })
+      mergeMap(() => this.wsEventService.connect(environment.wsToken))
     );
   }, { dispatch: false });
 
-  constructor(private actions$: Actions, private store: Store) { }
+  constructor(
+    private actions$: Actions,
+    private wsEventService: WebSocketEventSerivce
+  ) { }
 
   ngrxOnInitEffects() {
     return init();
