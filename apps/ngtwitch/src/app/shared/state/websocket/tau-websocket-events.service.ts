@@ -26,5 +26,4 @@ export class TAUWebSocketEventSerivce {
 
     return this._events$;
   }
-
 }

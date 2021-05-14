@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, OnInitEffects, ofType } from "@ngrx/effects";
-import { mergeMap } from 'rxjs/operators';
+import { filter, mergeMap } from 'rxjs/operators';
 
 import { environment } from "../../../../environments/environment";
 
@@ -20,7 +20,9 @@ export class WebSocketEffects implements OnInitEffects {
   connectToAPI$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(init),
-      mergeMap(() => this.apiWebSocketEventService.connect())
+      mergeMap(() => this.apiWebSocketEventService.connect().pipe(
+        filter(event => !!event.type)
+      ))
     );
   });
 

@@ -16,7 +16,9 @@ export class TwitchWebookController {
 
   @Post('follows')
   postFollows(@Body() followEvent: FollowEvent, @Response() resp) {
-    this.chatbotService.sendFollow(followEvent);
+    followEvent.data.forEach(followerInfo => {
+      this.chatbotService.respond(`Thanks for the follow ${followerInfo.from_name}!`);
+    });
 
     return resp.json({ success: true });
   }

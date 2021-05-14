@@ -16,4 +16,11 @@ export class APIWebSocketEventSerivce {
 
     return this._events$;
   }
+
+  sendFollow(follower: string) {
+    this._events$.next({
+      event: 'follow',
+      data: { follower }
+    });
+  }
 }

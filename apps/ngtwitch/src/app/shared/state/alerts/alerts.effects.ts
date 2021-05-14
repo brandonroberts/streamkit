@@ -8,6 +8,7 @@ import { TwitchActions } from '@ngtwitch/actions';
 
 import { alerts, followGif, raidGif, subGif } from '../../../config';
 import { TAUWebSocketEventSerivce } from '../websocket/tau-websocket-events.service';
+import { APIWebSocketEventSerivce } from '../websocket/websocket-events.service';
 import * as AlertsActions from './alerts.actions';
 
 @Injectable()
@@ -45,6 +46,8 @@ export class AlertsEffects {
 
   followed$ = createEffect(() =>  this.wsEventService.follows$.pipe(
     map(event => {
+      this.apiWebSocketEventService.sendFollow(event.event_data.user_name);
+      
       return AlertsActions.followAlert({
         user: event.event_data.user_name,
         alert: {
@@ -93,7 +96,8 @@ export class AlertsEffects {
 
   constructor(
     private actions$: Actions,
-    private wsEventService: TAUWebSocketEventSerivce
+    private wsEventService: TAUWebSocketEventSerivce,
+    private apiWebSocketEventService: APIWebSocketEventSerivce
   ) { }
 
 }

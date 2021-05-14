@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+
 import { Alert } from '../../../config';
 
 interface ChatAlert {

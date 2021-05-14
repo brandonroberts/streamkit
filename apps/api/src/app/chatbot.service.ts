@@ -5,7 +5,7 @@ import { merge, Subject } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
 import uuid from 'uuid';
 
-import { Command, Chat, FollowEvent } from '@ngtwitch/models';
+import { Command, Chat } from '@ngtwitch/models';
 import { GitHubActions, TwitchActions } from '@ngtwitch/actions';
 
 import { commandResponses } from './config';
@@ -87,10 +87,8 @@ export class ChatBotService {
     };
   }
 
-  sendFollow(followEvent: FollowEvent) {
-    followEvent.data.forEach(followerInfo => {
-      this.respond(`Thanks for the follow ${followerInfo.from_name}!`);
-    })
+  sendFollow(follower: string) {
+    this.respond(`Thanks for the follow ${follower}!`);
   }
 
   sendGitHubStar(username: string) {
