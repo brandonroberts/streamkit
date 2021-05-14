@@ -30,11 +30,11 @@ import { MessagesComponent } from './features/messages/messages.component';
     BrowserAnimationsModule,
     HttpClientModule,
     RouterModule.forRoot([
-      { path: '', pathMatch: 'full', component: HomePageComponent },
-      { path: 'auth', component: AuthComponent },
-      { path: 'auth-callback', component: AuthCallbackComponent },
-      { path: 'messages', component: MessagesComponent }
-    ]),
+    { path: '', pathMatch: 'full', component: HomePageComponent },
+    { path: 'auth', component: AuthComponent },
+    { path: 'auth-callback', component: AuthCallbackComponent },
+    { path: 'messages', component: MessagesComponent }
+], { relativeLinkResolution: 'legacy' }),
     StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument(),
     EffectsModule.forRoot(),
