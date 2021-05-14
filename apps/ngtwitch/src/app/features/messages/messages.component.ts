@@ -9,19 +9,19 @@ import { MessagesSelectors } from '../../shared/state/messages';
 @Component({
   selector: 'ngtwitch-messages',
   template: `
-    <div *ngIf="pinnedMessage$ | async as pinnedMessage">
+    <!-- <div *ngIf="pinnedMessage$ | async as pinnedMessage">
       <div>
         <span [style.color]="pinnedMessage.userColor">{{ pinnedMessage.user }}</span>: 
         <span [innerHTML]="pinnedMessage.formattedMessage"></span>
         <button (click)="pinMessage()">Unpin Message</button>
       </div>
-    </div>
+    </div> -->
 
     <div [@messageAnimation]="'in'" class="message" *ngFor="let message of messages$ | async">
       <div>
         <span [style.color]="message.userColor">{{ message.user }}</span>: 
         <span [innerHTML]="message.formattedMessage"></span>
-        <button (click)="pinMessage(message.id)">Pin Message</button>
+        <!-- <button (click)="pinMessage(message.id)">Pin Message</button> -->
       </div>
     </div>
   `,
