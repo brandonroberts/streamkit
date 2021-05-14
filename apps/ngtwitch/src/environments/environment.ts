@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   authHost: 'http://localhost:4200',
   apiHost: 'http://localhost:4200',
-  wsHost: 'ws://localhost:3333'
+  wsHost: 'ws://localhost:3333',
+  wsToken: '315b4072ba698667a08e09062dfd85ef82e310ca'
 };
 
 /*

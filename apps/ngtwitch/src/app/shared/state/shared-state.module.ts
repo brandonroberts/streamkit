@@ -11,7 +11,12 @@ import { MessagesFeature, MessagesEffects } from "./messages";
   imports: [
     StoreModule.forFeature(AlertsFeature.alertsFeatureKey, AlertsFeature.reducer),
     StoreModule.forFeature(MessagesFeature.messagesFeatureKey, MessagesFeature.reducer),
-    EffectsModule.forFeature([AlertsEffects, WebSocketEffects, AuthEffects, MessagesEffects])
+    EffectsModule.forFeature([
+      AlertsEffects,
+      WebSocketEffects
+      // AuthEffects,
+      // MessagesEffects
+    ])
   ]
 })
 export class SharedStateModule {}

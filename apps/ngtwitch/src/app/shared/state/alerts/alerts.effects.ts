@@ -45,7 +45,7 @@ export class AlertsEffects {
           title: action.raid.message,
           gif: raidGif,
           showMessage: true,
-          duration: 3000,
+          duration: 8000,
           subsOnly: false
         }
       });
