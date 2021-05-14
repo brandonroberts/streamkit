@@ -2,28 +2,13 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import { concatMap, delay, filter, map } from 'rxjs/operators';
-import { from, Observable } from 'rxjs';
+import { from } from 'rxjs';
 
-import { GitHubActions, TwitchActions } from '@ngtwitch/actions';
-import { Command } from '@ngtwitch/models';
+import { TwitchActions } from '@ngtwitch/actions';
 
-import { alerts, followGif, githubStarGif, raidGif, subGif } from '../../../config';
-import { GifSearchService } from '../../../gif-search.service';
+import { alerts, followGif, raidGif, subGif } from '../../../config';
+import { TAUWebSocketEventSerivce } from '../websocket/tau-websocket-events.service';
 import * as AlertsActions from './alerts.actions';
-import { WebSocketEventSerivce } from '../websocket/websocket-events.service';
-
-const onCommand = (chatCommand: string) =>
-  (source$: Observable<Command>) => {
-    return source$.pipe(
-      filter(({ command }) => command === chatCommand)
-    );
-  }
-
-const ofEvent = (event: string) => (source$: Observable<any>) => {
-  return source$.pipe(
-    filter(eventData => eventData.event_type === event)
-  )
-}
 
 @Injectable()
 export class AlertsEffects {
@@ -43,8 +28,7 @@ export class AlertsEffects {
     })
   ));
 
-  raided$ = createEffect(() => this.wsEventService.events$.pipe(
-    ofEvent('raid'),
+  raided$ = createEffect(() => this.wsEventService.raids$.pipe(
     map(event => {
       return AlertsActions.raidAlert({
         user: event.event_data.from_broadcaster_user_name,
@@ -59,8 +43,7 @@ export class AlertsEffects {
     })
   ));
 
-  followed$ = createEffect(() =>  this.wsEventService.events$.pipe(
-    ofEvent('follow'),
+  followed$ = createEffect(() =>  this.wsEventService.follows$.pipe(
     map(event => {
       return AlertsActions.followAlert({
         user: event.event_data.user_name,
@@ -75,8 +58,7 @@ export class AlertsEffects {
     })
   ));
 
-  subscribed$ = createEffect(() => this.wsEventService.events$.pipe(
-    ofEvent('subscribe'),
+  subscribed$ = createEffect(() => this.wsEventService.subs$.pipe(
     map(event => {
       return AlertsActions.subAlert({
         user: event.event_data.data.message.user_name,
@@ -89,44 +71,6 @@ export class AlertsEffects {
         }
       });
     })
-  ));
-
-  githubStar$ = createEffect(() => this.actions$.pipe(
-    ofType(GitHubActions.githubStar),
-    map(action => {
-      return AlertsActions.githubStarAlert({
-        user: action.username,
-        alert: {
-          title: ``,
-          gif: githubStarGif,
-          showMessage: false,
-          duration: 5000,
-          subsOnly: false
-        }
-      });
-    })
-  ));
-
-  showGif$ = createEffect(() => this.actions$.pipe(
-    ofType(TwitchActions.broadcast),
-    map(action => action.command),
-    onCommand('gif'),
-    concatMap(({ message }) => {
-      return this.gifSearchService.search(message)
-        .pipe(
-          map(gifUrl => AlertsActions.gifAlert({
-            text: '',
-            searchTerms: message,
-            gifUrl
-          }))
-        );
-    })
-  ));
-
-  clearGif$ = createEffect(() => this.actions$.pipe(
-    ofType(AlertsActions.gifAlert),
-    delay(5000),
-    map(() => AlertsActions.gifCleared())
   ));
 
   playAudioAndClearAlert$ = createEffect(() => this.actions$.pipe(
@@ -149,8 +93,7 @@ export class AlertsEffects {
 
   constructor(
     private actions$: Actions,
-    private gifSearchService: GifSearchService,
-    private wsEventService: WebSocketEventSerivce
+    private wsEventService: TAUWebSocketEventSerivce
   ) { }
 
 }

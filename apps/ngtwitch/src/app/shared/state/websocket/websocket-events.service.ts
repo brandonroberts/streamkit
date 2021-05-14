@@ -5,13 +5,13 @@ import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 @Injectable({
   providedIn: 'root'
 })
-export class WebSocketEventSerivce {
-  private _events$: WebSocketSubject<any> = webSocket(`ws://localhost:8000/ws/twitch-events/`);
+export class APIWebSocketEventSerivce {
+  private _events$: WebSocketSubject<any> = webSocket(`ws://localhost:3333`);
   events$ = this._events$.pipe(share());
 
-  connect(token: string) {
+  connect() {
     this._events$.next({
-      token
+      event: 'subscribe'
     });
 
     return this._events$;

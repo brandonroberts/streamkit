@@ -2,8 +2,7 @@ import { NgModule } from "@angular/core";
 import { EffectsModule } from "@ngrx/effects";
 import { StoreModule } from "@ngrx/store";
 
-import { AlertsFeature, AlertsEffects } from './alerts';
-import { AuthEffects } from "./auth";
+import { AlertsFeature, AlertsEffects, GithubAlertsEffects, GiphyAlertsEffects } from './alerts';
 import { WebSocketEffects } from "./websocket";
 import { MessagesFeature, MessagesEffects } from "./messages";
 
@@ -12,10 +11,11 @@ import { MessagesFeature, MessagesEffects } from "./messages";
     StoreModule.forFeature(AlertsFeature.alertsFeatureKey, AlertsFeature.reducer),
     StoreModule.forFeature(MessagesFeature.messagesFeatureKey, MessagesFeature.reducer),
     EffectsModule.forFeature([
+      WebSocketEffects,
       AlertsEffects,
-      WebSocketEffects
-      // AuthEffects,
-      // MessagesEffects
+      GiphyAlertsEffects,
+      GithubAlertsEffects,
+      MessagesEffects
     ])
   ]
 })
