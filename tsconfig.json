@@ -16,7 +16,6 @@
       "@ngtwitch/api-interfaces": ["libs/api-interfaces/src/index.ts"],
       "@ngtwitch/actions": ["libs/actions/src/index.ts"],
       "@ngtwitch/models": ["libs/models/src/index.ts"]
-    },
-    "rootDir": "."
+    }
   }
 }
