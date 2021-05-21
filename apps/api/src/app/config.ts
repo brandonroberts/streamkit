@@ -24,5 +24,11 @@ export const commandResponses: { [name: string]: { response: string, restricted?
   },
   commands: {
     response: 'Bot commands: !ngrx !discord !bot !support !commands'
+  },
+  chaos: {
+    response: 'Getting buckets is a Twitch game! Use !drop to get a ball, and !up !down !left !right or !fling to try to score!'
+  },
+  buckets: {
+    response: 'Getting buckets is a Twitch game! Use !drop to get a ball, and !up !down !left !right or !fling to try to score!'
   }
 };
