@@ -3,6 +3,7 @@ import { Chat } from "@ngtwitch/models";
 export interface Message extends Chat {
   active: boolean;
   formattedMessage: string;
+  avatarUrl?: string;
 }
 
 export interface EmoteReplacement {
@@ -54,7 +55,7 @@ export function collectEmoteReplacements(message: Chat) {
 
 export function formatMessage(message: Chat, emotesUrls: EmoteReplacement[]) {
   let formattedMessage = message.message;
-  console.log(emotesUrls);
+  // console.log(emotesUrls);
 
   emotesUrls.forEach(emoteUrl => {
     const emoteImg = `<img src="${emoteUrl.url}" width="24px" height="24px">`;

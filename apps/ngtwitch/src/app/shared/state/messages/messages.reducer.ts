@@ -1,4 +1,4 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { collectEmoteReplacements, formatMessage, Message } from './messages.model';
 import * as MessagesActions from './messages.actions';
@@ -9,13 +9,15 @@ export const messagesFeatureKey = 'messages';
 export interface State extends EntityState<Message> {
   // additional entities state properties
   pinnedMessageId: string | null;
+  avatarUrls: { [name: string]: string };
 }
 
 export const adapter: EntityAdapter<Message> = createEntityAdapter<Message>();
 
 export const initialState: State = adapter.getInitialState({
   // additional entity state properties
-  pinnedMessageId: null
+  pinnedMessageId: null,
+  avatarUrls: {}
 });
 
 
@@ -28,6 +30,17 @@ export const reducer = createReducer(
 
      return adapter.addOne({ ...action.message, formattedMessage, active: true }, state);
   }),
+  on(MessagesActions.messageAvatarFetchedSuccess,
+    (state, action) => {
+
+     return {
+       ...state,
+       avatarUrls: {
+         ...state.avatarUrls,
+         [action.user]: action.avatarUrl
+       }
+     };
+  }),  
   on(MessagesActions.messagesCleared,
     state => adapter.map(message => {
       return {
@@ -51,3 +64,4 @@ export const {
 } = adapter.getSelectors();
 
 export const selectPinnedMessageId = (state: State) => state.pinnedMessageId;
+export const selectAvatarUrls = (state: State) => state.avatarUrls;
