@@ -47,7 +47,7 @@ export class AlertsEffects {
   relayFollow$ = createEffect(() => this.wsEventService.follows$.pipe(
     map(event => {
       if (event.origin !== 'replay' && event.origin !== 'test') {
-        this.apiWebSocketEventService.sendFollow(event.event_data.user_name);
+        // this.apiWebSocketEventService.sendFollow(event.event_data.user_name);
       }
     })), { dispatch: false });
 

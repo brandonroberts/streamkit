@@ -1,21 +1,9 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as fromAlerts from './alerts.reducer';
 
-export const selectAlertsState = createFeatureSelector<fromAlerts.State>(
-  fromAlerts.alertsFeatureKey
-);
+export const selectAlertsState = fromAlerts.selectAlertsState;
 
-export const selectCurrentAlert = createSelector(
-  selectAlertsState,
-  fromAlerts.selectAlert
-);
+export const selectCurrentAlert = fromAlerts.selectAlert;
 
-export const selectCurrentText = createSelector(
-  selectAlertsState,
-  fromAlerts.selectText
-);
+export const selectCurrentText = fromAlerts.selectText;
 
-export const selectAlertsPaused = createSelector(
-  selectAlertsState,
-  fromAlerts.selectIsPaused
-);
+export const selectAlertsPaused = fromAlerts.selectIsPaused;

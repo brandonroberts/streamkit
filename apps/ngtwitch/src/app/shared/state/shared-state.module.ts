@@ -8,7 +8,7 @@ import { MessagesFeature, MessagesEffects } from "./messages";
 
 @NgModule({
   imports: [
-    StoreModule.forFeature(AlertsFeature.alertsFeatureKey, AlertsFeature.reducer),
+    StoreModule.forFeature(AlertsFeature.alertsFeature),
     StoreModule.forFeature(MessagesFeature.messagesFeatureKey, MessagesFeature.reducer),
     EffectsModule.forFeature([
       WebSocketEffects,
