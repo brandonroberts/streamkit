@@ -25,7 +25,6 @@ export const alertsFeature = createFeature({
     on(
       AlertsActions.commandAlert,
       AlertsActions.commandAlert,
-      AlertsActions.raidAlert,
       AlertsActions.followAlert,
       AlertsActions.subAlert,
       AlertsActions.githubStarAlert,
@@ -44,6 +43,23 @@ export const alertsFeature = createFeature({
           }
         };
       }),
+    on(AlertsActions.raidAlert, (state, action) => {
+      const text = `
+        <h1>${action.user}${action.alert.title}</h1>
+        <video width="450" autoplay="true">
+          <source src="/assets/letsgo.mp4" type="video/mp4">
+        </video>
+      `;
+
+      return {
+        ...state,
+        text,
+        alert: {
+          user: action.user,
+          alert: action.alert
+        }
+      };
+    }),
     on(AlertsActions.alertCleared, AlertsActions.gifCleared, (state) => {
       return {
         ...state,
