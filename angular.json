@@ -76,6 +76,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
+            "open": true,
             "proxyConfig": "apps/ngtwitch/src/proxy.conf.json"
           },
           "defaultConfiguration": "development",
@@ -282,7 +283,22 @@
           ]
         }
       }
-    }
+    },
+    "tau": {
+      "root": "tau",
+      "sourceRoot": "tau/tau",
+      "projectType": "application",
+      "schematics": {},
+      "architect": {
+        "serve": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "cwd": "tau",
+            "command": "docker-compose up"
+          }
+        }
+      }
+    }    
   },
   "schematics": {
     "@schematics/angular:component": {
