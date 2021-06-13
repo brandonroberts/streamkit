@@ -1,7 +1,6 @@
 import { Body, Controller, Get, Post, Response } from '@nestjs/common';
 import { MessageService } from './message.service';
 
-
 @Controller()
 export class MessageController {
   @Post('pinMessage')

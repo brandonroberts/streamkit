@@ -18,21 +18,24 @@ import { MessagesComponent } from './features/messages/messages.component';
     AppComponent,
     AlertsComponent,
     HomePageComponent,
-    MessagesComponent
+    MessagesComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    RouterModule.forRoot([
-    { path: '', pathMatch: 'full', component: HomePageComponent },
-    { path: 'messages', component: MessagesComponent }
-], { relativeLinkResolution: 'legacy' }),
+    RouterModule.forRoot(
+      [
+        { path: '', pathMatch: 'full', component: HomePageComponent },
+        { path: 'messages', component: MessagesComponent },
+      ],
+      { relativeLinkResolution: 'legacy' }
+    ),
     StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument(),
     EffectsModule.forRoot(),
-    SharedStateModule
+    SharedStateModule,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

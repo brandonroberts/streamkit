@@ -4,15 +4,13 @@ import { ChatBotService } from './chatbot.service';
 import { GitHubWebookController } from './github-webhook.controller';
 import { MessageController } from './message.controller';
 import { MessageService } from './message.service';
-import { TwitchWebookController } from './twitch-webhook.controller';
 import { WsGateway } from './ws/ws.gateway';
 
 @Module({
   controllers: [
-    TwitchWebookController,
     GitHubWebookController,
-    MessageController
+    MessageController,
   ],
-  providers: [WsGateway, ChatBotService, MessageService]
+  providers: [WsGateway, ChatBotService, MessageService],
 })
 export class AppModule {}

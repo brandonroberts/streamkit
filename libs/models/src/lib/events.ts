@@ -17,7 +17,7 @@ export interface Command {
 
 export interface Sub {
   user: string;
-  message: string
+  message: string;
   flags: any;
 }
 
@@ -37,5 +37,5 @@ export interface FollowerInfo {
 }
 
 export interface FollowEvent {
-  data: FollowerInfo[]
+  data: FollowerInfo[];
 }

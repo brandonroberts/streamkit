@@ -15,7 +15,7 @@ export interface State {
 export const initialState: State = {
   text: null,
   paused: false,
-  alert: null
+  alert: null,
 };
 
 export const alertsFeature = createFeature({
@@ -33,16 +33,17 @@ export const alertsFeature = createFeature({
         <h1>${action.user}${action.alert.title}</h1>
         <img src="${action.alert.gif}" />
       `;
-  
+
         return {
           ...state,
           text,
           alert: {
             user: action.user,
-            alert: action.alert
-          }
+            alert: action.alert,
+          },
         };
-      }),
+      }
+    ),
     on(AlertsActions.raidAlert, (state, action) => {
       const text = `
         <h1>${action.user}${action.alert.title}</h1>
@@ -56,15 +57,15 @@ export const alertsFeature = createFeature({
         text,
         alert: {
           user: action.user,
-          alert: action.alert
-        }
+          alert: action.alert,
+        },
       };
     }),
     on(AlertsActions.alertCleared, AlertsActions.gifCleared, (state) => {
       return {
         ...state,
         text: null,
-        alert: null
+        alert: null,
       };
     }),
     on(AlertsActions.gifAlert, (state, action) => {
@@ -72,19 +73,19 @@ export const alertsFeature = createFeature({
         <h1>${action.searchTerms}</h1>
         <img src="${action.gifUrl}" />
       `;
-  
+
       return {
         ...state,
         text,
-        alert: null
+        alert: null,
       };
     })
-  )
+  ),
 });
 
 export const {
   selectText,
   selectPaused: selectIsPaused,
   selectAlert,
-  selectAlertsState
+  selectAlertsState,
 } = alertsFeature;

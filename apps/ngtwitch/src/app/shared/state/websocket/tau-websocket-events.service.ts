@@ -5,13 +5,11 @@ import { filter, share } from 'rxjs/operators';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 
 const ofEvent = (event: string) => (source$: Observable<any>) => {
-  return source$.pipe(
-    filter(eventData => eventData.event_type === event)
-  )
-}
+  return source$.pipe(filter((eventData) => eventData.event_type === event));
+};
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TAUWebSocketEventSerivce {
   private _events$: WebSocketSubject<any> = webSocket(environment.tauWs);
@@ -22,7 +20,7 @@ export class TAUWebSocketEventSerivce {
 
   connect(token: string) {
     this._events$.next({
-      token
+      token,
     });
 
     return this._events$;

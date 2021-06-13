@@ -5,6 +5,5 @@ export const environment = {
   wsHost: 'ws://localhost:3333',
   wsToken: '315b4072ba698667a08e09062dfd85ef82e310ca',
   giphyApiKey: '',
-  tauWs: 'ws://localhost:8000/ws/twitch-events/'
+  tauWs: 'ws://localhost:8000/ws/twitch-events/',
 };
-

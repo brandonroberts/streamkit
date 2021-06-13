@@ -1,6 +1,10 @@
 import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { collectEmoteReplacements, formatMessage, Message } from './messages.model';
+import {
+  collectEmoteReplacements,
+  formatMessage,
+  Message,
+} from './messages.model';
 import * as MessagesActions from './messages.actions';
 import { MessageActions, TwitchActions } from '@ngtwitch/actions';
 
@@ -17,44 +21,42 @@ export const adapter: EntityAdapter<Message> = createEntityAdapter<Message>();
 export const initialState: State = adapter.getInitialState({
   // additional entity state properties
   pinnedMessageId: null,
-  avatarUrls: {}
+  avatarUrls: {},
 });
-
 
 export const reducer = createReducer(
   initialState,
-  on(TwitchActions.message,
-    (state, action) => {
-     const emoteReplacements = collectEmoteReplacements(action.message);
-     const formattedMessage = formatMessage(action.message, emoteReplacements);
+  on(TwitchActions.message, (state, action) => {
+    const emoteReplacements = collectEmoteReplacements(action.message);
+    const formattedMessage = formatMessage(action.message, emoteReplacements);
 
-     return adapter.addOne({ ...action.message, formattedMessage, active: true }, state);
+    return adapter.addOne(
+      { ...action.message, formattedMessage, active: true },
+      state
+    );
   }),
-  on(MessagesActions.messageAvatarFetchedSuccess,
-    (state, action) => {
-
-     return {
-       ...state,
-       avatarUrls: {
-         ...state.avatarUrls,
-         [action.user]: action.avatarUrl
-       }
-     };
-  }),  
-  on(MessagesActions.messagesCleared,
-    state => adapter.map(message => {
+  on(MessagesActions.messageAvatarFetchedSuccess, (state, action) => {
+    return {
+      ...state,
+      avatarUrls: {
+        ...state.avatarUrls,
+        [action.user]: action.avatarUrl,
+      },
+    };
+  }),
+  on(MessagesActions.messagesCleared, (state) =>
+    adapter.map((message) => {
       return {
         ...message,
-        active: false
+        active: false,
       };
     }, state)
   ),
   on(MessageActions.pinMessage, (state, action) => ({
     ...state,
-    pinnedMessageId: action.id
+    pinnedMessageId: action.id,
   }))
 );
-
 
 export const {
   selectIds,

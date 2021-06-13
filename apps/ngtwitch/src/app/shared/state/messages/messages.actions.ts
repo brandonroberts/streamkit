@@ -1,8 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-export const messagesCleared = createAction(
-  '[Messages/API] Messages Cleared'
-);
+export const messagesCleared = createAction('[Messages/API] Messages Cleared');
 
 export const messageAvatarFetchedSuccess = createAction(
   '[Twitch/API] Avatar Fetched Success',

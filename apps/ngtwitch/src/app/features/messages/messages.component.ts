@@ -1,4 +1,10 @@
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+} from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { tap } from 'rxjs/operators';
@@ -18,10 +24,15 @@ import { Message } from '../../shared/state/messages/messages.model';
       </div>
     </div> -->
 
-    <div [@messageAnimation]="'in'" class="message" *ngFor="let message of messages$ | async;trackBy:messageTrackBy">
+    <div
+      [@messageAnimation]="'in'"
+      class="message"
+      *ngFor="let message of messages$ | async; trackBy: messageTrackBy"
+    >
       <div>
-        <img src="{{ message.avatarUrl }}"/>
-        <span [style.color]="message.userColor">{{ message.user }}</span>: 
+        <img src="{{ message.avatarUrl }}" />
+        <span [style.color]="message.userColor">{{ message.user }}</span
+        >:
         <span [innerHTML]="message.formattedMessage"></span>
         <!-- <button (click)="pinMessage(message.id)">Pin Message</button> -->
       </div>
@@ -40,7 +51,7 @@ import { Message } from '../../shared/state/messages/messages.model';
         justify-content: flex-end;
         background: black;
       }
-      
+
       .message {
         display: flex;
         flex-direction: column;
@@ -53,36 +64,32 @@ import { Message } from '../../shared/state/messages/messages.model';
         height: 36px;
         padding-right: 8px;
       }
-      
+
       .user {
         padding-bottom: 4px;
       }
-    `
+    `,
   ],
   animations: [
     trigger('messageAnimation', [
       state('in', style({ transform: 'translateX(0)' })),
       transition('void => *', [
         style({ transform: 'translateX(-100%)' }),
-        animate(300)
+        animate(300),
       ]),
       transition('* => void', [
-        animate(200, style({ transform: 'translateX(-100%)' }))
-      ])
-    ])
-  ]
+        animate(200, style({ transform: 'translateX(-100%)' })),
+      ]),
+    ]),
+  ],
 })
 export class MessagesComponent implements OnInit {
   pinnedMessage$ = this.store.select(MessagesSelectors.selectPinnedMessage);
   messages$ = this.store.select(MessagesSelectors.selectAllMessages);
 
-  constructor(
-    private store: Store,
-    private messageService: MessageService
-  ) { }
+  constructor(private store: Store, private messageService: MessageService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   messageTrackBy(index: string, item: Message) {
     return item.id;

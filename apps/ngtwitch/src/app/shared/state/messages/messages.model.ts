@@ -1,4 +1,4 @@
-import { Chat } from "@ngtwitch/models";
+import { Chat } from '@ngtwitch/models';
 
 export interface Message extends Chat {
   active: boolean;
@@ -34,7 +34,7 @@ export function collectEmoteReplacements(message: Chat) {
   const emotesUrls: EmoteReplacement[] = [];
   const emotes = message.emotes || [];
 
-  Object.keys(emotes).forEach(id => {
+  Object.keys(emotes).forEach((id) => {
     message.emotes[id].forEach((replacements: string) => {
       const [start, end] = replacements.split('-');
       const emoteUrl = `https://static-cdn.jtvnw.net/emoticons/v2/${id}/default/dark/3.0`;
@@ -43,12 +43,14 @@ export function collectEmoteReplacements(message: Chat) {
         id,
         start,
         end,
-        url: emoteUrl
+        url: emoteUrl,
       });
     });
   });
 
-  emotesUrls.sort((a, b) => parseInt(b.start, 10) > parseInt(a.start, 10) ? 1 : -1);
+  emotesUrls.sort((a, b) =>
+    parseInt(b.start, 10) > parseInt(a.start, 10) ? 1 : -1
+  );
 
   return emotesUrls;
 }
@@ -57,7 +59,7 @@ export function formatMessage(message: Chat, emotesUrls: EmoteReplacement[]) {
   let formattedMessage = message.message;
   // console.log(emotesUrls);
 
-  emotesUrls.forEach(emoteUrl => {
+  emotesUrls.forEach((emoteUrl) => {
     const emoteImg = `<img src="${emoteUrl.url}" width="24px" height="24px">`;
 
     const start = `${formattedMessage.substring(0, +emoteUrl.start)}`;

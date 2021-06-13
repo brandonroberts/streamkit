@@ -1,4 +1,8 @@
-import { MessageBody, SubscribeMessage, WebSocketGateway } from '@nestjs/websockets';
+import {
+  MessageBody,
+  SubscribeMessage,
+  WebSocketGateway,
+} from '@nestjs/websockets';
 import { merge } from 'rxjs';
 
 import { ChatBotService } from '../chatbot.service';
@@ -13,7 +17,10 @@ export class WsGateway {
 
   @SubscribeMessage('subscribe')
   handleMessage() {
-    return merge(this.chatbotService.events$, this.messageService.pinnedMessages$);
+    return merge(
+      this.chatbotService.events$,
+      this.messageService.pinnedMessages$
+    );
   }
 
   @SubscribeMessage('follow')

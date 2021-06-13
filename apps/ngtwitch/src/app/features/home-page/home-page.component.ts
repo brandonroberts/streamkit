@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'ngtwitch-home-page',
-  template: `
-    <ngtwitch-alerts></ngtwitch-alerts>
-  `,
+  template: ` <ngtwitch-alerts></ngtwitch-alerts> `,
   styles: [
     `
       :host {
@@ -12,15 +10,12 @@ import { Component, OnInit } from '@angular/core';
         flex-direction: column;
         justify-content: center;
         overflow: hidden;
-      }    
-    `
-  ]
+      }
+    `,
+  ],
 })
 export class HomePageComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

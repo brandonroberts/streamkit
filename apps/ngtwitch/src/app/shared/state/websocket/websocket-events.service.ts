@@ -4,7 +4,7 @@ import { share } from 'rxjs/operators';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class APIWebSocketEventSerivce {
   private _events$: WebSocketSubject<any> = webSocket(environment.wsHost);
@@ -12,7 +12,7 @@ export class APIWebSocketEventSerivce {
 
   connect() {
     this._events$.next({
-      event: 'subscribe'
+      event: 'subscribe',
     });
 
     return this._events$;
@@ -21,7 +21,7 @@ export class APIWebSocketEventSerivce {
   sendFollow(follower: string) {
     this._events$.next({
       event: 'follow',
-      data: { follower }
+      data: { follower },
     });
   }
 }

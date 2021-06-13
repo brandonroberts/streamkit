@@ -16,5 +16,4 @@ export class GitHubWebookController {
 
     return resp.json({ success: true });
   }
-
 }

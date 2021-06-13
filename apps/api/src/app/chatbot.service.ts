@@ -18,18 +18,22 @@ export class ChatBotService {
 
   command$ = this._command$.pipe(
     filter(({ flags }) => !flags.broadcaster),
-    map(command => TwitchActions.command({ command }))
+    map((command) => TwitchActions.command({ command }))
   );
   broadcast$ = this._command$.pipe(
     filter(({ flags }) => flags.broadcaster),
-    map(command => TwitchActions.broadcast({ command }))
+    map((command) => TwitchActions.broadcast({ command }))
   );
-  chat$ = this._chat$.pipe(map(message => TwitchActions.message({ message })));
-  githubStar$ = this._githubStar$.pipe(map(username => GitHubActions.githubStar({username})));
+  chat$ = this._chat$.pipe(
+    map((message) => TwitchActions.message({ message }))
+  );
+  githubStar$ = this._githubStar$.pipe(
+    map((username) => GitHubActions.githubStar({ username }))
+  );
 
   responder$ = this._command$.pipe(
-    filter(incomingCommand => !!commandResponses[incomingCommand.command]),
-    tap(commandInfo => {
+    filter((incomingCommand) => !!commandResponses[incomingCommand.command]),
+    tap((commandInfo) => {
       const responseInfo = commandResponses[commandInfo.command];
 
       let message = `${responseInfo.response}`;
@@ -38,21 +42,22 @@ export class ChatBotService {
         message = message.replace(/{{message}}/g, commandInfo.message);
       }
 
-      if (!responseInfo.restricted || (responseInfo.restricted && (commandInfo.flags.broadcaster || commandInfo.flags.mod))) {
+      if (
+        !responseInfo.restricted ||
+        (responseInfo.restricted &&
+          (commandInfo.flags.broadcaster || commandInfo.flags.mod))
+      ) {
         this.respond(message);
       }
     })
   );
 
-  events$ = merge(
-    this.command$,
-    this.broadcast$,
-    this.chat$,
-    this.githubStar$
-  );
+  events$ = merge(this.command$, this.broadcast$, this.chat$, this.githubStar$);
 
   init() {
-    ComfyJS.Init(process.env.TWITCH_HANDLE, process.env.CHATBOT_OAUTH_KEY, ['brandontroberts']);
+    ComfyJS.Init(process.env.TWITCH_HANDLE, process.env.CHATBOT_OAUTH_KEY, [
+      'brandontroberts',
+    ]);
 
     this.setupCommandListener();
     this.setupResponseListener();
@@ -69,9 +74,8 @@ export class ChatBotService {
         user,
         command,
         message,
-        flags
-      }
-      );
+        flags,
+      });
     };
   }
 
@@ -82,7 +86,7 @@ export class ChatBotService {
         user,
         userColor: extra.userColor,
         message,
-        emotes: extra.messageEmotes
+        emotes: extra.messageEmotes,
       });
     };
   }
