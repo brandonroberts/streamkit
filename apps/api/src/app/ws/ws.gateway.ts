@@ -13,7 +13,9 @@ export class WsGateway {
   constructor(
     private chatbotService: ChatBotService,
     private messageService: MessageService
-  ) {}
+  ) {
+    this.chatbotService.init();
+  }
 
   @SubscribeMessage('subscribe')
   handleMessage() {
