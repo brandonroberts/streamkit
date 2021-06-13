@@ -10,7 +10,7 @@ export class TwitchService {
   constructor(private http: HttpClient) {}
 
   getUserProfileUrl(user: string) {
-    return this.http.get(`${environment.apiHost}/api/v1/twitch-user/?login=${user}`, {
+    return this.http.get(`${environment.apiHost}/api/twitch/helix/users/?login=${user}`, {
       headers: {
         Authorization: `Token ${environment.wsToken}`
       }
