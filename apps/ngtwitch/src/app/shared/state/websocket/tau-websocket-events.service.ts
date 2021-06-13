@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from 'apps/ngtwitch/src/environments/environment';
 import { Observable } from 'rxjs';
 import { filter, share } from 'rxjs/operators';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
@@ -13,7 +14,7 @@ const ofEvent = (event: string) => (source$: Observable<any>) => {
   providedIn: 'root'
 })
 export class TAUWebSocketEventSerivce {
-  private _events$: WebSocketSubject<any> = webSocket(`ws://localhost:8000/ws/twitch-events/`);
+  private _events$: WebSocketSubject<any> = webSocket(environment.tauWs);
   events$ = this._events$.pipe(share());
   raids$ = this.events$.pipe(ofEvent('raid'));
   follows$ = this.events$.pipe(ofEvent('follow'));

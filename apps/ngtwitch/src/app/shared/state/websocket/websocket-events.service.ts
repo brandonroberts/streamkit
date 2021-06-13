@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../../../environments/environment';
 import { share } from 'rxjs/operators';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 
@@ -6,7 +7,7 @@ import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
   providedIn: 'root'
 })
 export class APIWebSocketEventSerivce {
-  private _events$: WebSocketSubject<any> = webSocket(`ws://localhost:3333`);
+  private _events$: WebSocketSubject<any> = webSocket(environment.wsHost);
   events$ = this._events$.pipe(share());
 
   connect() {

@@ -10,7 +10,8 @@ const environmentProdPath = path.join(cwd(), 'apps/ngtwitch/src/environments/env
 const envKeys = {
   apiHost: 'API_HOST',
   authHost: 'AUTH_HOST',
-  wsHost: 'WS_HOST'
+  wsHost: 'WS_HOST',
+  wsToken: 'WS_TOKEN'
 };
 
 const envValues = { production: true };
