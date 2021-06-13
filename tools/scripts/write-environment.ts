@@ -11,7 +11,9 @@ const envKeys = {
   apiHost: 'API_HOST',
   authHost: 'AUTH_HOST',
   wsHost: 'WS_HOST',
-  wsToken: 'WS_TOKEN'
+  wsToken: 'WS_TOKEN',
+  giphyApiKey: 'GIPHY_API_KEY',
+  tauWs: 'TAU_WS'
 };
 
 const envValues = { production: true };
