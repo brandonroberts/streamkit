@@ -1,102 +1,113 @@
-import {
-  trigger,
-  state,
-  style,
-  transition,
-  animate,
-} from '@angular/animations';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { MessageService } from '../../message.service';
 
-import { MessagesSelectors } from '../../shared/state/messages';
+import { MessagesActions, MessagesSelectors } from '../../shared/state/messages';
 import { Message } from '../../shared/state/messages/messages.model';
 
 @Component({
   selector: 'ngtwitch-messages',
   template: `
-    <!-- <div *ngIf="pinnedMessage$ | async as pinnedMessage">
+    <div *ngIf="pinnedMessage$ | async as pinnedMessage">
       <div>
         <span [style.color]="pinnedMessage.userColor">{{ pinnedMessage.user }}</span>: 
         <span [innerHTML]="pinnedMessage.formattedMessage"></span>
-        <button (click)="pinMessage()">Unpin Message</button>
-      </div>
-    </div> -->
-
-    <div
-      [@messageAnimation]="'in'"
-      class="message"
-      *ngFor="let message of messages$ | async; trackBy: messageTrackBy"
-    >
-      <div>
-        <img src="{{ message.avatarUrl }}" />
-        <span [style.color]="message.userColor">{{ message.user }}</span
-        >:
-        <span [innerHTML]="message.formattedMessage"></span>
-        <!-- <button (click)="pinMessage(message.id)">Pin Message</button> -->
+        <button *ngIf="debug$ | async" (click)="pinMessage()">Unpin Message</button>
       </div>
     </div>
+
+    <ul>
+      <li [@messageAnimation]="'in'" class="message" *ngFor="let message of messages$ | async; trackBy: trackByFn">
+        <div class="content">
+          <img class="avatar" *ngIf="message.avatarUrl" src="{{ message.avatarUrl }}"/>
+          <div class="user">
+            {{ message.formattedMessage }}
+          </div>
+          <button *ngIf="debug$ | async"  (click)="pinMessage(message.id)">Pin Message</button>
+        </div>
+      </li>
+    </ul>
   `,
   styles: [
     `
-      :host {
+      ul {
         width: 100%;
         height: 98%;
         overflow: hidden;
         padding: 0;
         word-break: break-word;
+        overflow: hidden;
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
-        background: black;
+        background: transparent;
       }
 
       .message {
         display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
+        flex-direction: row;
+        padding: 8px;
+      }
+
+      span.user {
+        white-space: nowrap;
+      }
+      
+      .user {
+        padding-bottom: 4px;
         color: white;
       }
 
-      .message img {
-        width: 36px;
-        height: 36px;
-        padding-right: 8px;
+      .content {
+        display: flex;
       }
-
-      .user {
-        padding-bottom: 4px;
+      
+      .avatar {
+        width: 24px;
+        height: 24px;
       }
-    `,
+          
+      img {
+        padding-right: 4px;
+      }
+    `
   ],
   animations: [
     trigger('messageAnimation', [
       state('in', style({ transform: 'translateX(0)' })),
       transition('void => *', [
         style({ transform: 'translateX(-100%)' }),
-        animate(300),
+        animate(300)
       ]),
       transition('* => void', [
-        animate(200, style({ transform: 'translateX(-100%)' })),
-      ]),
-    ]),
-  ],
+        animate(200, style({ transform: 'translateX(-100%)' }))
+      ])
+    ])
+  ]
 })
 export class MessagesComponent implements OnInit {
   pinnedMessage$ = this.store.select(MessagesSelectors.selectPinnedMessage);
-  messages$ = this.store.select(MessagesSelectors.selectAllMessages);
+  messages$ = this.store.select(MessagesSelectors.selectAllFormattedMessages);
+  debug$ = this.route.queryParamMap.pipe(map(queryParams => queryParams.get('debug')));
 
-  constructor(private store: Store, private messageService: MessageService) {}
+  constructor(
+    private store: Store,
+    private messageService: MessageService,
+    private route: ActivatedRoute
+  ) { }
 
-  ngOnInit(): void {}
-
-  messageTrackBy(index: string, item: Message) {
-    return item.id;
+  ngOnInit(): void {
   }
 
   pinMessage(id?: string) {
     this.messageService.pinMessage(id).subscribe();
     // this.pinnedMessage = message;
+  }
+  
+  trackByFn(index: string, message: Message) {
+    return message.id;
   }
 }

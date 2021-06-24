@@ -32,7 +32,7 @@ export const selectAllMessages = createSelector(
 );
 
 export const selectAllFormattedMessages = createSelector(
-  selectMessages,
+  selectAllMessages,
   (allMessages) => {
     const filteredMessages = allMessages.filter((message) => message.active);
     const lastTwoMessages = filteredMessages.slice(filteredMessages.length - 2);
