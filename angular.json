@@ -1,16 +1,16 @@
 {
-  "version": 1,
+  "version": 2,
   "newProjectRoot": "",
   "projects": {
     "ngtwitch": {
       "projectType": "application",
-      "schematics": {},
+      "generators": {},
       "root": "apps/ngtwitch",
       "sourceRoot": "apps/ngtwitch/src",
       "prefix": "ngtwitch",
-      "architect": {
+      "targets": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "executor": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/apps/ngtwitch",
             "index": "apps/ngtwitch/src/index.html",
@@ -27,9 +27,7 @@
                 "output": "."
               }
             ],
-            "styles": [
-              "apps/ngtwitch/src/styles.css"
-            ],
+            "styles": ["apps/ngtwitch/src/styles.css"],
             "scripts": []
           },
           "configurations": {
@@ -69,12 +67,10 @@
               "namedChunks": true
             }
           },
-          "outputs": [
-            "{options.outputPath}"
-          ]
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "executor": "@angular-devkit/build-angular:dev-server",
           "options": {
             "open": true,
             "proxyConfig": "apps/ngtwitch/src/proxy.conf.json"
@@ -90,13 +86,13 @@
           }
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "executor": "@angular-devkit/build-angular:extract-i18n",
           "options": {
             "browserTarget": "ngtwitch:build"
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "executor": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "apps/ngtwitch/src/test.ts",
             "polyfills": "apps/ngtwitch/src/polyfills.ts",
@@ -106,25 +102,19 @@
               "apps/ngtwitch/src/favicon.ico",
               "apps/ngtwitch/src/assets"
             ],
-            "styles": [
-              "apps/ngtwitch/src/styles.css"
-            ],
+            "styles": ["apps/ngtwitch/src/styles.css"],
             "scripts": []
           },
-          "outputs": [
-            "coverage/apps/ngtwitch"
-          ]
+          "outputs": ["coverage/apps/ngtwitch"]
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "executor": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
               "apps/ngtwitch/tsconfig.app.json",
               "apps/ngtwitch/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -132,9 +122,9 @@
     "ngtwitch-e2e": {
       "projectType": "application",
       "root": "apps/ngtwitch-e2e",
-      "architect": {
+      "targets": {
         "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
+          "executor": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "apps/ngtwitch-e2e/protractor.conf.js",
             "devServerTarget": "ngtwitch:serve"
@@ -146,12 +136,10 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "executor": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "apps/ngtwitch-e2e/tsconfig.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -161,17 +149,15 @@
       "sourceRoot": "apps/api/src",
       "projectType": "application",
       "prefix": "api",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "build": {
-          "builder": "@nrwl/node:build",
+          "executor": "@nrwl/node:build",
           "options": {
             "outputPath": "dist/apps/api",
             "main": "apps/api/src/main.ts",
             "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": [
-              "apps/api/src/assets"
-            ]
+            "assets": ["apps/api/src/assets"]
           },
           "configurations": {
             "production": {
@@ -186,33 +172,27 @@
               ]
             }
           },
-          "outputs": [
-            "{options.outputPath}"
-          ]
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
-          "builder": "@nrwl/node:execute",
+          "executor": "@nrwl/node:execute",
           "options": {
             "buildTarget": "api:build"
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/api/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/api/**/*.ts"]
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/api/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/apps/api"
-          ]
+          "outputs": ["coverage/apps/api"]
         }
       }
     },
@@ -220,14 +200,12 @@
       "root": "libs/api-interfaces",
       "sourceRoot": "libs/api-interfaces/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/api-interfaces/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/api-interfaces/**/*.ts"]
           }
         }
       }
@@ -236,25 +214,21 @@
       "root": "libs/actions",
       "sourceRoot": "libs/actions/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/actions/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/actions/**/*.ts"]
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/actions/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/actions"
-          ]
+          "outputs": ["coverage/libs/actions"]
         }
       }
     },
@@ -262,25 +236,21 @@
       "root": "libs/models",
       "sourceRoot": "libs/models/src",
       "projectType": "library",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/models/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/models/**/*.ts"]
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/models/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/models"
-          ]
+          "outputs": ["coverage/libs/models"]
         }
       }
     },
@@ -288,19 +258,19 @@
       "root": "tau",
       "sourceRoot": "tau/tau",
       "projectType": "application",
-      "schematics": {},
-      "architect": {
+      "generators": {},
+      "targets": {
         "serve": {
-          "builder": "@nrwl/workspace:run-commands",
+          "executor": "@nrwl/workspace:run-commands",
           "options": {
             "cwd": "tau",
             "command": "docker-compose up"
           }
         }
       }
-    }    
+    }
   },
-  "schematics": {
+  "generators": {
     "@schematics/angular:component": {
       "inlineStyle": true,
       "inlineTemplate": true
