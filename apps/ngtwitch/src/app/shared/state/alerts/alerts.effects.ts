@@ -8,7 +8,6 @@ import { TwitchActions } from '@ngtwitch/actions';
 
 import { alerts, followGif, raidGif, subGif } from '../../../config';
 import { TAUWebSocketEventSerivce } from '../websocket/tau-websocket-events.service';
-import { APIWebSocketEventSerivce } from '../websocket/websocket-events.service';
 import * as AlertsActions from './alerts.actions';
 
 @Injectable()
@@ -50,18 +49,6 @@ export class AlertsEffects {
         });
       })
     )
-  );
-
-  relayFollow$ = createEffect(
-    () =>
-      this.wsEventService.follows$.pipe(
-        map((event) => {
-          if (event.origin !== 'replay' && event.origin !== 'test') {
-            // this.apiWebSocketEventService.sendFollow(event.event_data.user_name);
-          }
-        })
-      ),
-    { dispatch: false }
   );
 
   followed$ = createEffect(() =>
@@ -122,7 +109,6 @@ export class AlertsEffects {
 
   constructor(
     private actions$: Actions,
-    private wsEventService: TAUWebSocketEventSerivce,
-    private apiWebSocketEventService: APIWebSocketEventSerivce
+    private wsEventService: TAUWebSocketEventSerivce
   ) {}
 }

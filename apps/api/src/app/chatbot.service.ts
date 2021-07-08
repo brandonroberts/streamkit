@@ -4,6 +4,7 @@ import ComfyJS from 'comfy.js';
 import { merge, Subject } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
 import uuid from 'uuid';
+import WebSocket from 'ws';
 
 import { Command, Chat } from '@ngtwitch/models';
 import { GitHubActions, TwitchActions } from '@ngtwitch/actions';
@@ -62,6 +63,7 @@ export class ChatBotService {
     this.setupCommandListener();
     this.setupResponseListener();
     this.setupChatListener();
+    this.setupFollowListener();
   }
 
   setupResponseListener() {
@@ -89,6 +91,28 @@ export class ChatBotService {
         emotes: extra.messageEmotes,
       });
     };
+  }
+
+  setupFollowListener() {
+    const ws = new WebSocket(process.env.TAU_WS);
+
+    ws.on('open', function open() {
+      ws.send(JSON.stringify({ token: process.env.WS_TOKEN }));
+    });
+
+    ws.on('message', (data) => {
+      const eventData = JSON.parse(data);
+
+      if (eventData.origin === 'replay' || eventData.origin === 'test') {
+        return;
+      }
+
+      switch (eventData.event_type) {
+        case 'follow': {
+          this.sendFollow(eventData.event_data.user_name);
+        }
+      }
+    });
   }
 
   sendFollow(follower: string) {
