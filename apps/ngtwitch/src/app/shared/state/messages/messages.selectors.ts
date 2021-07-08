@@ -37,7 +37,7 @@ export const selectAllFormattedMessages = createSelector(
     const filteredMessages = allMessages.filter((message) => message.active);
     const lastTwoMessages = filteredMessages.slice(filteredMessages.length - 2);
 
-    return lastTwoMessages;
+    return filteredMessages;
   }
 );
 
