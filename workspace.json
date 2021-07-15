@@ -390,6 +390,17 @@
           },
           "defaultConfiguration": "development"
         },
+        "serve-all": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "parallel": true,
+            "commands": [
+              { "command": "nx serve tau" },
+              { "command": "nx serve twitch-server" },
+              { "command": "nx serve twitch-overlay" }
+            ]
+          }
+        },
         "extract-i18n": {
           "executor": "@angular-devkit/build-angular:extract-i18n",
           "options": {
@@ -565,7 +576,7 @@
       "projectType": "application",
       "root": "apps/youtube-overlay",
       "sourceRoot": "apps/youtube-overlay/src",
-      "prefix": "streamkit",
+      "prefix": "youtube-overlay",
       "targets": {
         "build": {
           "executor": "@angular-devkit/build-angular:browser",
@@ -629,6 +640,16 @@
           },
           "defaultConfiguration": "development"
         },
+        "serve-all": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "parallel": true,
+            "commands": [
+              { "command": "nx serve youtube-server" },
+              { "command": "nx serve youtube-overlay" }
+            ]
+          }
+        },
         "extract-i18n": {
           "executor": "@angular-devkit/build-angular:extract-i18n",
           "options": {
@@ -683,6 +704,6 @@
           }
         }
       }
-    }
+    }    
   }
 }
