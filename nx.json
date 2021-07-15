@@ -12,15 +12,6 @@
   },
   "npmScope": "streamkit",
   "projects": {
-    "ngtwitch": {
-      "tags": []
-    },
-    "ngtwitch-e2e": {
-      "tags": []
-    },
-    "api": {
-      "tags": []
-    },
     "api-interfaces": {
       "tags": []
     },
