@@ -27,7 +27,7 @@
     "update:check": "ng update",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main",
+    "postinstall": "ngcc --properties es2015 browser module main",
     "workspace-generator": "nx workspace-generator"
   },
   "private": true,
@@ -64,7 +64,6 @@
     "@angular-eslint/eslint-plugin": "~12.0.0",
     "@angular-eslint/eslint-plugin-template": "~12.0.0",
     "@angular-eslint/template-parser": "~12.0.0",
-    "@angular/cli": "12.0.0",
     "@angular/compiler-cli": "12.0.0",
     "@angular/language-service": "12.0.0",
     "@nestjs/schematics": "^7.0.0",
