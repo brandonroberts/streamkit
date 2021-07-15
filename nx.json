@@ -45,6 +45,13 @@
     },
     "youtube-server": {
       "tags": []
+    },
+    "youtube-overlay": {
+      "tags": []
+    },
+    "youtube-overlay-e2e": {
+      "tags": [],
+      "implicitDependencies": ["youtube-overlay"]
     }
   }
 }

@@ -560,6 +560,129 @@
           }
         }
       }
+    },
+    "youtube-overlay": {
+      "projectType": "application",
+      "root": "apps/youtube-overlay",
+      "sourceRoot": "apps/youtube-overlay/src",
+      "prefix": "streamkit",
+      "targets": {
+        "build": {
+          "executor": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/youtube-overlay",
+            "index": "apps/youtube-overlay/src/index.html",
+            "main": "apps/youtube-overlay/src/main.ts",
+            "polyfills": "apps/youtube-overlay/src/polyfills.ts",
+            "tsConfig": "apps/youtube-overlay/tsconfig.app.json",
+            "assets": [
+              "apps/youtube-overlay/src/favicon.ico",
+              "apps/youtube-overlay/src/assets"
+            ],
+            "styles": [
+              "apps/youtube-overlay/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/youtube-overlay/src/environments/environment.ts",
+                  "with": "apps/youtube-overlay/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "executor": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "youtube-overlay:build:production"
+            },
+            "development": {
+              "browserTarget": "youtube-overlay:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "executor": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "youtube-overlay:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/youtube-overlay/src/**/*.ts",
+              "apps/youtube-overlay/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/youtube-overlay"
+          ],
+          "options": {
+            "jestConfig": "apps/youtube-overlay/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "youtube-overlay-e2e": {
+      "root": "apps/youtube-overlay-e2e",
+      "sourceRoot": "apps/youtube-overlay-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/youtube-overlay-e2e/cypress.json",
+            "tsConfig": "apps/youtube-overlay-e2e/tsconfig.e2e.json",
+            "devServerTarget": "youtube-overlay:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "youtube-overlay:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/youtube-overlay-e2e/**/*.{js,ts}"
+            ]
+          }
+        }
+      }
     }
   }
 }
