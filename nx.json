@@ -1,5 +1,5 @@
 {
-  "npmScope": "ngtwitch",
+  "npmScope": "streamkit",
   "affected": {
     "defaultBase": "main"
   },

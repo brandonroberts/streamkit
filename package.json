@@ -1,5 +1,5 @@
 {
-  "name": "ngtwitch",
+  "name": "streamkit",
   "version": "0.0.0",
   "scripts": {
     "ng": "nx",
