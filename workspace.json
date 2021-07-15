@@ -500,6 +500,33 @@
           ]
         }
       }
+    },
+    "youtube-shared-models": {
+      "projectType": "library",
+      "root": "libs/youtube/shared/models",
+      "sourceRoot": "libs/youtube/shared/models/src",
+      "prefix": "streamkit",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/youtube/shared/models"
+          ],
+          "options": {
+            "jestConfig": "libs/youtube/shared/models/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/youtube/shared/models/src/**/*.ts",
+              "libs/youtube/shared/models/src/**/*.html"
+            ]
+          }
+        }
+      }
     }
   }
 }
