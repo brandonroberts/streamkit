@@ -502,6 +502,64 @@
           }
         }
       }
+    },
+    "youtube-server": {
+      "root": "apps/youtube-server",
+      "sourceRoot": "apps/youtube-server/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/apps/youtube-server",
+            "main": "apps/youtube-server/src/main.ts",
+            "tsConfig": "apps/youtube-server/tsconfig.app.json",
+            "assets": [
+              "apps/youtube-server/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/youtube-server/src/environments/environment.ts",
+                  "with": "apps/youtube-server/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "youtube-server:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/youtube-server/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/youtube-server"
+          ],
+          "options": {
+            "jestConfig": "apps/youtube-server/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   }
 }

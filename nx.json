@@ -42,6 +42,9 @@
     },
     "twitch-server": {
       "tags": []
+    },
+    "youtube-server": {
+      "tags": []
     }
   }
 }
