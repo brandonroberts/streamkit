@@ -6,8 +6,8 @@ import { filter, map, tap } from 'rxjs/operators';
 import uuid from 'uuid';
 import WebSocket from 'ws';
 
-import { Command, Chat } from '@ngtwitch/models';
-import { GitHubActions, TwitchActions } from '@ngtwitch/actions';
+import { Command, Chat } from '@streamkit/models';
+import { GitHubActions, TwitchActions } from '@streamkit/actions';
 
 import { commandResponses } from './config';
 

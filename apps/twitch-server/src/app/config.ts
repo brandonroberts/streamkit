@@ -12,7 +12,7 @@ export const commandResponses: {
   },
   bot: {
     response:
-      "I'm a bot powered by Angular! Source: https://github.com/brandonroberts/ngtwitch",
+      "StreamKit is an open source streaming tools platform! Source: https://github.com/brandonroberts/streamkit",
   },
   support: {
     response: `You can support my channel by subscribing for free with Amazon Prime, learn more at 
