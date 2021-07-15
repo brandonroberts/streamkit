@@ -20,6 +20,12 @@
       ],
       "@streamkit/youtube/shared/models": [
         "libs/youtube/shared/models/src/index.ts"
+      ],
+      "@streamkit/youtube/shared/actions": [
+        "libs/youtube/shared/actions/src/index.ts"
+      ],
+      "@streamkit/twitch/shared/actions": [
+        "libs/twitch/shared/actions/src/index.ts"
       ]
     }
   }

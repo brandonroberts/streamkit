@@ -1,1 +1,1 @@
-export * from './lib/youtube-shared-models.module';
+export * from './lib/youtube';

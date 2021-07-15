@@ -8,5 +8,7 @@ module.exports = {
     '<rootDir>/apps/youtube-server',
     '<rootDir>/apps/youtube-overlay',
     '<rootDir>/libs/youtube/shared/models',
+    '<rootDir>/libs/youtube/shared/actions',
+    '<rootDir>/libs/twitch/shared/actions',
   ],
 };

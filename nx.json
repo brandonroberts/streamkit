@@ -46,6 +46,12 @@
     },
     "youtube-shared-models": {
       "tags": []
+    },
+    "youtube-shared-actions": {
+      "tags": []
+    },
+    "twitch-shared-actions": {
+      "tags": []
     }
   }
 }
