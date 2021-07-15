@@ -1,8 +1,4 @@
 {
-  "npmScope": "streamkit",
-  "affected": {
-    "defaultBase": "main"
-  },
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": "*",
@@ -11,6 +7,10 @@
     ".eslintrc.json": "*",
     "nx.json": "*"
   },
+  "affected": {
+    "defaultBase": "main"
+  },
+  "npmScope": "streamkit",
   "projects": {
     "ngtwitch": {
       "tags": []
@@ -39,6 +39,9 @@
     "twitch-overlay-e2e": {
       "tags": [],
       "implicitDependencies": ["twitch-overlay"]
+    },
+    "twitch-server": {
+      "tags": []
     }
   }
 }

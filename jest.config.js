@@ -4,5 +4,6 @@ module.exports = {
     '<rootDir>/libs/actions',
     '<rootDir>/libs/models',
     '<rootDir>/apps/twitch-overlay',
+    '<rootDir>/apps/twitch-server',
   ],
 };

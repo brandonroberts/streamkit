@@ -1,6 +1,29 @@
 {
   "version": 2,
-  "newProjectRoot": "",
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "defaultProject": "ngtwitch",
+  "generators": {
+    "@schematics/angular:component": {
+      "inlineStyle": true,
+      "inlineTemplate": true
+    },
+    "@nrwl/angular:application": {
+      "style": "css",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "css",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "css"
+    }
+  },
   "projects": {
     "ngtwitch": {
       "projectType": "application",
@@ -421,30 +444,64 @@
           }
         }
       }
+    },
+    "twitch-server": {
+      "root": "apps/twitch-server",
+      "sourceRoot": "apps/twitch-server/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/apps/twitch-server",
+            "main": "apps/twitch-server/src/main.ts",
+            "tsConfig": "apps/twitch-server/tsconfig.app.json",
+            "assets": [
+              "apps/twitch-server/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/twitch-server/src/environments/environment.ts",
+                  "with": "apps/twitch-server/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "twitch-server:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/twitch-server/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/twitch-server"
+          ],
+          "options": {
+            "jestConfig": "apps/twitch-server/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
-  },
-  "generators": {
-    "@schematics/angular:component": {
-      "inlineStyle": true,
-      "inlineTemplate": true
-    },
-    "@nrwl/angular:application": {
-      "style": "css",
-      "linter": "eslint",
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
-    },
-    "@nrwl/angular:library": {
-      "style": "css",
-      "linter": "eslint",
-      "unitTestRunner": "jest"
-    },
-    "@nrwl/angular:component": {
-      "style": "css"
-    }
-  },
-  "defaultProject": "ngtwitch",
-  "cli": {
-    "defaultCollection": "@nrwl/angular"
   }
 }
