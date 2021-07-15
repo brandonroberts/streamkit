@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { MessageActions } from '@streamkit/actions';
+import { MessageActions } from '@streamkit/shared/actions';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 

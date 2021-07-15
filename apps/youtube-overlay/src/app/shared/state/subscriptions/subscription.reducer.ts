@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { YouTubeActions } from '@streamkit/actions';
+import { YouTubeActions } from '@streamkit/shared/actions';
 import { SubscriptionModel } from '@streamkit/twitch/shared/models';
 
 export const subscriptionsFeatureKey = 'subscriptions';

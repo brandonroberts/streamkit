@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { SharedActions, createEffect, ofType } from '@ngrx/effects';
 
 import { Observable } from 'rxjs';
 import { concatMap, delay, filter, map } from 'rxjs/operators';
 
-import { TwitchActions } from '@streamkit/actions';
+import { TwitchActions } from '@streamkit/shared/actions';
 import { Command } from '@streamkit/twitch/shared/models';
 
 import { GifSearchService } from '../../../gif-search.service';
@@ -44,7 +44,7 @@ export class GiphyAlertsEffects {
   );
 
   constructor(
-    private actions$: Actions,
+    private actions$: SharedActions,
     private gifSearchService: GifSearchService
   ) {}
 }

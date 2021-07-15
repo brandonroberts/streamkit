@@ -15,9 +15,6 @@
     "api-interfaces": {
       "tags": []
     },
-    "actions": {
-      "tags": []
-    },
     "tau": {
       "tags": []
     },
@@ -51,6 +48,9 @@
       "tags": []
     },
     "twitch-shared-actions": {
+      "tags": []
+    },
+    "shared-actions": {
       "tags": []
     }
   }

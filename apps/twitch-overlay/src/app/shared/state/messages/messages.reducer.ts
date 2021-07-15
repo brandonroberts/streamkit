@@ -6,7 +6,7 @@ import {
   Message,
 } from './messages.model';
 import * as MessagesActions from './messages.actions';
-import { MessageActions, TwitchActions } from '@streamkit/actions';
+import { MessageActions, TwitchActions } from '@streamkit/shared/actions';
 
 export const messagesFeatureKey = 'messages';
 

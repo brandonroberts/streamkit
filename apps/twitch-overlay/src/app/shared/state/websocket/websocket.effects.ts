@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, OnInitEffects, ofType } from '@ngrx/effects';
+import { SharedActions, createEffect, OnInitEffects, ofType } from '@ngrx/effects';
 import { filter, mergeMap } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
@@ -32,7 +32,7 @@ export class WebSocketEffects implements OnInitEffects {
   });
 
   constructor(
-    private actions$: Actions,
+    private actions$: SharedActions,
     private apiWebSocketEventService: APIWebSocketEventSerivce,
     private wsEventService: TAUWebSocketEventSerivce
   ) {}

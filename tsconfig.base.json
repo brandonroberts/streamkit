@@ -14,7 +14,6 @@
     "lib": ["es2018", "dom"],
     "paths": {
       "@streamkit/api-interfaces": ["libs/api-interfaces/src/index.ts"],
-      "@streamkit/actions": ["libs/actions/src/index.ts"],
       "@streamkit/twitch/shared/models": [
         "libs/twitch/shared/models/src/index.ts"
       ],
@@ -26,7 +25,8 @@
       ],
       "@streamkit/twitch/shared/actions": [
         "libs/twitch/shared/actions/src/index.ts"
-      ]
+      ],
+      "@streamkit/shared/actions": ["libs/shared/actions/src/index.ts"]
     }
   }
 }

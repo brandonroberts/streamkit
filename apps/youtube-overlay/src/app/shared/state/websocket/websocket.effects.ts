@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Store } from '@ngrx/store';
-import { Actions, createEffect, OnInitEffects, ofType } from "@ngrx/effects";
+import { SharedActions, createEffect, OnInitEffects, ofType } from "@ngrx/effects";
 import { webSocket } from 'rxjs/webSocket';
 import { tap } from 'rxjs/operators';
 
@@ -36,7 +36,7 @@ export class WebSocketEffects {
     );
   }, { dispatch: false });
 
-  constructor(private actions$: Actions, private store: Store) { }
+  constructor(private actions$: SharedActions, private store: Store) { }
 
   ngrxOnInitEffects() {
     return init();

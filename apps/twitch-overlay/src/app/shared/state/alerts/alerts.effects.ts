@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { SharedActions, createEffect, ofType } from '@ngrx/effects';
 
 import { concatMap, delay, filter, map } from 'rxjs/operators';
 import { from } from 'rxjs';
 
-import { TwitchActions } from '@streamkit/actions';
+import { TwitchActions } from '@streamkit/shared/actions';
 
 import { alerts, followGif, raidGif, subGif } from '../../../config';
 import { TAUWebSocketEventSerivce } from '../websocket/tau-websocket-events.service';
@@ -108,7 +108,7 @@ export class AlertsEffects {
   );
 
   constructor(
-    private actions$: Actions,
+    private actions$: SharedActions,
     private wsEventService: TAUWebSocketEventSerivce
   ) {}
 }

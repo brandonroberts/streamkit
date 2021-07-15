@@ -1,7 +1,7 @@
 module.exports = {
   projects: [
     '<rootDir>/apps/api',
-    '<rootDir>/libs/actions',
+    '<rootDir>/libs/shared/actions',
     '<rootDir>/libs/twitch/shared/models',
     '<rootDir>/apps/twitch-overlay',
     '<rootDir>/apps/twitch-server',
