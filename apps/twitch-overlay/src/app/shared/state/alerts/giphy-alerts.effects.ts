@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { concatMap, delay, filter, map } from 'rxjs/operators';
 
 import { TwitchActions } from '@streamkit/actions';
-import { Command } from '@streamkit/models';
+import { Command } from '@streamkit/twitch/shared/models';
 
 import { GifSearchService } from '../../../gif-search.service';
 import * as AlertsActions from './alerts.actions';

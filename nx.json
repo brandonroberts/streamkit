@@ -18,9 +18,6 @@
     "actions": {
       "tags": []
     },
-    "models": {
-      "tags": []
-    },
     "tau": {
       "tags": []
     },
@@ -43,6 +40,9 @@
     "youtube-overlay-e2e": {
       "tags": [],
       "implicitDependencies": ["youtube-overlay"]
+    },
+    "twitch-shared-models": {
+      "tags": []
     }
   }
 }

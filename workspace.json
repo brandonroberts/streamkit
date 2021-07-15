@@ -67,32 +67,6 @@
         }
       }
     },
-    "models": {
-      "root": "libs/models",
-      "sourceRoot": "libs/models/src",
-      "projectType": "library",
-      "generators": {},
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/models/**/*.ts"
-            ]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/models/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": [
-            "coverage/libs/models"
-          ]
-        }
-      }
-    },
     "tau": {
       "root": "tau",
       "sourceRoot": "tau/tau",
@@ -181,9 +155,15 @@
           "options": {
             "parallel": true,
             "commands": [
-              { "command": "nx serve tau" },
-              { "command": "nx serve twitch-server" },
-              { "command": "nx serve twitch-overlay" }
+              {
+                "command": "nx serve tau"
+              },
+              {
+                "command": "nx serve twitch-server"
+              },
+              {
+                "command": "nx serve twitch-overlay"
+              }
             ]
           }
         },
@@ -431,8 +411,12 @@
           "options": {
             "parallel": true,
             "commands": [
-              { "command": "nx serve youtube-server" },
-              { "command": "nx serve youtube-overlay" }
+              {
+                "command": "nx serve youtube-server"
+              },
+              {
+                "command": "nx serve youtube-overlay"
+              }
             ]
           }
         },
@@ -490,6 +474,32 @@
           }
         }
       }
-    }    
+    },
+    "twitch-shared-models": {
+      "root": "libs/twitch/shared/models",
+      "sourceRoot": "libs/twitch/shared/models/src",
+      "projectType": "library",
+      "generators": {},
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/twitch/shared/models/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/twitch/shared/models/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/twitch/shared/models"
+          ]
+        }
+      }
+    }
   }
 }

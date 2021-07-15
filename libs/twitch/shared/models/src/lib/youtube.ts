@@ -7,5 +7,5 @@ export interface Subscriber {
 
 export interface SubscriptionModel {
   id: string;
-  subscriberSnippet: Subscriber
+  subscriberSnippet: Subscriber;
 }
