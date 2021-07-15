@@ -32,6 +32,13 @@
     },
     "tau": {
       "tags": []
+    },
+    "twitch-overlay": {
+      "tags": []
+    },
+    "twitch-overlay-e2e": {
+      "tags": [],
+      "implicitDependencies": ["twitch-overlay"]
     }
   }
 }

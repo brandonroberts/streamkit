@@ -27,7 +27,9 @@
                 "output": "."
               }
             ],
-            "styles": ["apps/ngtwitch/src/styles.css"],
+            "styles": [
+              "apps/ngtwitch/src/styles.css"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -67,7 +69,9 @@
               "namedChunks": true
             }
           },
-          "outputs": ["{options.outputPath}"]
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "executor": "@angular-devkit/build-angular:dev-server",
@@ -102,10 +106,14 @@
               "apps/ngtwitch/src/favicon.ico",
               "apps/ngtwitch/src/assets"
             ],
-            "styles": ["apps/ngtwitch/src/styles.css"],
+            "styles": [
+              "apps/ngtwitch/src/styles.css"
+            ],
             "scripts": []
           },
-          "outputs": ["coverage/apps/ngtwitch"]
+          "outputs": [
+            "coverage/apps/ngtwitch"
+          ]
         },
         "lint": {
           "executor": "@angular-devkit/build-angular:tslint",
@@ -114,7 +122,9 @@
               "apps/ngtwitch/tsconfig.app.json",
               "apps/ngtwitch/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -139,7 +149,9 @@
           "executor": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "apps/ngtwitch-e2e/tsconfig.json",
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -157,7 +169,9 @@
             "outputPath": "dist/apps/api",
             "main": "apps/api/src/main.ts",
             "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": ["apps/api/src/assets"]
+            "assets": [
+              "apps/api/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -172,7 +186,9 @@
               ]
             }
           },
-          "outputs": ["{options.outputPath}"]
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "executor": "@nrwl/node:execute",
@@ -183,7 +199,9 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/api/**/*.ts"]
+            "lintFilePatterns": [
+              "apps/api/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -192,7 +210,9 @@
             "jestConfig": "apps/api/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/apps/api"]
+          "outputs": [
+            "coverage/apps/api"
+          ]
         }
       }
     },
@@ -205,7 +225,9 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/api-interfaces/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/api-interfaces/**/*.ts"
+            ]
           }
         }
       }
@@ -219,7 +241,9 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/actions/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/actions/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -228,7 +252,9 @@
             "jestConfig": "libs/actions/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/libs/actions"]
+          "outputs": [
+            "coverage/libs/actions"
+          ]
         }
       }
     },
@@ -241,7 +267,9 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/models/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/models/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -250,7 +278,9 @@
             "jestConfig": "libs/models/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/libs/models"]
+          "outputs": [
+            "coverage/libs/models"
+          ]
         }
       }
     },
@@ -268,12 +298,149 @@
           }
         }
       }
+    },
+    "twitch-overlay": {
+      "projectType": "application",
+      "root": "apps/twitch-overlay",
+      "sourceRoot": "apps/twitch-overlay/src",
+      "prefix": "streamkit",
+      "targets": {
+        "build": {
+          "executor": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/twitch-overlay",
+            "index": "apps/twitch-overlay/src/index.html",
+            "main": "apps/twitch-overlay/src/main.ts",
+            "polyfills": "apps/twitch-overlay/src/polyfills.ts",
+            "tsConfig": "apps/twitch-overlay/tsconfig.app.json",
+            "assets": [
+              "apps/twitch-overlay/src/favicon.ico",
+              "apps/twitch-overlay/src/assets"
+            ],
+            "styles": [
+              "apps/twitch-overlay/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/twitch-overlay/src/environments/environment.ts",
+                  "with": "apps/twitch-overlay/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "executor": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "twitch-overlay:build:production"
+            },
+            "development": {
+              "browserTarget": "twitch-overlay:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "executor": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "twitch-overlay:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/twitch-overlay/src/**/*.ts",
+              "apps/twitch-overlay/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/twitch-overlay"
+          ],
+          "options": {
+            "jestConfig": "apps/twitch-overlay/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "twitch-overlay-e2e": {
+      "root": "apps/twitch-overlay-e2e",
+      "sourceRoot": "apps/twitch-overlay-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/twitch-overlay-e2e/cypress.json",
+            "tsConfig": "apps/twitch-overlay-e2e/tsconfig.e2e.json",
+            "devServerTarget": "twitch-overlay:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "twitch-overlay:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/twitch-overlay-e2e/**/*.{js,ts}"
+            ]
+          }
+        }
+      }
     }
   },
   "generators": {
     "@schematics/angular:component": {
       "inlineStyle": true,
       "inlineTemplate": true
+    },
+    "@nrwl/angular:application": {
+      "style": "css",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "css",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "css"
     }
   },
   "defaultProject": "ngtwitch",
