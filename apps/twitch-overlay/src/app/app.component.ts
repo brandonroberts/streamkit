@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'ngtwitch-app',
+  selector: 'twitch-overlay-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })

@@ -1,4 +1,4 @@
-import { Chat } from '@ngtwitch/models';
+import { Chat } from '@streamkit/models';
 
 export interface Message extends Chat {
   active: boolean;

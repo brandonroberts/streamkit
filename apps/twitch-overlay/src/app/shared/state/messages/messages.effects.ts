@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { TwitchActions } from '@ngtwitch/actions';
+import { TwitchActions } from '@streamkit/actions';
 
 import * as MessagesActions from './messages.actions';
 import {

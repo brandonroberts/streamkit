@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { AlertsSelectors } from '../shared/state/alerts';
 
 @Component({
-  selector: 'ngtwitch-alerts',
+  selector: 'twitch-overlay-alerts',
   template: `
     <div
       class="alerts"

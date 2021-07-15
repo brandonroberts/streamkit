@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'ngtwitch-home-page',
-  template: ` <ngtwitch-alerts></ngtwitch-alerts> `,
+  selector: 'twitch-overlay-home-page',
+  template: ` <twitch-overlay-alerts></twitch-overlay-alerts> `,
   styles: [
     `
       :host {

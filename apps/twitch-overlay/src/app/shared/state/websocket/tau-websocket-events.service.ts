@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'apps/ngtwitch/src/environments/environment';
+import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
 import { filter, share } from 'rxjs/operators';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';

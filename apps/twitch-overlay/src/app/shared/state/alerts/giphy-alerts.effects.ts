@@ -4,8 +4,8 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Observable } from 'rxjs';
 import { concatMap, delay, filter, map } from 'rxjs/operators';
 
-import { TwitchActions } from '@ngtwitch/actions';
-import { Command } from '@ngtwitch/models';
+import { TwitchActions } from '@streamkit/actions';
+import { Command } from '@streamkit/models';
 
 import { GifSearchService } from '../../../gif-search.service';
 import * as AlertsActions from './alerts.actions';

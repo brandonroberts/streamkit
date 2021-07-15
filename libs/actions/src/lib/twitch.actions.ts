@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Chat, Command } from '@ngtwitch/models';
+import { Chat, Command } from '@streamkit/models';
 
 export const command = createAction(
   '[Twitch] Chat Command',

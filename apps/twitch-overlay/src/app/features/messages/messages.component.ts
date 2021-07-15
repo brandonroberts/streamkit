@@ -18,7 +18,7 @@ import {
 import { Message } from '../../shared/state/messages/messages.model';
 
 @Component({
-  selector: 'ngtwitch-messages',
+  selector: 'twitch-overlay-messages',
   template: `
     <div *ngIf="pinnedMessage$ | async as pinnedMessage">
       <div>

@@ -13,9 +13,9 @@
     "module": "es2020",
     "lib": ["es2018", "dom"],
     "paths": {
-      "@ngtwitch/api-interfaces": ["libs/api-interfaces/src/index.ts"],
-      "@ngtwitch/actions": ["libs/actions/src/index.ts"],
-      "@ngtwitch/models": ["libs/models/src/index.ts"]
+      "@streamkit/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@streamkit/actions": ["libs/actions/src/index.ts"],
+      "@streamkit/models": ["libs/models/src/index.ts"]
     }
   }
 }
