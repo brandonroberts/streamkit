@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "nx",
     "start": "nx run-many --target serve --all --parallel",
-    "heroku-postbuild": "nx build api --prod",
-    "start:api": "node dist/apps/api/main.js",
+    "heroku-postbuild": "nx build twitch-server --prod",
+    "start:api": "node dist/apps/twitch-server/main.js",
     "build": "nx build --prod",
     "prebuild": "ts-node ./tools/scripts/write-environment.ts",
     "test": "ng test",

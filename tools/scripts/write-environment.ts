@@ -5,7 +5,7 @@ const dotenv = require('dotenv');
 const { cwd } = require('process');
 
 dotenv.config();
-const environmentProdPath = path.join(cwd(), 'apps/ngtwitch/src/environments/environment.prod.ts');
+const environmentProdPath = path.join(cwd(), 'apps/twitch-overlay/src/environments/environment.prod.ts');
 
 const envKeys = {
   apiHost: 'API_HOST',

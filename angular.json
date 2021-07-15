@@ -3,7 +3,7 @@
   "cli": {
     "defaultCollection": "@nrwl/angular"
   },
-  "defaultProject": "ngtwitch",
+  "defaultProject": "twitch-overlay",
   "generators": {
     "@schematics/angular:component": {
       "inlineStyle": true,
@@ -326,7 +326,7 @@
       "projectType": "application",
       "root": "apps/twitch-overlay",
       "sourceRoot": "apps/twitch-overlay/src",
-      "prefix": "streamkit",
+      "prefix": "twitch-overlay",
       "targets": {
         "build": {
           "executor": "@angular-devkit/build-angular:browser",
