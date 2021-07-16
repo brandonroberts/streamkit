@@ -10,5 +10,8 @@ module.exports = {
     '<rootDir>/libs/youtube/shared/actions',
     '<rootDir>/libs/twitch/shared/actions',
     '<rootDir>/libs/shared/models',
+    '<rootDir>/libs/youtube/feature-messages',
+    '<rootDir>/libs/youtube/shared/state/messages',
+    '<rootDir>/libs/youtube/data-access-messages',
   ],
 };

@@ -11,14 +11,12 @@ import { AppComponent } from './app.component';
 import { AlertsComponent } from './alerts/alerts.component';
 import { HomePageComponent } from './features/home-page/home-page.component';
 import { SharedStateModule } from './shared/state/shared-state.module';
-import { MessagesComponent } from './features/messages/messages.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AlertsComponent,
-    HomePageComponent,
-    MessagesComponent,
+    HomePageComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +24,7 @@ import { MessagesComponent } from './features/messages/messages.component';
     HttpClientModule,
     RouterModule.forRoot([
       { path: '', pathMatch: 'full', component: HomePageComponent },
-      { path: 'messages', component: MessagesComponent },
+      { path: 'messages', loadChildren: () => import('@streamkit/youtube/feature-messages').then(m => m.YoutubeFeatureMessagesModule) },
       {
         path: 'broadcasts',
         loadChildren: () =>

@@ -4,12 +4,12 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { exhaustMap, filter, map, mergeMap, switchMap } from 'rxjs/operators';
 import randomColor from 'randomcolor';
 
-import { YouTubeWebSocketActions } from '@streamkit/youtube/shared/actions';
+import { YouTubeChatActions, YouTubeWebSocketActions } from '@streamkit/youtube/shared/actions';
+import { MessagesActions } from '@streamkit/youtube/shared/state/messages';
 
 import { subGif } from '../../../config';
 import { AlertsActions } from '../alerts';
-import { MessagesActions } from '../messages';
-import * as YouTubeActions from './youtube.actions';
+
 import { YouTubeService } from './youtube.service';
 
 @Injectable()
@@ -41,7 +41,7 @@ export class YouTubeEffects {
       ofType(YouTubeWebSocketActions.polledMessages),
       switchMap((action) => {
         const messages = action.data.messages.map((message) => {
-          return YouTubeActions.message({
+          return YouTubeChatActions.message({
             liveChatId: action.data.liveChatId,
             message: {
               id: message.id,
@@ -65,7 +65,7 @@ export class YouTubeEffects {
       ofType(AlertsActions.pageEnter),
       switchMap(() =>
         this.actions$.pipe(
-          ofType(YouTubeActions.message),
+          ofType(YouTubeChatActions.message),
           filter((action) => action.message.message.startsWith('!')),
           map((action) => {
             const command = action.message.message.split(' ')[0].substring(1);
@@ -73,7 +73,7 @@ export class YouTubeEffects {
               `!${command}`.length
             );
 
-            return YouTubeActions.command({
+            return YouTubeChatActions.command({
               liveChatId: action.liveChatId,
               command: {
                 user: action.message.user,
@@ -91,7 +91,7 @@ export class YouTubeEffects {
   responseToNgRxCommand$ = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(YouTubeActions.command),
+        ofType(YouTubeChatActions.command),
         filter(
           (action) =>
             action.command.command === 'ngrx' &&

@@ -4,7 +4,6 @@ import { StoreModule } from '@ngrx/store';
 
 import { AlertsFeature, AlertsEffects } from './alerts';
 import { WebSocketEffects } from './websocket';
-import { MessagesFeature } from './messages';
 import { YouTubeEffects } from './youtube/youtube.effects';
 import { SubscriptionsFeature } from './subscriptions';
 
@@ -14,10 +13,7 @@ import { SubscriptionsFeature } from './subscriptions';
       AlertsFeature.alertsFeatureKey,
       AlertsFeature.reducer
     ),
-    StoreModule.forFeature(
-      MessagesFeature.messagesFeatureKey,
-      MessagesFeature.reducer
-    ),
+
     EffectsModule.forFeature([
       AlertsEffects,
       WebSocketEffects,

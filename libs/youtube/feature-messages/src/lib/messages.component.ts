@@ -10,14 +10,13 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 
-
-import { MessageService } from '../../message.service';
+import { MessageService } from '@streamkit/youtube/data-access-messages';
 
 import {
   MessagesActions,
-  MessagesSelectors,
-} from '../../shared/state/messages';
-import { Message } from '../../shared/state/messages/messages.model';
+  MessagesSelectors
+} from '@streamkit/youtube/shared/state/messages';
+import { Message } from '@streamkit/youtube/shared/models';
 
 @Component({
   selector: 'youtube-overlay-messages',
@@ -127,7 +126,7 @@ export class MessagesComponent implements OnInit {
     private store: Store,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.store.dispatch(MessagesActions.enter());

@@ -24,7 +24,16 @@
         "libs/twitch/shared/actions/src/index.ts"
       ],
       "@streamkit/shared/actions": ["libs/shared/actions/src/index.ts"],
-      "@streamkit/shared/models": ["libs/shared/models/src/index.ts"]
+      "@streamkit/shared/models": ["libs/shared/models/src/index.ts"],
+      "@streamkit/youtube/feature-messages": [
+        "libs/youtube/feature-messages/src/index.ts"
+      ],
+      "@streamkit/youtube/shared/state/messages": [
+        "libs/youtube/shared/state/messages/src/index.ts"
+      ],
+      "@streamkit/youtube/data-access-messages": [
+        "libs/youtube/data-access-messages/src/index.ts"
+      ]
     }
   }
 }

@@ -52,6 +52,15 @@
     },
     "shared-models": {
       "tags": []
+    },
+    "youtube-feature-messages": {
+      "tags": []
+    },
+    "youtube-shared-state-messages": {
+      "tags": []
+    },
+    "youtube-data-access-messages": {
+      "tags": []
     }
   }
 }

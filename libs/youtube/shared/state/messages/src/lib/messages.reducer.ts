@@ -3,11 +3,10 @@ import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import randomColor from 'randomcolor';
 
 import { MessageActions } from '@streamkit/shared/actions';
-import { YouTubeWebSocketActions } from '@streamkit/youtube/shared/actions';
+import { YouTubeChatActions, YouTubeWebSocketActions } from '@streamkit/youtube/shared/actions';
+import { Message } from '@streamkit/youtube/shared/models';
 
-import * as YouTubeActions from '../youtube/youtube.actions';
 import * as MessagesActions from './messages.actions';
-import { Message } from './messages.model';
 
 export const messagesFeatureKey = 'messages';
 
@@ -53,7 +52,7 @@ export const reducer = createReducer(
       state
     );
   }),
-  on(YouTubeActions.message, (state, action) => {
+  on(YouTubeChatActions.message, (state, action) => {
     return adapter.upsertOne(action.message, state);
   })
 );

@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
-import { Command } from '@streamkit/shared/models';
 
-import { Message } from '../messages/messages.model';
+import { Command } from '@streamkit/shared/models';
+import { Message } from '@streamkit/youtube/shared/models';
 
 export const message = createAction(
   '[YouTube] Chat Message',

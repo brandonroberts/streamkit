@@ -6,10 +6,10 @@ import { from, Observable } from 'rxjs';
 
 import { GitHubActions } from '@streamkit/shared/actions';
 import { Command } from '@streamkit/shared/models';
+import { YouTubeChatActions } from '@streamkit/youtube/shared/actions';
 
 import { alerts, githubStarGif } from '../../../config';
 import { GifSearchService } from '../../../gif-search.service';
-import * as YouTubeActions from '../youtube/youtube.actions';
 import * as AlertsActions from './alerts.actions';
 
 const onCommand = (chatCommand: string) => (source$: Observable<Command>) => {
@@ -20,7 +20,7 @@ const onCommand = (chatCommand: string) => (source$: Observable<Command>) => {
 export class AlertsEffects {
   commandReceived$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(YouTubeActions.command),
+      ofType(YouTubeChatActions.command),
       filter(({ command: commandInfo }) => !!alerts[commandInfo.command]),
       map(({ command }) => {
         const commandInfo = command;
@@ -60,7 +60,7 @@ export class AlertsEffects {
 
   showGif$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(YouTubeActions.command),
+      ofType(YouTubeChatActions.command),
       map((action) => action.command),
       onCommand('gif'),
       concatMap(({ message }) => {
