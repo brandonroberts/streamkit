@@ -8,6 +8,6 @@ import { YouTubePollingService } from './youtube-polling.service';
 @Module({
   controllers: [YoutubeController],
   providers: [YoutubeService, YouTubeConfigService, YouTubePollingService],
-  exports: [YouTubePollingService]
+  exports: [YouTubePollingService],
 })
-export class YouTubeModule { }
+export class YouTubeModule {}

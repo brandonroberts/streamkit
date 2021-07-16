@@ -3,12 +3,12 @@ import { SubscriptionModel } from '@streamkit/youtube/shared/models';
 
 export const loadedMessages = createAction(
   'messages_loaded',
-  props<{ data: { liveChatId: string, messages: any[] } }>()
+  props<{ data: { liveChatId: string; messages: any[] } }>()
 );
 
 export const polledMessages = createAction(
   'messages_polled',
-  props<{ data: { liveChatId: string, messages: any[] } }>()
+  props<{ data: { liveChatId: string; messages: any[] } }>()
 );
 
 export const loadedSubscribers = createAction(

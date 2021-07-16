@@ -18,7 +18,7 @@ import { MessagesComponent } from './features/messages/messages.component';
     AppComponent,
     AlertsComponent,
     HomePageComponent,
-    MessagesComponent
+    MessagesComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,13 +27,19 @@ import { MessagesComponent } from './features/messages/messages.component';
     RouterModule.forRoot([
       { path: '', pathMatch: 'full', component: HomePageComponent },
       { path: 'messages', component: MessagesComponent },
-      { path: 'broadcasts', loadChildren: () => import('./features/broadcasts/broadcasts.module').then(m => m.BroadcastsModule) }
+      {
+        path: 'broadcasts',
+        loadChildren: () =>
+          import('./features/broadcasts/broadcasts.module').then(
+            (m) => m.BroadcastsModule
+          ),
+      },
     ]),
     StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument(),
     EffectsModule.forRoot(),
-    SharedStateModule
+    SharedStateModule,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

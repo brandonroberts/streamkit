@@ -1,21 +1,29 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class YouTubeService {
   constructor(private http: HttpClient) {}
 
   getBroadcasts() {
-    return this.http.get<{ items: any[] }>('/api/youtube/broadcasts')
-      .pipe(map(response => response.items.filter(item => item.status.lifeCycleStatus !== "complete")));
+    return this.http
+      .get<{ items: any[] }>('/api/youtube/broadcasts')
+      .pipe(
+        map((response) =>
+          response.items.filter(
+            (item) => item.status.lifeCycleStatus !== 'complete'
+          )
+        )
+      );
   }
 
   getSubscriptions() {
-    return this.http.get<{ items: any[] }>('/api/youtube/subscriptions')
-      .pipe(map(response => response.items));
+    return this.http
+      .get<{ items: any[] }>('/api/youtube/subscriptions')
+      .pipe(map((response) => response.items));
   }
 
   start(liveChatId: string) {
@@ -31,6 +39,9 @@ export class YouTubeService {
   }
 
   postMessage(liveChatId: string, message: string) {
-    return this.http.post(`/api/youtube/liveChatMessages?liveChatId=${liveChatId}`, { message });
+    return this.http.post(
+      `/api/youtube/liveChatMessages?liveChatId=${liveChatId}`,
+      { message }
+    );
   }
 }

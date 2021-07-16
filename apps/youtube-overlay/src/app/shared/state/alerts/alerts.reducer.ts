@@ -10,13 +10,13 @@ export interface State {
   alert?: {
     user: string;
     alert: Alert;
-  }
+  };
   paused: boolean;
 }
 
 export const initialState: State = {
   text: null,
-  paused: false
+  paused: false,
 };
 
 export const reducer = createReducer(
@@ -39,15 +39,16 @@ export const reducer = createReducer(
         text,
         alert: {
           user: action.user,
-          alert: action.alert
-        }
+          alert: action.alert,
+        },
       };
-    }),
+    }
+  ),
   on(AlertsActions.alertCleared, AlertsActions.gifCleared, (state) => {
     return {
       ...state,
       text: null,
-      alert: null
+      alert: null,
     };
   }),
   on(AlertsActions.gifAlert, (state, action) => {
@@ -59,7 +60,7 @@ export const reducer = createReducer(
     return {
       ...state,
       text,
-      alert: null
+      alert: null,
     };
   })
 );

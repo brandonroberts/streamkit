@@ -7,10 +7,7 @@ import { from, Observable } from 'rxjs';
 import { GitHubActions } from '@streamkit/shared/actions';
 import { Command } from '@streamkit/twitch/shared/models';
 
-import {
-  alerts,
-  githubStarGif,
-} from '../../../config';
+import { alerts, githubStarGif } from '../../../config';
 import { GifSearchService } from '../../../gif-search.service';
 import * as YouTubeActions from '../youtube/youtube.actions';
 import * as AlertsActions from './alerts.actions';
@@ -113,5 +110,5 @@ export class AlertsEffects {
   constructor(
     private actions$: Actions,
     private gifSearchService: GifSearchService
-  ) { }
+  ) {}
 }

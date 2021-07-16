@@ -20,7 +20,7 @@ export class YouTubeConfigService {
 
     const response = await fetch('https://oauth2.googleapis.com/token', {
       method: 'POST',
-      body: params
+      body: params,
     });
 
     const authData = await response.json();
@@ -51,7 +51,7 @@ export class YouTubeConfigService {
 
     const response = await fetch('https://oauth2.googleapis.com/token', {
       method: 'POST',
-      body: params
+      body: params,
     });
 
     const authData = await response.json();
@@ -67,15 +67,18 @@ export class YouTubeConfigService {
 
   storeCredentials(data: any, refreshToken: string) {
     this.accessToken = data.access_token;
-    
+
     console.log('token refreshed and stored');
 
-    fs.writeFileSync(join(cwd(), 'yt-oauth.json'), JSON.stringify({ ...data, refresh_token: refreshToken }, null, 2));
+    fs.writeFileSync(
+      join(cwd(), 'yt-oauth.json'),
+      JSON.stringify({ ...data, refresh_token: refreshToken }, null, 2)
+    );
   }
 
   getHeaders() {
     return {
-      'Authorization': `Bearer ${this.accessToken}`
+      Authorization: `Bearer ${this.accessToken}`,
     };
   }
 }

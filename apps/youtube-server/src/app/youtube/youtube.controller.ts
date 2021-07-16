@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Response, Get, Query, Redirect } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Response,
+  Get,
+  Query,
+  Redirect,
+} from '@nestjs/common';
 import { YouTubePollingService } from './youtube-polling.service';
 import { YoutubeService } from './youtube.service';
 
@@ -60,8 +68,15 @@ export class YoutubeController {
   }
 
   @Get('youtube/liveChatMessages')
-  async getLiveChatMessages(@Query('liveChatId') liveChatId: string, @Query('nextPageToken') nextPageToken: string, @Response() resp) {
-    const data = await this.youtubeService.getLiveChatMessages(liveChatId, nextPageToken);
+  async getLiveChatMessages(
+    @Query('liveChatId') liveChatId: string,
+    @Query('nextPageToken') nextPageToken: string,
+    @Response() resp
+  ) {
+    const data = await this.youtubeService.getLiveChatMessages(
+      liveChatId,
+      nextPageToken
+    );
 
     if (data.error) {
       return resp.status(data.error.code).json({ success: false });
@@ -71,8 +86,15 @@ export class YoutubeController {
   }
 
   @Post('youtube/liveChatMessages')
-  async postLiveChatMessage(@Query('liveChatId') liveChatId: string, @Body() body: { message: string }, @Response() resp) {
-    const data = await this.youtubeService.postChatMessage(liveChatId, body.message);
+  async postLiveChatMessage(
+    @Query('liveChatId') liveChatId: string,
+    @Body() body: { message: string },
+    @Response() resp
+  ) {
+    const data = await this.youtubeService.postChatMessage(
+      liveChatId,
+      body.message
+    );
 
     if (data.error) {
       return resp.status(403).json({ success: false });
@@ -93,8 +115,13 @@ export class YoutubeController {
   }
 
   @Get('youtube/start')
-  async startPolling(@Query('liveChatId') liveChatId: string, @Response() resp) {
-    const data = await this.youtubePollingService.getInitialDataAndStartPolling(liveChatId);
+  async startPolling(
+    @Query('liveChatId') liveChatId: string,
+    @Response() resp
+  ) {
+    const data = await this.youtubePollingService.getInitialDataAndStartPolling(
+      liveChatId
+    );
 
     if (data.error) {
       return resp.status(401).json({ success: false });
@@ -109,5 +136,4 @@ export class YoutubeController {
 
     return resp.json({ success: true });
   }
-
 }

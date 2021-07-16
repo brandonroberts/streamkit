@@ -11,18 +11,21 @@ import { YouTubeService } from '../../shared/state/youtube/youtube.service';
     <ul>
       <li *ngFor="let broadcast of broadcasts$ | async">
         {{ broadcast.snippet.description }}
-        <a routerLink="/messages" [queryParams]="{ liveChatId: broadcast.snippet.liveChatId }">Messages</a>
+        <a
+          routerLink="/messages"
+          [queryParams]="{ liveChatId: broadcast.snippet.liveChatId }"
+          >Messages</a
+        >
       </li>
     </ul>
-  `
+  `,
 })
 export class BroadcastsComponent implements OnInit {
   broadcasts$ = this.youtubeService.getBroadcasts();
 
-  constructor(private youtubeService: YouTubeService) { }
+  constructor(private youtubeService: YouTubeService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onStartPolling(liveChatId: string) {
     this.youtubeService.start(liveChatId).subscribe();

@@ -6,14 +6,12 @@ import { map, catchError } from 'rxjs/operators';
 import { AppConfigService } from './app-config.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GifSearchService {
   private _gifSearch: GiphyFetch;
 
-  constructor(
-    private injector: Injector
-  ) { }
+  constructor(private injector: Injector) {}
 
   get apiConfig() {
     return this.injector.get(AppConfigService).get();
@@ -29,8 +27,8 @@ export class GifSearchService {
 
   search(searchTerms: string) {
     return from(this.gifSearch.search(searchTerms)).pipe(
-      map(results => results.data[0]),
-      map(gif => gif.images.fixed_height.url),
+      map((results) => results.data[0]),
+      map((gif) => gif.images.fixed_height.url),
       catchError(() => of(''))
     );
   }

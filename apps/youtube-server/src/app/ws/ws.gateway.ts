@@ -5,14 +5,10 @@ import { YouTubePollingService } from '../youtube/youtube-polling.service';
 
 @WebSocketGateway()
 export class WsGateway {
-  constructor(
-    private youtubePollingService: YouTubePollingService
-  ) {}
+  constructor(private youtubePollingService: YouTubePollingService) {}
 
   @SubscribeMessage('subscribe')
   handleMessage() {
-    return merge(
-      this.youtubePollingService.messages$
-    );
+    return merge(this.youtubePollingService.messages$);
   }
 }

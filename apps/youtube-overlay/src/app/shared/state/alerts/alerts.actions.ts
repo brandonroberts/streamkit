@@ -23,14 +23,11 @@ export const followAlert = createAction(
   props<ChatAlert>()
 );
 
-export const subAlert = createAction(
-  '[Alerts] Sub Alert',
-  props<ChatAlert>()
-);
+export const subAlert = createAction('[Alerts] Sub Alert', props<ChatAlert>());
 
 export const gifAlert = createAction(
   '[Alerts] Gif Alert',
-  props<{ text: string, searchTerms: string; gifUrl: string }>()
+  props<{ text: string; searchTerms: string; gifUrl: string }>()
 );
 
 export const githubStarAlert = createAction(

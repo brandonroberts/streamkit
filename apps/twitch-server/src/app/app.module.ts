@@ -7,10 +7,7 @@ import { MessageService } from './message.service';
 import { WsGateway } from './ws/ws.gateway';
 
 @Module({
-  controllers: [
-    GitHubWebookController,
-    MessageController,
-  ],
+  controllers: [GitHubWebookController, MessageController],
   providers: [WsGateway, ChatBotService, MessageService],
 })
 export class AppModule {}
