@@ -47,3 +47,5 @@ Thumbs.db
 .env
 # Local Netlify folder
 .netlify
+
+*-oauth.json
