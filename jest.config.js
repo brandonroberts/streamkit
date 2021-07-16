@@ -10,5 +10,6 @@ module.exports = {
     '<rootDir>/libs/youtube/shared/models',
     '<rootDir>/libs/youtube/shared/actions',
     '<rootDir>/libs/twitch/shared/actions',
+    '<rootDir>/libs/shared/models',
   ],
 };

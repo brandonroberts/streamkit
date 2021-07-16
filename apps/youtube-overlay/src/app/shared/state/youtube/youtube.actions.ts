@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Command } from '@streamkit/twitch/shared/models';
+import { Command } from '@streamkit/shared/models';
 
 import { Message } from '../messages/messages.model';
 

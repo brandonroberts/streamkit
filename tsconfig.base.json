@@ -26,7 +26,8 @@
       "@streamkit/twitch/shared/actions": [
         "libs/twitch/shared/actions/src/index.ts"
       ],
-      "@streamkit/shared/actions": ["libs/shared/actions/src/index.ts"]
+      "@streamkit/shared/actions": ["libs/shared/actions/src/index.ts"],
+      "@streamkit/shared/models": ["libs/shared/models/src/index.ts"]
     }
   }
 }

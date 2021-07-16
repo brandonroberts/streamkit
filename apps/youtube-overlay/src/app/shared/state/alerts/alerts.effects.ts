@@ -5,7 +5,7 @@ import { concatMap, delay, filter, map } from 'rxjs/operators';
 import { from, Observable } from 'rxjs';
 
 import { GitHubActions } from '@streamkit/shared/actions';
-import { Command } from '@streamkit/twitch/shared/models';
+import { Command } from '@streamkit/shared/models';
 
 import { alerts, githubStarGif } from '../../../config';
 import { GifSearchService } from '../../../gif-search.service';

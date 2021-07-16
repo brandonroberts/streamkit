@@ -1,4 +1,4 @@
-import { Chat } from '@streamkit/twitch/shared/models';
+import { Chat } from '@streamkit/shared/models';
 
 export interface Message extends Chat {
   active: boolean;
