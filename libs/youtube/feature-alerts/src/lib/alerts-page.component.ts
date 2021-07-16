@@ -14,7 +14,7 @@ import { Component, OnInit } from '@angular/core';
     `,
   ],
 })
-export class HomePageComponent implements OnInit {
+export class AlertsPageComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}

@@ -803,6 +803,33 @@
           }
         }
       }
+    },
+    "youtube-feature-alerts": {
+      "projectType": "library",
+      "root": "libs/youtube/feature-alerts",
+      "sourceRoot": "libs/youtube/feature-alerts/src",
+      "prefix": "streamkit",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/youtube/feature-alerts"
+          ],
+          "options": {
+            "jestConfig": "libs/youtube/feature-alerts/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/youtube/feature-alerts/src/**/*.ts",
+              "libs/youtube/feature-alerts/src/**/*.html"
+            ]
+          }
+        }
+      }
     }
   }
 }

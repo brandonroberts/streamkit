@@ -18,5 +18,6 @@ module.exports = {
     '<rootDir>/libs/youtube/shared/config',
     '<rootDir>/libs/youtube/shared/state/alerts',
     '<rootDir>/libs/youtube/data-access-gif',
+    '<rootDir>/libs/youtube/feature-alerts',
   ],
 };
