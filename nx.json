@@ -38,9 +38,6 @@
       "tags": [],
       "implicitDependencies": ["youtube-overlay"]
     },
-    "twitch-shared-models": {
-      "tags": []
-    },
     "youtube-shared-models": {
       "tags": []
     },

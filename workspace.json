@@ -34,9 +34,7 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/api-interfaces/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/api-interfaces/**/*.ts"]
           }
         }
       }
@@ -74,9 +72,7 @@
               "apps/twitch-overlay/src/favicon.ico",
               "apps/twitch-overlay/src/assets"
             ],
-            "styles": [
-              "apps/twitch-overlay/src/styles.css"
-            ],
+            "styles": ["apps/twitch-overlay/src/styles.css"],
             "scripts": []
           },
           "configurations": {
@@ -158,9 +154,7 @@
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/twitch-overlay"
-          ],
+          "outputs": ["coverage/apps/twitch-overlay"],
           "options": {
             "jestConfig": "apps/twitch-overlay/jest.config.js",
             "passWithNoTests": true
@@ -189,9 +183,7 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/twitch-overlay-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/twitch-overlay-e2e/**/*.{js,ts}"]
           }
         }
       }
@@ -203,16 +195,12 @@
       "targets": {
         "build": {
           "executor": "@nrwl/node:build",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/twitch-server",
             "main": "apps/twitch-server/src/main.ts",
             "tsConfig": "apps/twitch-server/tsconfig.app.json",
-            "assets": [
-              "apps/twitch-server/src/assets"
-            ]
+            "assets": ["apps/twitch-server/src/assets"]
           },
           "configurations": {
             "production": {
@@ -237,16 +225,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/twitch-server/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/twitch-server/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/twitch-server"
-          ],
+          "outputs": ["coverage/apps/twitch-server"],
           "options": {
             "jestConfig": "apps/twitch-server/jest.config.js",
             "passWithNoTests": true
@@ -261,16 +245,12 @@
       "targets": {
         "build": {
           "executor": "@nrwl/node:build",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/youtube-server",
             "main": "apps/youtube-server/src/main.ts",
             "tsConfig": "apps/youtube-server/tsconfig.app.json",
-            "assets": [
-              "apps/youtube-server/src/assets"
-            ]
+            "assets": ["apps/youtube-server/src/assets"]
           },
           "configurations": {
             "production": {
@@ -295,16 +275,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/youtube-server/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/youtube-server/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/youtube-server"
-          ],
+          "outputs": ["coverage/apps/youtube-server"],
           "options": {
             "jestConfig": "apps/youtube-server/jest.config.js",
             "passWithNoTests": true
@@ -330,9 +306,7 @@
               "apps/youtube-overlay/src/favicon.ico",
               "apps/youtube-overlay/src/assets"
             ],
-            "styles": [
-              "apps/youtube-overlay/src/styles.css"
-            ],
+            "styles": ["apps/youtube-overlay/src/styles.css"],
             "scripts": []
           },
           "configurations": {
@@ -416,9 +390,7 @@
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/youtube-overlay"
-          ],
+          "outputs": ["coverage/apps/youtube-overlay"],
           "options": {
             "jestConfig": "apps/youtube-overlay/jest.config.js",
             "passWithNoTests": true
@@ -447,36 +419,8 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/youtube-overlay-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/youtube-overlay-e2e/**/*.{js,ts}"]
           }
-        }
-      }
-    },
-    "twitch-shared-models": {
-      "root": "libs/twitch/shared/models",
-      "sourceRoot": "libs/twitch/shared/models/src",
-      "projectType": "library",
-      "generators": {},
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/twitch/shared/models/**/*.ts"
-            ]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/twitch/shared/models/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": [
-            "coverage/libs/twitch/shared/models"
-          ]
         }
       }
     },
@@ -488,9 +432,7 @@
       "targets": {
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/youtube/shared/models"
-          ],
+          "outputs": ["coverage/libs/youtube/shared/models"],
           "options": {
             "jestConfig": "libs/youtube/shared/models/jest.config.js",
             "passWithNoTests": true
@@ -515,9 +457,7 @@
       "targets": {
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/youtube/shared/actions"
-          ],
+          "outputs": ["coverage/libs/youtube/shared/actions"],
           "options": {
             "jestConfig": "libs/youtube/shared/actions/jest.config.js",
             "passWithNoTests": true
@@ -542,9 +482,7 @@
       "targets": {
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/twitch/shared/actions"
-          ],
+          "outputs": ["coverage/libs/twitch/shared/actions"],
           "options": {
             "jestConfig": "libs/twitch/shared/actions/jest.config.js",
             "passWithNoTests": true
@@ -570,9 +508,7 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/actions/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared/actions/**/*.ts"]
           }
         },
         "test": {
@@ -581,9 +517,7 @@
             "jestConfig": "libs/shared/actions/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/shared/actions"
-          ]
+          "outputs": ["coverage/libs/shared/actions"]
         }
       }
     },
@@ -595,9 +529,7 @@
       "targets": {
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/shared/models"
-          ],
+          "outputs": ["coverage/libs/shared/models"],
           "options": {
             "jestConfig": "libs/shared/models/jest.config.js",
             "passWithNoTests": true
