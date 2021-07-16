@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { Alert } from '../../../config';
+import { Alert } from '@streamkit/youtube/shared/config';
 
 interface ChatAlert {
   user: string;

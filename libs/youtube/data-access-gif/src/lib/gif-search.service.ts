@@ -3,13 +3,13 @@ import { GiphyFetch } from '@giphy/js-fetch-api';
 import { from, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
-import { environment } from '../environments/environment';
+// import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GifSearchService {
-  private gifSearch = new GiphyFetch(environment.giphyApiKey);
+  private gifSearch = new GiphyFetch('');
 
   search(searchTerms: string) {
     return from(this.gifSearch.search(searchTerms)).pipe(

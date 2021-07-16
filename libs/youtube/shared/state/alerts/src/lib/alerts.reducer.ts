@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { Alert } from '../../../config';
+import { Alert } from '@streamkit/youtube/shared/config';
+
 import * as AlertsActions from './alerts.actions';
 
 export const alertsFeatureKey = 'alerts';

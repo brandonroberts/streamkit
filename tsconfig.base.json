@@ -39,6 +39,15 @@
       ],
       "@streamkit/youtube/data-access-youtube": [
         "libs/youtube/data-access-youtube/src/index.ts"
+      ],
+      "@streamkit/youtube/shared/config": [
+        "libs/youtube/shared/config/src/index.ts"
+      ],
+      "@streamkit/youtube/shared/state/alerts": [
+        "libs/youtube/shared/state/alerts/src/index.ts"
+      ],
+      "@streamkit/youtube/data-access-gif": [
+        "libs/youtube/data-access-gif/src/index.ts"
       ]
     }
   }

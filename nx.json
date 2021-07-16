@@ -67,6 +67,15 @@
     },
     "youtube-data-access-youtube": {
       "tags": []
+    },
+    "youtube-shared-config": {
+      "tags": []
+    },
+    "youtube-shared-state-alerts": {
+      "tags": []
+    },
+    "youtube-data-access-gif": {
+      "tags": []
     }
   }
 }

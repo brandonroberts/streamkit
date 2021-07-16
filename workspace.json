@@ -722,6 +722,87 @@
           }
         }
       }
+    },
+    "youtube-shared-config": {
+      "projectType": "library",
+      "root": "libs/youtube/shared/config",
+      "sourceRoot": "libs/youtube/shared/config/src",
+      "prefix": "streamkit",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/youtube/shared/config"
+          ],
+          "options": {
+            "jestConfig": "libs/youtube/shared/config/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/youtube/shared/config/src/**/*.ts",
+              "libs/youtube/shared/config/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "youtube-shared-state-alerts": {
+      "projectType": "library",
+      "root": "libs/youtube/shared/state/alerts",
+      "sourceRoot": "libs/youtube/shared/state/alerts/src",
+      "prefix": "streamkit",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/youtube/shared/state/alerts"
+          ],
+          "options": {
+            "jestConfig": "libs/youtube/shared/state/alerts/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/youtube/shared/state/alerts/src/**/*.ts",
+              "libs/youtube/shared/state/alerts/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "youtube-data-access-gif": {
+      "projectType": "library",
+      "root": "libs/youtube/data-access-gif",
+      "sourceRoot": "libs/youtube/data-access-gif/src",
+      "prefix": "streamkit",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/youtube/data-access-gif"
+          ],
+          "options": {
+            "jestConfig": "libs/youtube/data-access-gif/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/youtube/data-access-gif/src/**/*.ts",
+              "libs/youtube/data-access-gif/src/**/*.html"
+            ]
+          }
+        }
+      }
     }
   }
 }

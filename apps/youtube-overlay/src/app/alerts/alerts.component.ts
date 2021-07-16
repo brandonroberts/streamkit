@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 
-import { AlertsActions, AlertsSelectors } from '../shared/state/alerts';
+import { AlertsActions, AlertsSelectors } from '@streamkit/youtube/shared/state/alerts';
 
 @Component({
   selector: 'youtube-overlay-alerts',

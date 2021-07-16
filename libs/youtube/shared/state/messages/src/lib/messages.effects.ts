@@ -5,10 +5,11 @@ import { exhaustMap, filter, map, mergeMap, switchMap } from 'rxjs/operators';
 import randomColor from 'randomcolor';
 
 import { YouTubeChatActions, YouTubeWebSocketActions } from '@streamkit/youtube/shared/actions';
-import { MessagesActions } from '@streamkit/youtube/shared/state/messages';
+import { subGif } from '@streamkit/youtube/shared/config';
 import { YouTubeService } from '@streamkit/youtube/data-access-youtube';
 
-import { subGif } from '../../../config';
+import * as MessagesActions from './messages.actions';
+
 import { AlertsActions } from '../alerts';
 
 @Injectable()

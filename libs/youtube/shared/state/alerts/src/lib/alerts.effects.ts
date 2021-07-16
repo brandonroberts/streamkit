@@ -7,9 +7,9 @@ import { from, Observable } from 'rxjs';
 import { GitHubActions } from '@streamkit/shared/actions';
 import { Command } from '@streamkit/shared/models';
 import { YouTubeChatActions } from '@streamkit/youtube/shared/actions';
+import { alerts, githubStarGif } from '@streamkit/youtube/shared/config';
+import { GifSearchService } from '@streamkit/youtube/data-access-gif';
 
-import { alerts, githubStarGif } from '../../../config';
-import { GifSearchService } from '../../../gif-search.service';
 import * as AlertsActions from './alerts.actions';
 
 const onCommand = (chatCommand: string) => (source$: Observable<Command>) => {
