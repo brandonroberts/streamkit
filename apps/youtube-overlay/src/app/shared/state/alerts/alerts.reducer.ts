@@ -23,8 +23,6 @@ export const reducer = createReducer(
   initialState,
   on(
     AlertsActions.commandAlert,
-    AlertsActions.commandAlert,
-    AlertsActions.raidAlert,
     AlertsActions.followAlert,
     AlertsActions.subAlert,
     AlertsActions.githubStarAlert,

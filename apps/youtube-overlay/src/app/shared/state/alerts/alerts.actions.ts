@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+
 import { Alert } from '../../../config';
 
 interface ChatAlert {
@@ -10,11 +11,6 @@ export const pageEnter = createAction('[Alerts Page] Enter');
 
 export const commandAlert = createAction(
   '[Alerts] Command Alert',
-  props<ChatAlert>()
-);
-
-export const raidAlert = createAction(
-  '[Alerts] Raid Alert',
   props<ChatAlert>()
 );
 

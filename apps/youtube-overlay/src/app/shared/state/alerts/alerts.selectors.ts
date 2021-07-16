@@ -1,4 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+
 import * as fromAlerts from './alerts.reducer';
 
 export const selectAlertsState = createFeatureSelector<fromAlerts.State>(

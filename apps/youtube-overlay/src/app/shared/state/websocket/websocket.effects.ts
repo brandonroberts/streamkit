@@ -21,18 +21,6 @@ export class WebSocketEffects {
           subj.next({
             event: 'subscribe',
           });
-          // const accessToken = localStorage.getItem('access_token');
-          // const url = `wss://chat.api.restream.io/ws?accessToken=${accessToken}`;
-          // const subj = webSocket(url);
-          // subj.subscribe(console.log);
-          // const connection = new WebSocket(url);
-          // connection.onmessage = (message) => {
-          //   // IUpdates interface is provided on the right
-          //   const update = JSON.parse(message.data);
-          //   console.log(update);
-          // };
-
-          // connection.onerror = console.error;
         })
       );
     },

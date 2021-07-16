@@ -89,7 +89,6 @@ export class AlertsEffects {
     this.actions$.pipe(
       ofType(
         AlertsActions.commandAlert,
-        AlertsActions.raidAlert,
         AlertsActions.followAlert,
         AlertsActions.subAlert,
         AlertsActions.githubStarAlert

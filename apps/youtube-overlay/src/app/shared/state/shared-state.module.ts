@@ -4,7 +4,7 @@ import { StoreModule } from '@ngrx/store';
 
 import { AlertsFeature, AlertsEffects } from './alerts';
 import { WebSocketEffects } from './websocket';
-import { MessagesFeature, MessagesEffects } from './messages';
+import { MessagesFeature } from './messages';
 import { YouTubeEffects } from './youtube/youtube.effects';
 import { SubscriptionsFeature } from './subscriptions';
 
@@ -21,7 +21,6 @@ import { SubscriptionsFeature } from './subscriptions';
     EffectsModule.forFeature([
       AlertsEffects,
       WebSocketEffects,
-      MessagesEffects,
       YouTubeEffects,
     ]),
     StoreModule.forFeature(

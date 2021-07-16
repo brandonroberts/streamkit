@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { YouTubeActions } from '@streamkit/shared/actions';
-import { SubscriptionModel } from '@streamkit/twitch/shared/models';
+import { YouTubeWebSocketActions } from '@streamkit/youtube/shared/actions';
+import { SubscriptionModel } from '@streamkit/youtube/shared/models';
 
 export const subscriptionsFeatureKey = 'subscriptions';
 
@@ -17,10 +17,10 @@ export const initialState: State = adapter.getInitialState({
 
 export const reducer = createReducer(
   initialState,
-  on(YouTubeActions.loadedSubscribers, (state, action) =>
+  on(YouTubeWebSocketActions.loadedSubscribers, (state, action) =>
     adapter.setAll(action.data.subscriptions, state)
   ),
-  on(YouTubeActions.polledSubscribers, (state, action) =>
+  on(YouTubeWebSocketActions.polledSubscribers, (state, action) =>
     adapter.upsertMany(action.data.subscriptions, state)
   )
 );
