@@ -4,7 +4,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { concatMap, delay, filter, map } from 'rxjs/operators';
 import { from } from 'rxjs';
 
-import { TwitchActions } from '@streamkit/shared/actions';
+import { TwitchActions } from '@streamkit/twitch/shared/actions';
 
 import { alerts, followGif, raidGif, subGif } from '../../../config';
 import { TAUWebSocketEventSerivce } from '../websocket/tau-websocket-events.service';

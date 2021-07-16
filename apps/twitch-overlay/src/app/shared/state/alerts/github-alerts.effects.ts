@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import { map } from 'rxjs/operators';
 
-import { GitHubActions } from '@streamkit/actions';
+import { GitHubActions } from '@streamkit/shared/actions';
 
 import { githubStarGif } from '../../../config';
 

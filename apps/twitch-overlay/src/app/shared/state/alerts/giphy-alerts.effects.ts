@@ -4,7 +4,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Observable } from 'rxjs';
 import { concatMap, delay, filter, map } from 'rxjs/operators';
 
-import { TwitchActions } from '@streamkit/shared/actions';
+import { TwitchActions } from '@streamkit/twitch/shared/actions';
 import { Command } from '@streamkit/twitch/shared/models';
 
 import { GifSearchService } from '../../../gif-search.service';
