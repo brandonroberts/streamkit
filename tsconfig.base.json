@@ -13,7 +13,6 @@
     "module": "es2020",
     "lib": ["es2018", "dom"],
     "paths": {
-      "@streamkit/api-interfaces": ["libs/api-interfaces/src/index.ts"],
       "@streamkit/youtube/shared/models": [
         "libs/youtube/shared/models/src/index.ts"
       ],

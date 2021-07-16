@@ -12,9 +12,6 @@
   },
   "npmScope": "streamkit",
   "projects": {
-    "api-interfaces": {
-      "tags": []
-    },
     "tau": {
       "tags": []
     },
