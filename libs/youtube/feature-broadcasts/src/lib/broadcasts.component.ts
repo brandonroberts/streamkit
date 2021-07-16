@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { YouTubeService } from '../../shared/state/youtube/youtube.service';
+
+import { YouTubeService } from '@streamkit/youtube/data-access-youtube';
 
 @Component({
   selector: 'youtube-overlay-broadcasts',

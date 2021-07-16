@@ -13,5 +13,7 @@ module.exports = {
     '<rootDir>/libs/youtube/feature-messages',
     '<rootDir>/libs/youtube/shared/state/messages',
     '<rootDir>/libs/youtube/data-access-messages',
+    '<rootDir>/libs/youtube/feature-broadcasts',
+    '<rootDir>/libs/youtube/data-access-youtube',
   ],
 };

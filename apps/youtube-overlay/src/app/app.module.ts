@@ -28,8 +28,8 @@ import { SharedStateModule } from './shared/state/shared-state.module';
       {
         path: 'broadcasts',
         loadChildren: () =>
-          import('./features/broadcasts/broadcasts.module').then(
-            (m) => m.BroadcastsModule
+          import('@streamkit/youtube/feature-broadcasts').then(
+            (m) => m.YoutubeFeatureBroadcastsModule
           ),
       },
     ]),

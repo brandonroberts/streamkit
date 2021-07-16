@@ -33,6 +33,12 @@
       ],
       "@streamkit/youtube/data-access-messages": [
         "libs/youtube/data-access-messages/src/index.ts"
+      ],
+      "@streamkit/youtube/feature-broadcasts": [
+        "libs/youtube/feature-broadcasts/src/index.ts"
+      ],
+      "@streamkit/youtube/data-access-youtube": [
+        "libs/youtube/data-access-youtube/src/index.ts"
       ]
     }
   }

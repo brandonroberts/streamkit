@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
+
 import { BroadcastsComponent } from './broadcasts.component';
 
 const routes: Routes = [{ path: '', component: BroadcastsComponent }];
@@ -9,4 +10,4 @@ const routes: Routes = [{ path: '', component: BroadcastsComponent }];
   declarations: [BroadcastsComponent],
   imports: [CommonModule, RouterModule.forChild(routes)],
 })
-export class BroadcastsModule {}
+export class YoutubeFeatureBroadcastsModule {}
