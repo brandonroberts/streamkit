@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SharedActions, createEffect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import { map } from 'rxjs/operators';
 
@@ -29,5 +29,5 @@ export class GithubAlertsEffects {
     )
   );
 
-  constructor(private actions$: SharedActions) {}
+  constructor(private actions$: Actions) {}
 }

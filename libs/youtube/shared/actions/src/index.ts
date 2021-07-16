@@ -1,3 +1,3 @@
-import * as YouTubeActions from './lib/youtube.actions';
+import * as YouTubeWebSocketActions from './lib/youtube.actions';
 
-export { YouTubeActions };
+export { YouTubeWebSocketActions };

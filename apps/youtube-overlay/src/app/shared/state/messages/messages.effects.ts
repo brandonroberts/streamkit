@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { SharedActions, createEffect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { delay, map, switchMap } from 'rxjs/operators';
-import { TwitchActions } from '@streamkit/shared/actions';
 
 import * as MessagesActions from './messages.actions';
 import * as YouTubeActions from '../youtube/youtube.actions';
@@ -12,7 +11,7 @@ export class MessagesEffects {
   clearMessages$ = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(TwitchActions.message, YouTubeActions.message),
+        ofType(YouTubeActions.message),
         switchMap(() =>
           of(null).pipe(
             delay(15000),
@@ -24,5 +23,5 @@ export class MessagesEffects {
     { dispatch: false }
   );
 
-  constructor(private actions$: SharedActions) {}
+  constructor(private actions$: Actions) {}
 }

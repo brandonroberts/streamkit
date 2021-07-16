@@ -2,20 +2,12 @@ import { Action, createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import randomColor from 'randomcolor';
 
-import {
-  MessageActions,
-  TwitchActions,
-  YouTubeActions as YouTubeApiActions,
-} from '@streamkit/shared/actions';
-
-import {
-  collectEmoteReplacements,
-  formatMessage,
-  Message,
-} from './messages.model';
+import { MessageActions } from '@streamkit/shared/actions';
+import { YouTubeWebSocketActions } from '@streamkit/youtube/shared/actions';
 
 import * as YouTubeActions from '../youtube/youtube.actions';
 import * as MessagesActions from './messages.actions';
+import { Message } from './messages.model';
 
 export const messagesFeatureKey = 'messages';
 
@@ -33,15 +25,6 @@ export const initialState: State = adapter.getInitialState({
 
 export const reducer = createReducer(
   initialState,
-  on(TwitchActions.message, (state, action) => {
-    const emoteReplacements = collectEmoteReplacements(action.message);
-    const formattedMessage = formatMessage(action.message, emoteReplacements);
-
-    return adapter.addOne(
-      { ...action.message, formattedMessage, active: true },
-      state
-    );
-  }),
   on(MessagesActions.messagesCleared, (state) =>
     adapter.map((message) => {
       return {
@@ -54,7 +37,7 @@ export const reducer = createReducer(
     ...state,
     pinnedMessageId: action.id,
   })),
-  on(YouTubeApiActions.loadedMessages, (state, action) => {
+  on(YouTubeWebSocketActions.loadedMessages, (state, action) => {
     return adapter.setAll(
       (action.data.messages || []).map((message) => {
         return {

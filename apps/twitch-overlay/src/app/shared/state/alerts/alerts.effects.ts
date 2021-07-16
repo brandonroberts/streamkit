@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SharedActions, createEffect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import { concatMap, delay, filter, map } from 'rxjs/operators';
 import { from } from 'rxjs';
@@ -108,7 +108,7 @@ export class AlertsEffects {
   );
 
   constructor(
-    private actions$: SharedActions,
+    private actions$: Actions,
     private wsEventService: TAUWebSocketEventSerivce
   ) {}
 }

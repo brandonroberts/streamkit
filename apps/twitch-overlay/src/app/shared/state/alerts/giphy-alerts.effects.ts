@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SharedActions, createEffect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import { Observable } from 'rxjs';
 import { concatMap, delay, filter, map } from 'rxjs/operators';
@@ -44,7 +44,7 @@ export class GiphyAlertsEffects {
   );
 
   constructor(
-    private actions$: SharedActions,
+    private actions$: Actions,
     private gifSearchService: GifSearchService
   ) {}
 }

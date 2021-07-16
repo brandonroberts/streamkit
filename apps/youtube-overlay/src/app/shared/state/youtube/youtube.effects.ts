@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { SharedActions, createEffect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { exhaustMap, filter, map, mergeMap, switchMap } from 'rxjs/operators';
 import randomColor from 'randomcolor';
 
-import { YouTubeActions as YouTubeWebSocketActions } from '@streamkit/shared/actions';
+import { YouTubeWebSocketActions } from '@streamkit/youtube/shared/actions';
 
 import { subGif } from '../../../config';
 import { AlertsActions } from '../alerts';
@@ -132,7 +132,7 @@ export class YouTubeEffects {
   );
 
   constructor(
-    private actions$: SharedActions,
+    private actions$: Actions,
     private youtubService: YouTubeService,
     private router: Router
   ) {}

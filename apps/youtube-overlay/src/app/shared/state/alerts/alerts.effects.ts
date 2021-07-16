@@ -1,18 +1,15 @@
 import { Injectable } from '@angular/core';
-import { SharedActions, createEffect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import { concatMap, delay, filter, map } from 'rxjs/operators';
 import { from, Observable } from 'rxjs';
 
-import { GitHubActions, TwitchActions } from '@streamkit/shared/actions';
+import { GitHubActions } from '@streamkit/shared/actions';
 import { Command } from '@streamkit/twitch/shared/models';
 
 import {
   alerts,
-  followGif,
   githubStarGif,
-  raidGif,
-  subGif,
 } from '../../../config';
 import { GifSearchService } from '../../../gif-search.service';
 import * as YouTubeActions from '../youtube/youtube.actions';
@@ -26,11 +23,7 @@ const onCommand = (chatCommand: string) => (source$: Observable<Command>) => {
 export class AlertsEffects {
   commandReceived$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(
-        TwitchActions.command,
-        TwitchActions.broadcast,
-        YouTubeActions.command
-      ),
+      ofType(YouTubeActions.command),
       filter(({ command: commandInfo }) => !!alerts[commandInfo.command]),
       map(({ command }) => {
         const commandInfo = command;
@@ -70,7 +63,7 @@ export class AlertsEffects {
 
   showGif$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(TwitchActions.broadcast, YouTubeActions.command),
+      ofType(YouTubeActions.command),
       map((action) => action.command),
       onCommand('gif'),
       concatMap(({ message }) => {
@@ -118,7 +111,7 @@ export class AlertsEffects {
   );
 
   constructor(
-    private actions$: SharedActions,
+    private actions$: Actions,
     private gifSearchService: GifSearchService
-  ) {}
+  ) { }
 }
