@@ -3,7 +3,10 @@ import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import randomColor from 'randomcolor';
 
 import { MessageActions } from '@streamkit/shared/actions';
-import { YouTubeChatActions, YouTubeWebSocketActions } from '@streamkit/youtube/shared/actions';
+import {
+  YouTubeChatActions,
+  YouTubeWebSocketActions,
+} from '@streamkit/youtube/shared/actions';
 import { Message } from '@streamkit/youtube/shared/models';
 
 import * as MessagesActions from './messages.actions';

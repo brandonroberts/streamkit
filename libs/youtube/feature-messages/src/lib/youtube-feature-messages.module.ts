@@ -7,12 +7,11 @@ import { YoutubeSharedStateMessagesModule } from '@streamkit/youtube/shared/stat
 import { MessagesComponent } from './messages.component';
 
 @NgModule({
+  declarations: [MessagesComponent],
   imports: [
     CommonModule,
     YoutubeSharedStateMessagesModule,
-    RouterModule.forChild([
-      { path: '', component: MessagesComponent }
-    ])
+    RouterModule.forChild([{ path: '', component: MessagesComponent }]),
   ],
 })
 export class YoutubeFeatureMessagesModule {}

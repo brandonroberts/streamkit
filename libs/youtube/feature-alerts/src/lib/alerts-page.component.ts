@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'youtube-overlay-home-page',
-  template: ` <youtube-overlay-alerts></youtube-overlay-alerts> `,
+  selector: 'youtube-overlay-alerts-page',
+  template: ``,
   styles: [
     `
       :host {

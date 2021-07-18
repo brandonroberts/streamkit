@@ -11,17 +11,27 @@ import { AppComponent } from './app.component';
 import { SharedStateModule } from './shared/state/shared-state.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     RouterModule.forRoot([
       { path: '', pathMatch: 'full', redirectTo: '/alerts' },
-      { path: 'alerts', loadChildren: () => import('@streamkit/youtube/feature-alerts').then(m => m.YoutubeFeatureAlertsModule) },
-      { path: 'messages', loadChildren: () => import('@streamkit/youtube/feature-messages').then(m => m.YoutubeFeatureMessagesModule) },
+      {
+        path: 'alerts',
+        loadChildren: () =>
+          import('@streamkit/youtube/feature-alerts').then(
+            (m) => m.YoutubeFeatureAlertsModule
+          ),
+      },
+      {
+        path: 'messages',
+        loadChildren: () =>
+          import('@streamkit/youtube/feature-messages').then(
+            (m) => m.YoutubeFeatureMessagesModule
+          ),
+      },
       {
         path: 'broadcasts',
         loadChildren: () =>

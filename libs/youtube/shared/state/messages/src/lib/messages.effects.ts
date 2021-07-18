@@ -4,7 +4,10 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { exhaustMap, filter, map, mergeMap, switchMap } from 'rxjs/operators';
 import randomColor from 'randomcolor';
 
-import { YouTubeChatActions, YouTubeWebSocketActions } from '@streamkit/youtube/shared/actions';
+import {
+  YouTubeChatActions,
+  YouTubeWebSocketActions,
+} from '@streamkit/youtube/shared/actions';
 import { subGif } from '@streamkit/youtube/shared/config';
 import { YouTubeService } from '@streamkit/youtube/data-access-youtube';
 

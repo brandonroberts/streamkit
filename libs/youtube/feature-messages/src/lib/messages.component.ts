@@ -14,7 +14,7 @@ import { MessageService } from '@streamkit/youtube/data-access-messages';
 
 import {
   MessagesActions,
-  MessagesSelectors
+  MessagesSelectors,
 } from '@streamkit/youtube/shared/state/messages';
 import { Message } from '@streamkit/youtube/shared/models';
 
@@ -126,7 +126,7 @@ export class MessagesComponent implements OnInit {
     private store: Store,
     private messageService: MessageService,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.store.dispatch(MessagesActions.enter());

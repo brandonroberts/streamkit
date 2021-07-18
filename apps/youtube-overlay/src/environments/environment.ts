@@ -7,7 +7,7 @@ export const environment = {
   authHost: 'http://localhost:4200',
   apiHost: 'http://localhost:3333',
   wsHost: 'ws://localhost:3333',
-  giphyApiKey: ''
+  giphyApiKey: '',
 };
 
 /*

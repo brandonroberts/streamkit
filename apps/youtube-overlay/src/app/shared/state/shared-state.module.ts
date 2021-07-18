@@ -7,9 +7,7 @@ import { SubscriptionsFeature } from './subscriptions';
 
 @NgModule({
   imports: [
-    EffectsModule.forFeature([
-      WebSocketEffects,
-    ]),
+    EffectsModule.forFeature([WebSocketEffects]),
     StoreModule.forFeature(
       SubscriptionsFeature.subscriptionsFeatureKey,
       SubscriptionsFeature.reducer

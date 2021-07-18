@@ -4,7 +4,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 import * as AlertsFeature from './alerts.reducer';
-import { AlertsEffects  } from './alerts.effects';
+import { AlertsEffects } from './alerts.effects';
 
 @NgModule({
   imports: [
@@ -12,9 +12,7 @@ import { AlertsEffects  } from './alerts.effects';
       AlertsFeature.alertsFeatureKey,
       AlertsFeature.reducer
     ),
-    EffectsModule.forFeature([
-      AlertsEffects,
-    ]),
+    EffectsModule.forFeature([AlertsEffects]),
   ],
 })
 export class YoutubeSharedStateAlertsModule {}
