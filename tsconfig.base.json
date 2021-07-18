@@ -50,6 +50,9 @@
       ],
       "@streamkit/youtube/feature-alerts": [
         "libs/youtube/feature-alerts/src/index.ts"
+      ],
+      "@streamkit/youtube/shared/state/subscriptions": [
+        "libs/youtube/shared/state/subscriptions/src/index.ts"
       ]
     }
   }

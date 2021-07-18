@@ -76,6 +76,9 @@
     },
     "youtube-feature-alerts": {
       "tags": []
+    },
+    "youtube-shared-state-subscriptions": {
+      "tags": []
     }
   }
 }

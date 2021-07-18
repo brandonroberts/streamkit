@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { YoutubeSharedStateAlertsModule } from '@streamkit/youtube/shared/state/alerts';
+import { YoutubeSharedStateSubscriptionsModule } from '@streamkit/youtube/shared/state/subscriptions';
 
 import { AlertsPageComponent } from './alerts-page.component';
 import { AlertsComponent } from './alerts.component';
@@ -13,6 +14,7 @@ import { AlertsComponent } from './alerts.component';
     CommonModule,
     RouterModule.forChild([{ path: '', component: AlertsPageComponent }]),
     YoutubeSharedStateAlertsModule,
+    YoutubeSharedStateSubscriptionsModule
   ],
 })
 export class YoutubeFeatureAlertsModule {}
