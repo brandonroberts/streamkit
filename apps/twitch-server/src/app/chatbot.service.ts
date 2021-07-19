@@ -7,7 +7,8 @@ import uuid from 'uuid';
 import WebSocket from 'ws';
 
 import { Command, Chat } from '@streamkit/shared/models';
-import { GitHubActions, TwitchActions } from '@streamkit/shared/actions';
+import { GitHubActions } from '@streamkit/shared/actions';
+import { TwitchActions } from '@streamkit/twitch/shared/actions';
 
 import { commandResponses } from './config';
 
