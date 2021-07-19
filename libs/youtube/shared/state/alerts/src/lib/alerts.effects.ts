@@ -4,10 +4,10 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { concatMap, delay, filter, map } from 'rxjs/operators';
 import { from, Observable } from 'rxjs';
 
-import { GitHubActions } from '@streamkit/shared/actions';
+import { alerts } from '@streamkit/shared/config';
 import { Command } from '@streamkit/shared/models';
+import { GitHubAlertActions } from '@streamkit/github/shared/state/alerts';
 import { YouTubeChatActions } from '@streamkit/youtube/shared/actions';
-import { alerts, githubStarGif } from '@streamkit/youtube/shared/config';
 import { GifSearchService } from '@streamkit/youtube/data-access-gif';
 
 import * as AlertsActions from './alerts.actions';
@@ -36,24 +36,6 @@ export class AlertsEffects {
         }
 
         return AlertsActions.commandAlert({ user, alert });
-      })
-    )
-  );
-
-  githubStar$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(GitHubActions.githubStar),
-      map((action) => {
-        return AlertsActions.githubStarAlert({
-          user: action.username,
-          alert: {
-            title: ``,
-            gif: githubStarGif,
-            showMessage: false,
-            duration: 5000,
-            subsOnly: false,
-          },
-        });
       })
     )
   );
@@ -91,7 +73,7 @@ export class AlertsEffects {
         AlertsActions.commandAlert,
         AlertsActions.followAlert,
         AlertsActions.subAlert,
-        AlertsActions.githubStarAlert
+        GitHubAlertActions.githubStarAlert
       ),
       concatMap(({ alert }) => {
         const audio = alert.audio

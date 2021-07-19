@@ -65,9 +65,6 @@
     "youtube-data-access-youtube": {
       "tags": []
     },
-    "youtube-shared-config": {
-      "tags": []
-    },
     "youtube-shared-state-alerts": {
       "tags": []
     },
@@ -84,6 +81,12 @@
       "tags": []
     },
     "youtube-shared-environment": {
+      "tags": []
+    },
+    "github-shared-state-alerts": {
+      "tags": []
+    },
+    "shared-config": {
       "tags": []
     }
   }

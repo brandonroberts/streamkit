@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { Alert } from '@streamkit/youtube/shared/config';
+import { GitHubAlertActions } from '@streamkit/github/shared/state/alerts';
+import { Alert } from '@streamkit/shared/config';
 
 import * as AlertsActions from './alerts.actions';
 
@@ -26,7 +27,7 @@ export const reducer = createReducer(
     AlertsActions.commandAlert,
     AlertsActions.followAlert,
     AlertsActions.subAlert,
-    AlertsActions.githubStarAlert,
+    GitHubAlertActions.githubStarAlert,
     (state, action) => {
       const text = `
       <h1>${action.user}${action.alert.title}</h1>

@@ -1,6 +1,6 @@
 module.exports = {
-  displayName: 'youtube-shared-config',
-  preset: '../../../../jest.preset.js',
+  displayName: 'shared-config',
+  preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -14,7 +14,7 @@ module.exports = {
       },
     },
   },
-  coverageDirectory: '../../../../coverage/libs/youtube/shared/config',
+  coverageDirectory: '../../../coverage/libs/shared/config',
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',
     'jest-preset-angular/build/serializers/ng-snapshot',

@@ -8,15 +8,14 @@ import {
   YouTubeChatActions,
   YouTubeWebSocketActions,
 } from '@streamkit/youtube/shared/actions';
-import { subGif } from '@streamkit/youtube/shared/config';
+import { subGif } from '@streamkit/shared/config';
 import { YouTubeService } from '@streamkit/youtube/data-access-youtube';
+import { AlertsActions } from '@streamkit/youtube/shared/state/alerts';
 
 import * as MessagesActions from './messages.actions';
 
-import { AlertsActions } from '../alerts';
-
 @Injectable()
-export class YouTubeEffects {
+export class MessagesEffects {
   startPolling$ = createEffect(
     () => {
       return this.actions$.pipe(

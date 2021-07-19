@@ -707,33 +707,6 @@
         }
       }
     },
-    "youtube-shared-config": {
-      "projectType": "library",
-      "root": "libs/youtube/shared/config",
-      "sourceRoot": "libs/youtube/shared/config/src",
-      "prefix": "streamkit",
-      "targets": {
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/youtube/shared/config"
-          ],
-          "options": {
-            "jestConfig": "libs/youtube/shared/config/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/youtube/shared/config/src/**/*.ts",
-              "libs/youtube/shared/config/src/**/*.html"
-            ]
-          }
-        }
-      }
-    },
     "youtube-shared-state-alerts": {
       "projectType": "library",
       "root": "libs/youtube/shared/state/alerts",
@@ -891,6 +864,60 @@
             "lintFilePatterns": [
               "libs/youtube/shared/environment/src/**/*.ts",
               "libs/youtube/shared/environment/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "github-shared-state-alerts": {
+      "projectType": "library",
+      "root": "libs/github/shared/state/alerts",
+      "sourceRoot": "libs/github/shared/state/alerts/src",
+      "prefix": "streamkit",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/github/shared/state/alerts"
+          ],
+          "options": {
+            "jestConfig": "libs/github/shared/state/alerts/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/github/shared/state/alerts/src/**/*.ts",
+              "libs/github/shared/state/alerts/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "shared-config": {
+      "projectType": "library",
+      "root": "libs/shared/config",
+      "sourceRoot": "libs/shared/config/src",
+      "prefix": "streamkit",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/shared/config"
+          ],
+          "options": {
+            "jestConfig": "libs/shared/config/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/config/src/**/*.ts",
+              "libs/shared/config/src/**/*.html"
             ]
           }
         }

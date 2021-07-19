@@ -39,9 +39,6 @@
       "@streamkit/youtube/data-access-youtube": [
         "libs/youtube/data-access-youtube/src/index.ts"
       ],
-      "@streamkit/youtube/shared/config": [
-        "libs/youtube/shared/config/src/index.ts"
-      ],
       "@streamkit/youtube/shared/state/alerts": [
         "libs/youtube/shared/state/alerts/src/index.ts"
       ],
@@ -59,7 +56,11 @@
       ],
       "@streamkit/youtube/shared/environment": [
         "libs/youtube/shared/environment/src/index.ts"
-      ]
+      ],
+      "@streamkit/github/shared/state/alerts": [
+        "libs/github/shared/state/alerts/src/index.ts"
+      ],
+      "@streamkit/shared/config": ["libs/shared/config/src/index.ts"]
     }
   }
 }

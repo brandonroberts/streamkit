@@ -1,11 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { Alert } from '@streamkit/youtube/shared/config';
-
-export interface ChatAlert {
-  user: string;
-  alert: Alert;
-}
+import { ChatAlert } from '@streamkit/shared/models';
 
 export const pageEnter = createAction('[Alerts Page] Enter');
 
@@ -26,12 +21,7 @@ export const gifAlert = createAction(
   props<{ text: string; searchTerms: string; gifUrl: string }>()
 );
 
-export const githubStarAlert = createAction(
-  '[Alerts] GitHub Star',
-  props<ChatAlert>()
-);
-
-export const subOnlyAlert = createAction('[Twitch] Sub-Only Command');
+export const subOnlyAlert = createAction('[Alerts] Sub-Only Command');
 
 export const alertCleared = createAction('[Alerts] Alert Cleared');
 
