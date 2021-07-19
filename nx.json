@@ -79,6 +79,12 @@
     },
     "youtube-shared-state-subscriptions": {
       "tags": []
+    },
+    "youtube-shared-state-websocket": {
+      "tags": []
+    },
+    "youtube-shared-environment": {
+      "tags": []
     }
   }
 }

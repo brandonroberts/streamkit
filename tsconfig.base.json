@@ -53,6 +53,12 @@
       ],
       "@streamkit/youtube/shared/state/subscriptions": [
         "libs/youtube/shared/state/subscriptions/src/index.ts"
+      ],
+      "@streamkit/youtube/shared/state/websocket": [
+        "libs/youtube/shared/state/websocket/src/index.ts"
+      ],
+      "@streamkit/youtube/shared/environment": [
+        "libs/youtube/shared/environment/src/index.ts"
       ]
     }
   }

@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { webSocket } from 'rxjs/webSocket';
 import { tap } from 'rxjs/operators';
 
-import { environment } from '../../../../environments/environment';
+import { EnvironmentConfig, ENVIRONMENT } from '@streamkit/youtube/shared/environment';
 
 import { init } from './websocket.actions';
 
@@ -15,7 +15,7 @@ export class WebSocketEffects {
       return this.actions$.pipe(
         ofType(init),
         tap(() => {
-          const subj = webSocket(`${environment.wsHost}`);
+          const subj = webSocket(`${this.environment.wsHost}`);
           subj.subscribe(this.store);
 
           subj.next({
@@ -27,7 +27,11 @@ export class WebSocketEffects {
     { dispatch: false }
   );
 
-  constructor(private actions$: Actions, private store: Store) {}
+  constructor(
+    private actions$: Actions,
+    private store: Store,
+    @Inject(ENVIRONMENT) private environment: EnvironmentConfig 
+  ) {}
 
   ngrxOnInitEffects() {
     return init();

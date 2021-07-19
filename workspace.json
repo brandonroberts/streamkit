@@ -841,6 +841,60 @@
           }
         }
       }
+    },
+    "youtube-shared-state-websocket": {
+      "projectType": "library",
+      "root": "libs/youtube/shared/state/websocket",
+      "sourceRoot": "libs/youtube/shared/state/websocket/src",
+      "prefix": "streamkit",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/youtube/shared/state/websocket"
+          ],
+          "options": {
+            "jestConfig": "libs/youtube/shared/state/websocket/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/youtube/shared/state/websocket/src/**/*.ts",
+              "libs/youtube/shared/state/websocket/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "youtube-shared-environment": {
+      "projectType": "library",
+      "root": "libs/youtube/shared/environment",
+      "sourceRoot": "libs/youtube/shared/environment/src",
+      "prefix": "streamkit",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/youtube/shared/environment"
+          ],
+          "options": {
+            "jestConfig": "libs/youtube/shared/environment/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/youtube/shared/environment/src/**/*.ts",
+              "libs/youtube/shared/environment/src/**/*.html"
+            ]
+          }
+        }
+      }
     }
   }
 }

@@ -7,8 +7,11 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
+import { YoutubeSharedStateWebsocketModule } from '@streamkit/youtube/shared/state/websocket';
+import { YoutubeSharedEnvironmentModule } from '@streamkit/youtube/shared/environment';
+
 import { AppComponent } from './app.component';
-import { SharedStateModule } from './shared/state/shared-state.module';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -43,7 +46,8 @@ import { SharedStateModule } from './shared/state/shared-state.module';
     StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument(),
     EffectsModule.forRoot(),
-    SharedStateModule,
+    YoutubeSharedEnvironmentModule.forRoot(environment),
+    YoutubeSharedStateWebsocketModule,
   ],
   bootstrap: [AppComponent],
 })

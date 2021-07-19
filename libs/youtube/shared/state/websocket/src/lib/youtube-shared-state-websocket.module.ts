@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 
-import { WebSocketEffects } from './websocket';
+import { WebSocketEffects } from './websocket.effects';
 
 @NgModule({
   imports: [
     EffectsModule.forFeature([WebSocketEffects]),
   ],
 })
-export class SharedStateModule {}
+export class YoutubeSharedStateWebsocketModule {}

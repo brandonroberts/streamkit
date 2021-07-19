@@ -20,5 +20,7 @@ module.exports = {
     '<rootDir>/libs/youtube/data-access-gif',
     '<rootDir>/libs/youtube/feature-alerts',
     '<rootDir>/libs/youtube/shared/state/subscriptions',
+    '<rootDir>/libs/youtube/shared/state/websocket',
+    '<rootDir>/libs/youtube/shared/environment',
   ],
 };
