@@ -39,7 +39,7 @@ export const reducer = createReducer(
     ...state,
     pinnedMessageId: action.id,
   })),
-  on(YouTubeWebSocketActions.loadedMessages, (state, action) => {
+  on(YouTubeWebSocketActions.loadedMessages, MessagesActions.messagesLoadedSuccess, (state, action) => {
     return adapter.setAll(
       (action.data.messages || []).map((message) => {
         return {

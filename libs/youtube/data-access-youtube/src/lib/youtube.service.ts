@@ -27,7 +27,7 @@ export class YouTubeService {
   }
 
   start(liveChatId: string) {
-    return this.http.get(`/api/youtube/start?liveChatId=${liveChatId}`);
+    return this.http.get<{ items: any[] }>(`/api/youtube/start?liveChatId=${liveChatId}`);
   }
 
   stop() {

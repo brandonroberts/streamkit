@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { exhaustMap, filter, map, mergeMap, switchMap } from 'rxjs/operators';
+import { EMPTY } from 'rxjs';
+import { catchError, exhaustMap, filter, map, mergeMap, switchMap } from 'rxjs/operators';
 import randomColor from 'randomcolor';
 
 import {
@@ -30,12 +31,17 @@ export class MessagesEffects {
                 ) || broadcasts[0].snippet.liveChatId
               );
             }),
-            mergeMap((liveChatId) => this.youtubService.start(liveChatId))
+            mergeMap((liveChatId) =>
+              this.youtubService.start(liveChatId)
+                .pipe(
+                  map(data => MessagesActions.messagesLoadedSuccess({ data: { liveChatId, messages: data.items } })),
+                  catchError(() => EMPTY)
+                )
+            )
           );
         })
       );
-    },
-    { dispatch: false }
+    }
   );
 
   addMessages$ = createEffect(() => {
@@ -137,5 +143,5 @@ export class MessagesEffects {
     private actions$: Actions,
     private youtubService: YouTubeService,
     private router: Router
-  ) {}
+  ) { }
 }

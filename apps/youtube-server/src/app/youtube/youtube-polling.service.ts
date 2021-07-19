@@ -41,7 +41,7 @@ export class YouTubePollingService {
 
     try {
       await this.pollMessages(liveChatId, undefined, first);
-      await this.pollSubscriptions(first);
+      // await this.pollSubscriptions(first);
     } catch (e) {}
 
     console.log('next poll in', pollInterval);
@@ -96,7 +96,7 @@ export class YouTubePollingService {
         }
       }
     } catch (e) {
-      console.log('error polling messages');
+      console.log('error polling messages', e);
     }
   }
 

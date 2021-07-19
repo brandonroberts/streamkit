@@ -119,15 +119,11 @@ export class YoutubeController {
     @Query('liveChatId') liveChatId: string,
     @Response() resp
   ) {
-    const data = await this.youtubePollingService.getInitialDataAndStartPolling(
+    this.youtubePollingService.getInitialDataAndStartPolling(
       liveChatId
     );
 
-    if (data.error) {
-      return resp.status(401).json({ success: false });
-    }
-
-    return resp.json({ success: true });
+    return this.getLiveChatMessages(liveChatId, undefined, resp);
   }
 
   @Get('youtube/stop')
