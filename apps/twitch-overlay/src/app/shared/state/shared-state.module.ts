@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
+import { GithubSharedStateAlertsModule } from '@streamkit/github/shared/state/alerts';
+
 import {
   AlertsFeature,
   AlertsEffects,
-  GithubAlertsEffects,
   GiphyAlertsEffects,
 } from './alerts';
 import { WebSocketEffects } from './websocket';
@@ -22,9 +23,9 @@ import { MessagesFeature, MessagesEffects } from './messages';
       WebSocketEffects,
       AlertsEffects,
       GiphyAlertsEffects,
-      GithubAlertsEffects,
       MessagesEffects,
     ]),
+    GithubSharedStateAlertsModule
   ],
 })
 export class SharedStateModule {}

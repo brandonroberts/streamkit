@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { TwitchActions } from '@streamkit/twitch/shared/actions';
@@ -14,7 +15,6 @@ import {
 } from 'rxjs/operators';
 import { TwitchService } from '../../../twitch.service';
 import { selectAvatarUrlDictionary } from './messages.selectors';
-import { Store } from '@ngrx/store';
 
 @Injectable()
 export class MessagesEffects {

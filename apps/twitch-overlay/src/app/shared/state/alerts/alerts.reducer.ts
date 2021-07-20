@@ -1,6 +1,8 @@
 import { createReducer, on, createFeature } from '@ngrx/store';
 
-import { Alert } from '../../../config';
+import { GitHubAlertActions } from '@streamkit/github/shared/state/alerts';
+import { Alert } from '@streamkit/shared/config';
+
 import * as AlertsActions from './alerts.actions';
 
 export interface State {
@@ -27,7 +29,7 @@ export const alertsFeature = createFeature({
       AlertsActions.commandAlert,
       AlertsActions.followAlert,
       AlertsActions.subAlert,
-      AlertsActions.githubStarAlert,
+      GitHubAlertActions.githubStarAlert,
       (state, action) => {
         const text = `
         <h1>${action.user}${action.alert.title}</h1>

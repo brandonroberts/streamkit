@@ -5,8 +5,9 @@ import { concatMap, delay, filter, map } from 'rxjs/operators';
 import { from } from 'rxjs';
 
 import { TwitchActions } from '@streamkit/twitch/shared/actions';
+import { alerts, followGif, raidGif, subGif } from '@streamkit/shared/config';
+import { GitHubAlertActions } from '@streamkit/github/shared/state/alerts';
 
-import { alerts, followGif, raidGif, subGif } from '../../../config';
 import { TAUWebSocketEventSerivce } from '../websocket/tau-websocket-events.service';
 import * as AlertsActions from './alerts.actions';
 
@@ -92,7 +93,7 @@ export class AlertsEffects {
         AlertsActions.raidAlert,
         AlertsActions.followAlert,
         AlertsActions.subAlert,
-        AlertsActions.githubStarAlert
+        GitHubAlertActions.githubStarAlert
       ),
       concatMap(({ alert }) => {
         const audio = alert.audio
