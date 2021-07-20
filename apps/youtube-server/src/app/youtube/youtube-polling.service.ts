@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Subject } from 'rxjs';
 
+import { YouTubeWebSocketActions } from '@streamkit/youtube/shared/actions'
+
 import { YoutubeService } from './youtube.service';
 
 @Injectable()
@@ -12,7 +14,7 @@ export class YouTubePollingService {
   private storedMessages = [];
   private storedSubscriptions = [];
 
-  constructor(private youtubeService: YoutubeService) {}
+  constructor(private youtubeService: YoutubeService) { }
 
   async getInitialDataAndStartPolling(liveChatId: string) {
     this.polling = true;
@@ -42,7 +44,7 @@ export class YouTubePollingService {
     try {
       await this.pollMessages(liveChatId, undefined, first);
       // await this.pollSubscriptions(first);
-    } catch (e) {}
+    } catch (e) { }
 
     console.log('next poll in', pollInterval);
 
@@ -73,10 +75,9 @@ export class YouTubePollingService {
       }
 
       if (first) {
-        this._messages$.next({
-          type: 'messages_loaded',
+        this._messages$.next(YouTubeWebSocketActions.loadedMessages({
           data: { liveChatId, messages: data.items },
-        });
+        }));
 
         this.storedMessages = Array.isArray(data.items) ? data.items : [];
       } else {
@@ -88,10 +89,9 @@ export class YouTubePollingService {
         if (newMessages.length) {
           console.log(`polled ${newMessages.length} messages`);
 
-          this._messages$.next({
-            type: 'messages_polled',
+          this._messages$.next(YouTubeWebSocketActions.polledMessages({
             data: { liveChatId, messages: newMessages },
-          });
+          }));
           this.storedMessages = [...this.storedMessages, ...newMessages];
         }
       }
@@ -109,10 +109,9 @@ export class YouTubePollingService {
       }
 
       if (first) {
-        this._messages$.next({
-          type: 'subscriptions_loaded',
+        this._messages$.next(YouTubeWebSocketActions.loadedSubscribers({
           data: { subscriptions: subscriptionData.items },
-        });
+        }));
 
         this.storedSubscriptions = Array.isArray(subscriptionData.items)
           ? subscriptionData.items
@@ -126,10 +125,9 @@ export class YouTubePollingService {
         if (newSubs.length) {
           console.log(`polled ${newSubs.length} subscriptions`);
 
-          this._messages$.next({
-            type: 'subscriptions_polled',
+          this._messages$.next(YouTubeWebSocketActions.polledSubscribers({
             data: { subscriptions: newSubs },
-          });
+          }));
           this.storedSubscriptions = [...this.storedSubscriptions, ...newSubs];
         }
       }
