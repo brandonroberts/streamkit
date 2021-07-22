@@ -1,6 +1,6 @@
-# Ngtwitch
+# StreamKit
 
-A chatbot built with Angular and NestJS
+A streaming overlay platform built with Angular and NestJS
 
 ## Setup
 
