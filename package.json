@@ -7,7 +7,7 @@
     "start:youtube": "nx serve-all youtube-overlay",
     "heroku-postbuild": "nx build twitch-server --prod",
     "start:twitch:server": "node dist/apps/twitch-server/main.js",
-    "build": "nx build --prod",
+    "build": "nx build",
     "prebuild": "ts-node ./tools/scripts/write-environment.ts",
     "test": "ng test",
     "lint": "nx workspace-lint && ng lint",
