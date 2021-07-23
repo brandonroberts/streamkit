@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'youtube-overlay-alerts-page',
-  template: ``,
+  template: `<youtube-overlay-alerts></youtube-overlay-alerts>`,
   styles: [
     `
       :host {
