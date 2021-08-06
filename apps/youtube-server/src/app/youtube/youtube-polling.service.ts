@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Subject } from 'rxjs';
 
-import { YouTubeWebSocketActions } from '@streamkit/youtube/shared/actions'
+import { YouTubeWebSocketActions } from '@streamkit/youtube/shared/actions';
 
 import { YoutubeService } from './youtube.service';
 
@@ -21,7 +21,8 @@ export class YouTubePollingService {
 
     if (!this.inProgress) {
       console.log('started polling');
-      await this.pollData(liveChatId, true);
+      this.pollMessages(liveChatId, undefined, true);
+      this.pollSubscriptions(true);
     } else {
       console.log('polling in progress');
     }
@@ -36,111 +37,103 @@ export class YouTubePollingService {
     }
   }
 
-  private async pollData(liveChatId: string, first: boolean) {
-    let pollInterval = 2000;
-
-    this.inProgress = true;
-
-    try {
-      await this.pollMessages(liveChatId, undefined, first);
-      // await this.pollSubscriptions(first);
-    } catch (e) { }
-
-    console.log('next poll in', pollInterval);
-
-    // sleep according to the poll interval
-    await this.sleepFor(pollInterval);
-
-    this.inProgress = false;
-
-    // poll messages again
-    if (this.polling) {
-      await this.pollData(liveChatId, false);
-    }
-  }
-
   private async pollMessages(
     liveChatId: string,
     nextPageToken: string,
     first: boolean
   ) {
-    try {
-      const data = await this.youtubeService.getLiveChatMessages(
-        liveChatId,
-        nextPageToken
-      );
-
+    this.youtubeService.getLiveChatMessages(
+      liveChatId,
+      nextPageToken
+    ).then(data => {
       if (data.error) {
         throw new Error(data.error);
       }
 
-      if (first) {
-        this._messages$.next(YouTubeWebSocketActions.loadedMessages({
-          data: { liveChatId, messages: data.items },
-        }));
+      const dataMessages = data.items;
+      const nextPoll = data.pollingIntervalMillis;
+      const newMessages = dataMessages.filter(message => !this.storedMessages.find(msg => msg.id === message.id));
+      this.storedMessages = [...this.storedMessages, ...newMessages];
 
-        this.storedMessages = Array.isArray(data.items) ? data.items : [];
-      } else {
-        const messageIds = this.storedMessages.map((message) => message.id);
-        const newMessages = (data.items || []).filter(
-          (item) => !messageIds.includes(item.id)
-        );
+      if (newMessages.length) {
+        if (first) {
+          console.log(`loaded ${newMessages.length} messages`);
 
-        if (newMessages.length) {
+          this._messages$.next(YouTubeWebSocketActions.loadedMessages({
+            data: { liveChatId, messages: newMessages },
+          }));
+        } else {
           console.log(`polled ${newMessages.length} messages`);
 
           this._messages$.next(YouTubeWebSocketActions.polledMessages({
             data: { liveChatId, messages: newMessages },
           }));
-          this.storedMessages = [...this.storedMessages, ...newMessages];
         }
       }
-    } catch (e) {
-      console.log('error polling messages', e);
-    }
+
+      if (this.polling) {
+        console.log(`next messages poll in ${nextPoll}`);
+
+        setTimeout(() => {
+          this.pollMessages(liveChatId, data.nextPageToken, false);
+        }, nextPoll);
+      }
+    }).catch(() => {
+      const nextPoll = 2000;
+
+      if (this.polling) {
+        console.log(`messages poll failed, next poll in ${nextPoll}`);
+
+        setTimeout(() => {
+          this.pollMessages(liveChatId, undefined, false);
+        }, nextPoll);
+      }
+    });
   }
 
-  private async pollSubscriptions(first: boolean) {
-    try {
-      const subscriptionData = await this.youtubeService.getSubscriptions();
+  private pollSubscriptions(first: boolean) {
+    const nextPoll = 5000;
 
-      if (subscriptionData.error) {
-        throw new Error(subscriptionData.error);
+    this.youtubeService.getSubscriptions().then(data => {
+      if (data.error) {
+        throw new Error(data.error);
       }
 
-      if (first) {
-        this._messages$.next(YouTubeWebSocketActions.loadedSubscribers({
-          data: { subscriptions: subscriptionData.items },
-        }));
+      const dataSubscriptions = data.items;
+      const newSubscriptions = dataSubscriptions.filter(message => !this.storedSubscriptions.find(msg => msg.id === message.id));
+      this.storedSubscriptions = [...this.storedSubscriptions, ...newSubscriptions];
 
-        this.storedSubscriptions = Array.isArray(subscriptionData.items)
-          ? subscriptionData.items
-          : [];
-      } else {
-        const subIds = this.storedSubscriptions.map((sub) => sub.id);
-        const newSubs = (subscriptionData.items || []).filter(
-          (item) => !subIds.includes(item.id)
-        );
+      if (newSubscriptions.length) {
+        if (first) {
+          console.log(`loaded ${newSubscriptions.length} subscriptions`);
 
-        if (newSubs.length) {
-          console.log(`polled ${newSubs.length} subscriptions`);
+          this._messages$.next(YouTubeWebSocketActions.loadedSubscribers({
+            data: { subscriptions: newSubscriptions },
+          }));
+        } else {
+          console.log(`polled ${newSubscriptions.length} subscriptions`);
 
           this._messages$.next(YouTubeWebSocketActions.polledSubscribers({
-            data: { subscriptions: newSubs },
+            data: { subscriptions: newSubscriptions },
           }));
-          this.storedSubscriptions = [...this.storedSubscriptions, ...newSubs];
         }
       }
-    } catch (e) {
-      console.log('error polling subscriptions');
-    }
-  }
 
-  private async sleepFor(sleepForMilliseconds: number) {
-    const sleeper = new Promise((res) => {
-      setTimeout(res, sleepForMilliseconds);
-    });
+      if (this.polling) {
+        console.log(`next subscriptions poll in ${nextPoll}`);
 
-    await sleeper;
+        setTimeout(() => {
+          this.pollSubscriptions(false);
+        }, nextPoll);
+      }
+    }).catch(() => {
+      if (this.polling) {
+        console.log(`subscriptions poll failed, next poll in ${nextPoll}`);
+
+        setTimeout(() => {
+          this.pollSubscriptions(false);
+        }, nextPoll);
+      }
+    });    
   }
 }
