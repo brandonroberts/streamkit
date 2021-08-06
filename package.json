@@ -4,7 +4,9 @@
   "scripts": {
     "ng": "nx",
     "start": "nx serve-all twitch-overlay",
+    "start:dev": "nx serve-all twitch-overlay --port 3000",
     "start:youtube": "nx serve-all youtube-overlay",
+    "start:youtube:dev": "nx serve-all youtube-overlay --port 3000",
     "heroku-postbuild": "nx build twitch-server --prod",
     "start:twitch:server": "node dist/apps/twitch-server/main.js",
     "build": "nx build",
