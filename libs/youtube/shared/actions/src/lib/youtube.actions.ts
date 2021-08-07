@@ -1,15 +1,15 @@
 import { createAction, props } from '@ngrx/store';
 
-import { SubscriptionModel } from '@streamkit/youtube/shared/models';
+import { MessageModel, SubscriptionModel } from '@streamkit/youtube/shared/models';
 
 export const loadedMessages = createAction(
   'messages_loaded',
-  props<{ data: { liveChatId: string; messages: any[] } }>()
+  props<{ data: { liveChatId: string; messages: MessageModel[] } }>()
 );
 
 export const polledMessages = createAction(
   'messages_polled',
-  props<{ data: { liveChatId: string; messages: any[] } }>()
+  props<{ data: { liveChatId: string; messages: MessageModel[] } }>()
 );
 
 export const loadedSubscribers = createAction(

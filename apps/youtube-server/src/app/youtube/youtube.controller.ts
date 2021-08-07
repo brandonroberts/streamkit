@@ -22,14 +22,7 @@ export class YoutubeController {
   @Get('youtube/authorize')
   @Redirect()
   redirectToAuthorization() {
-    let url = `https://accounts.google.com/o/oauth2/v2/auth?`;
-    url += `scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube`;
-    url += `&access_type=offline`;
-    url += `&include_granted_scopes=true`;
-    url += `&state=${process.env.YOUTUBE_STATE_KEY}`;
-    url += `&redirect_uri=${process.env.YOUTUBE_AUTH_CALLBACK_URL}`;
-    url += `&response_type=code`;
-    url += `&client_id=${process.env.YOUTUBE_CLIENT_ID}`;
+    let url = this.youtubeService.getRedirectUrl();
 
     return { url };
   }
@@ -47,24 +40,24 @@ export class YoutubeController {
 
   @Get('youtube/broadcasts')
   async getBroadcasts(@Response() resp) {
-    const data = await this.youtubeService.getBroadcasts();
+    try {
+      const response = await this.youtubeService.getBroadcasts();
 
-    if (data.error) {
-      return resp.status(data.error.code).json({ success: false });
+      return resp.json(response.data);
+    } catch (e) {
+      return resp.status(401).json({ success: false });
     }
-
-    return resp.json(data);
   }
 
   @Get('youtube/subscriptions')
   async getSubscriptions(@Response() resp) {
-    const data = await this.youtubeService.getSubscriptions();
+    try {
+      const response = await this.youtubeService.getSubscriptions();
 
-    if (data.error) {
-      return resp.status(data.error.code).json({ success: false });
+      return resp.json(response.data);
+    } catch (e) {
+      return resp.status(401).json({ success: false });
     }
-
-    return resp.json(data);
   }
 
   @Get('youtube/liveChatMessages')
@@ -73,16 +66,16 @@ export class YoutubeController {
     @Query('nextPageToken') nextPageToken: string,
     @Response() resp
   ) {
-    const data = await this.youtubeService.getLiveChatMessages(
-      liveChatId,
-      nextPageToken
-    );
+    try {
+      const response = await this.youtubeService.getLiveChatMessages(
+        liveChatId,
+        nextPageToken
+      );
 
-    if (data.error) {
-      return resp.status(data.error.code).json({ success: false });
+      return resp.json(response.data);
+    } catch (e) {
+      return resp.status(401).json({ success: false });
     }
-
-    return resp.json(data);
   }
 
   @Post('youtube/liveChatMessages')
@@ -91,25 +84,20 @@ export class YoutubeController {
     @Body() body: { message: string },
     @Response() resp
   ) {
-    const data = await this.youtubeService.postChatMessage(
-      liveChatId,
-      body.message
-    );
-
-    if (data.error) {
-      return resp.status(403).json({ success: false });
+    try {
+      await this.youtubeService.postChatMessage(
+        liveChatId,
+        body.message
+      );
+      return resp.json({ success: true });
+    } catch (e) {
+      return resp.status(401).json({ success: false });
     }
-
-    return resp.json({ success: true });
   }
 
   @Get('youtube/refresh')
   async authRefresh(@Response() resp) {
-    const data = await this.youtubeService.refreshAuthentication();
-
-    if (data.error) {
-      return resp.status(401).json({ success: false });
-    }
+    await this.youtubeService.refreshAuthentication();
 
     return resp.json({ success: true });
   }

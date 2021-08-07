@@ -45,11 +45,8 @@ export class YouTubePollingService {
     this.youtubeService.getLiveChatMessages(
       liveChatId,
       nextPageToken
-    ).then(data => {
-      if (data.error) {
-        throw new Error(data.error);
-      }
-
+    ).then(response => {
+      const data = response.data;
       const dataMessages = data.items;
       const nextPoll = data.pollingIntervalMillis;
       const newMessages = dataMessages.filter(message => !this.storedMessages.find(msg => msg.id === message.id));
@@ -94,11 +91,8 @@ export class YouTubePollingService {
   private pollSubscriptions(first: boolean) {
     const nextPoll = 5000;
 
-    this.youtubeService.getSubscriptions().then(data => {
-      if (data.error) {
-        throw new Error(data.error);
-      }
-
+    this.youtubeService.getSubscriptions().then(response => {
+      const data = response.data;
       const dataSubscriptions = data.items;
       const newSubscriptions = dataSubscriptions.filter(message => !this.storedSubscriptions.find(msg => msg.id === message.id));
       this.storedSubscriptions = [...this.storedSubscriptions, ...newSubscriptions];

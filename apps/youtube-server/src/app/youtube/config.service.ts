@@ -2,34 +2,34 @@ import { Injectable } from '@nestjs/common';
 import { join } from 'path';
 import { cwd } from 'process';
 import * as fs from 'fs';
-const fetch = require('node-fetch');
+import { google } from 'googleapis';
+
+const scopes = ['https://www.googleapis.com/auth/youtube'];
 
 @Injectable()
 export class YouTubeConfigService {
   private readonly clientId = process.env.YOUTUBE_CLIENT_ID;
   private readonly clientSecret = process.env.YOUTUBE_CLIENT_SECRET;
-  private accessToken!: string;
+  private readonly redirectUrl = process.env.YOUTUBE_AUTH_CALLBACK_URL;
+  readonly oauth2Client = new google.auth.OAuth2(this.clientId, this.clientSecret, this.redirectUrl);
 
-  async getAccessToken(code: string) {
-    const params = new URLSearchParams();
-    params.append('grant_type', 'authorization_code');
-    params.append('redirect_uri', process.env.YOUTUBE_AUTH_CALLBACK_URL);
-    params.append('code', code);
-    params.append('client_id', this.clientId);
-    params.append('client_secret', this.clientSecret);
-
-    const response = await fetch('https://oauth2.googleapis.com/token', {
-      method: 'POST',
-      body: params,
+  getRedirectUrl() {
+    const url = this.oauth2Client.generateAuthUrl({
+      access_type: 'offline',
+      scope: scopes,
+      state: process.env.YOUTUBE_STATE_KEY
     });
 
-    const authData = await response.json();
+    return url;
+  }
 
-    if (authData.error) {
-      return { error: true };
-    }
+  async getAccessToken(code: string) {
+    const { tokens } = await this.oauth2Client.getToken(code);
 
-    this.storeCredentials(authData, authData.refresh_token);
+    this.setupTokenListener();
+    this.oauth2Client.setCredentials(tokens);
+
+    this.storeCredentials(tokens, tokens.refresh_token);
 
     return { error: false };
   }
@@ -43,32 +43,19 @@ export class YouTubeConfigService {
 
     const authJson = fs.readFileSync(responseFilePath).toString();
     const auth = JSON.parse(authJson);
-    const params = new URLSearchParams();
-    params.append('grant_type', 'refresh_token');
-    params.append('client_id', this.clientId);
-    params.append('client_secret', this.clientSecret);
-    params.append('refresh_token', auth.refresh_token);
 
-    const response = await fetch('https://oauth2.googleapis.com/token', {
-      method: 'POST',
-      body: params,
+    this.setupTokenListener();
+    this.oauth2Client.setCredentials({
+      refresh_token: auth.refresh_token
     });
-
-    const authData = await response.json();
-
-    if (authData.error) {
-      return { error: true };
-    }
-
-    this.storeCredentials(authData, auth.refresh_token);
+    this.storeCredentials(auth, auth.refresh_token);
 
     return { error: false };
   }
 
   storeCredentials(data: any, refreshToken: string) {
-    this.accessToken = data.access_token;
 
-    console.log('token refreshed and stored');
+    console.log('tokens stored');
 
     fs.writeFileSync(
       join(cwd(), 'yt-oauth.json'),
@@ -76,9 +63,23 @@ export class YouTubeConfigService {
     );
   }
 
-  getHeaders() {
-    return {
-      Authorization: `Bearer ${this.accessToken}`,
-    };
+  setupTokenListener() {
+    this.oauth2Client.on('tokens', (tokens) => {
+      const responseFilePath = join(cwd(), 'yt-oauth.json');
+      let refresh_token = '';
+
+      if (fs.existsSync(responseFilePath)) {
+        let authJson = fs.readFileSync(responseFilePath).toString();
+        let auth = JSON.parse(authJson);
+        refresh_token = auth.refresh_token;
+      }
+      
+      if (tokens.refresh_token) {
+        refresh_token = tokens.refresh_token;
+      }
+      
+      console.log('tokens refreshed from client');
+      this.storeCredentials(tokens, refresh_token);
+    });
   }
 }
