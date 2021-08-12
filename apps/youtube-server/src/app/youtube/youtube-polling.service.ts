@@ -13,6 +13,7 @@ export class YouTubePollingService {
   private inProgress = false;
   private storedMessages = [];
   private storedSubscriptions = [];
+  private chatPollIntervalMillis = 1000;
 
   constructor(private youtubeService: YoutubeService) { }
 
@@ -48,7 +49,6 @@ export class YouTubePollingService {
     ).then(response => {
       const data = response.data;
       const dataMessages = data.items;
-      const nextPoll = data.pollingIntervalMillis;
       const newMessages = dataMessages.filter(message => !this.storedMessages.find(msg => msg.id === message.id));
       this.storedMessages = [...this.storedMessages, ...newMessages];
 
@@ -66,24 +66,27 @@ export class YouTubePollingService {
             data: { liveChatId, messages: newMessages },
           }));
         }
+        this.chatPollIntervalMillis = 1000;
+      } else {
+        this.chatPollIntervalMillis = this.chatPollIntervalMillis >= 5000 ? 5000 : this.chatPollIntervalMillis + 1000;
       }
 
       if (this.polling) {
-        console.log(`next messages poll in ${nextPoll}`);
+        console.log(`next messages poll in ${this.chatPollIntervalMillis}`);
 
         setTimeout(() => {
           this.pollMessages(liveChatId, data.nextPageToken, false);
-        }, nextPoll);
+        }, this.chatPollIntervalMillis);
       }
     }).catch(() => {
-      const nextPoll = 2000;
+      this.chatPollIntervalMillis = 2000;
 
       if (this.polling) {
-        console.log(`messages poll failed, next poll in ${nextPoll}`);
+        console.log(`messages poll failed, next poll in ${this.chatPollIntervalMillis}`);
 
         setTimeout(() => {
           this.pollMessages(liveChatId, undefined, false);
-        }, nextPoll);
+        }, this.chatPollIntervalMillis);
       }
     });
   }
