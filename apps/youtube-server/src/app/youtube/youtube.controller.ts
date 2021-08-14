@@ -107,9 +107,9 @@ export class YoutubeController {
     @Query('liveChatId') liveChatId: string,
     @Response() resp
   ) {
-    this.youtubePollingService.getInitialDataAndStartPolling(
-      liveChatId
-    );
+    // this.youtubePollingService.getInitialDataAndStartPolling(
+    //   liveChatId
+    // );
 
     return this.getLiveChatMessages(liveChatId, undefined, resp);
   }
