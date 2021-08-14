@@ -70,55 +70,21 @@ export class MessagesEffects {
 
   sendCommand$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(AlertsActions.pageEnter),
-      switchMap(() =>
-        this.actions$.pipe(
-          ofType(YouTubeChatActions.message),
-          filter((action) => action.message.message.startsWith('!')),
-          map((action) => {
-            const command = action.message.message.split(' ')[0].substring(1);
-            const message = action.message.message.substring(
-              `!${command}`.length
-            );
-
-            return YouTubeChatActions.command({
-              liveChatId: action.liveChatId,
-              command: {
-                user: action.message.user,
-                message,
-                command,
-                flags: { broadcaster: true } as any,
-              },
-            });
-          })
-        )
-      )
+      ofType(YouTubeWebSocketActions.polledCommands),
+      map((action) => {
+        return YouTubeChatActions.command({
+          liveChatId: action.data.liveChatId,
+          command: {
+            user: action.data.message.authorDetails.displayName,
+            message: action.data.message.snippet.textMessageDetails.messageText,
+            command: action.data.message.command,
+            flags: { broadcaster: true } as any,
+          },
+        });
+      })
     );
   });
-
-  responseToNgRxCommand$ = createEffect(
-    () => {
-      return this.actions$.pipe(
-        ofType(YouTubeChatActions.command),
-        filter(
-          (action) =>
-            action.command.command === 'ngrx' &&
-            this.router.routerState.snapshot.root.queryParamMap.get(
-              'respond'
-            ) === 'true'
-        ),
-        switchMap((action) => {
-          let message = 'NgRx is an open source framework for building ';
-          message += 'reactive Angular applications ';
-          message += 'https://ngrx.io https://github.com/ngrx/platform';
-
-          return this.youtubService.postMessage(action.liveChatId, message);
-        })
-      );
-    },
-    { dispatch: false }
-  );
-
+  
   subscribed$ = createEffect(() =>
     this.actions$.pipe(
       ofType(YouTubeWebSocketActions.polledSubscribers),

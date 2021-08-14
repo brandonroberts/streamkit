@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Subject } from 'rxjs';
 
 import { YouTubeWebSocketActions } from '@streamkit/youtube/shared/actions';
+import { CommandModel, MessageModel } from '@streamkit/youtube/shared/models';
 
 import { YoutubeService } from './youtube.service';
 
@@ -14,6 +15,9 @@ export class YouTubePollingService {
   private storedMessages = [];
   private storedSubscriptions = [];
   private chatPollIntervalMillis = 3000;
+  responderSub = this.messages$.subscribe(message => {
+    this.respondToCommand(message);
+  });
 
   constructor(private youtubeService: YoutubeService) { }
 
@@ -65,7 +69,10 @@ export class YouTubePollingService {
           this._messages$.next(YouTubeWebSocketActions.polledMessages({
             data: { liveChatId, messages: newMessages },
           }));
+
+          this.checkAndSendCommands(newMessages);
         }
+
         this.chatPollIntervalMillis = 3000;
       } else {
         this.chatPollIntervalMillis = this.chatPollIntervalMillis >= 5000 ? 5000 : this.chatPollIntervalMillis + 3000;
@@ -131,6 +138,41 @@ export class YouTubePollingService {
           this.pollSubscriptions(false);
         }, nextPoll);
       }
-    });    
+    });
+  }
+
+  private checkAndSendCommands(messages: MessageModel[]) {
+    messages.filter((message) => message.snippet.textMessageDetails.messageText.startsWith('!'))
+      .map(message => {
+        const messageText = message.snippet.textMessageDetails.messageText;
+        const command = messageText.split(' ')[0].substring(1);
+
+        return {
+          ...message,
+          command
+        };
+      })
+      .forEach((message: CommandModel) => {
+        this._messages$.next(YouTubeWebSocketActions.polledCommands({
+          data: { liveChatId: message.snippet.liveChatId, message }
+        }));
+      });
+  }
+
+  private respondToCommand(message: any) {
+    const command: string = message?.data?.message?.command;
+
+    if (command) {
+      switch(command) {
+        case 'ngrx': {
+          const messageInfo = message.data.message as CommandModel;
+          let response = 'NgRx is an open source framework for building ';
+          response += 'reactive Angular applications ';
+          response += 'https://ngrx.io https://github.com/ngrx/platform';
+
+          return this.youtubeService.postChatMessage(messageInfo.snippet.liveChatId, response);          
+        }
+      }
+    }
   }
 }
