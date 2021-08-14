@@ -13,7 +13,7 @@ export class YouTubePollingService {
   private inProgress = false;
   private storedMessages = [];
   private storedSubscriptions = [];
-  private chatPollIntervalMillis = 1000;
+  private chatPollIntervalMillis = 3000;
 
   constructor(private youtubeService: YoutubeService) { }
 
@@ -54,32 +54,32 @@ export class YouTubePollingService {
 
       if (newMessages.length) {
         if (first) {
-          console.log(`loaded ${newMessages.length} messages`);
+          // console.log(`loaded ${newMessages.length} messages`);
 
           this._messages$.next(YouTubeWebSocketActions.loadedMessages({
             data: { liveChatId, messages: newMessages },
           }));
         } else {
-          console.log(`polled ${newMessages.length} messages`);
+          // console.log(`polled ${newMessages.length} messages`);
 
           this._messages$.next(YouTubeWebSocketActions.polledMessages({
             data: { liveChatId, messages: newMessages },
           }));
         }
-        this.chatPollIntervalMillis = 1000;
+        this.chatPollIntervalMillis = 3000;
       } else {
-        this.chatPollIntervalMillis = this.chatPollIntervalMillis >= 5000 ? 5000 : this.chatPollIntervalMillis + 1000;
+        this.chatPollIntervalMillis = this.chatPollIntervalMillis >= 5000 ? 5000 : this.chatPollIntervalMillis + 3000;
       }
 
       if (this.polling) {
-        console.log(`next messages poll in ${this.chatPollIntervalMillis}`);
+        // console.log(`next messages poll in ${this.chatPollIntervalMillis}`);
 
         setTimeout(() => {
           this.pollMessages(liveChatId, data.nextPageToken, false);
         }, this.chatPollIntervalMillis);
       }
     }).catch(() => {
-      this.chatPollIntervalMillis = 2000;
+      this.chatPollIntervalMillis = 3000;
 
       if (this.polling) {
         console.log(`messages poll failed, next poll in ${this.chatPollIntervalMillis}`);
@@ -102,13 +102,13 @@ export class YouTubePollingService {
 
       if (newSubscriptions.length) {
         if (first) {
-          console.log(`loaded ${newSubscriptions.length} subscriptions`);
+          // console.log(`loaded ${newSubscriptions.length} subscriptions`);
 
           this._messages$.next(YouTubeWebSocketActions.loadedSubscribers({
             data: { subscriptions: newSubscriptions },
           }));
         } else {
-          console.log(`polled ${newSubscriptions.length} subscriptions`);
+          // console.log(`polled ${newSubscriptions.length} subscriptions`);
 
           this._messages$.next(YouTubeWebSocketActions.polledSubscribers({
             data: { subscriptions: newSubscriptions },
@@ -117,7 +117,7 @@ export class YouTubePollingService {
       }
 
       if (this.polling) {
-        console.log(`next subscriptions poll in ${nextPoll}`);
+        // console.log(`next subscriptions poll in ${nextPoll}`);
 
         setTimeout(() => {
           this.pollSubscriptions(false);
