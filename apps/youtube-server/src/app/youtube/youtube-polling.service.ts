@@ -163,15 +163,24 @@ export class YouTubePollingService {
     const command: string = message?.data?.message?.command;
 
     if (command) {
+      const messageInfo = message.data.message as CommandModel;
+      let response = '';
       switch(command) {
         case 'ngrx': {
-          const messageInfo = message.data.message as CommandModel;
-          let response = 'NgRx is an open source framework for building ';
+          response = 'NgRx is an open source framework for building ';
           response += 'reactive Angular applications ';
           response += 'https://ngrx.io https://github.com/ngrx/platform';
-
-          return this.youtubeService.postChatMessage(messageInfo.snippet.liveChatId, response);          
+          break;
         }
+
+        case 'discord': {
+          response = 'Check out our NgRx discord server at https://discord.gg/ngrx';
+          break;
+        }
+      }
+
+      if (response) {
+        this.youtubeService.postChatMessage(messageInfo.snippet.liveChatId, `[StreamKit]: ${response}`);
       }
     }
   }
