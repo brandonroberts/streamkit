@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { IonicModule } from '@ionic/angular';
 
 import { YoutubeSharedStateWebsocketModule } from '@streamkit/youtube/shared/state/websocket';
 import { YoutubeSharedEnvironmentModule } from '@streamkit/youtube/shared/environment';
@@ -42,12 +43,20 @@ import { environment } from '../environments/environment';
             (m) => m.YoutubeFeatureBroadcastsModule
           ),
       },
+      {
+        path: 'dashboard',
+        loadChildren: () =>
+          import('@streamkit/youtube/feature-dashboard').then(
+            (m) => m.YoutubeFeatureDashboardModule
+          ),
+      },      
     ]),
     StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument(),
     EffectsModule.forRoot(),
     YoutubeSharedEnvironmentModule.forRoot(environment),
     YoutubeSharedStateWebsocketModule,
+    IonicModule.forRoot()
   ],
   bootstrap: [AppComponent],
 })

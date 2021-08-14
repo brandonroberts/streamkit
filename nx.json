@@ -88,6 +88,9 @@
     },
     "shared-config": {
       "tags": []
+    },
+    "youtube-feature-dashboard": {
+      "tags": []
     }
   }
 }

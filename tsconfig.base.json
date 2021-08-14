@@ -60,7 +60,10 @@
       "@streamkit/github/shared/state/alerts": [
         "libs/github/shared/state/alerts/src/index.ts"
       ],
-      "@streamkit/shared/config": ["libs/shared/config/src/index.ts"]
+      "@streamkit/shared/config": ["libs/shared/config/src/index.ts"],
+      "@streamkit/youtube/feature-dashboard": [
+        "libs/youtube/feature-dashboard/src/index.ts"
+      ]
     }
   }
 }

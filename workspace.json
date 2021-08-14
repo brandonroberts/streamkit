@@ -314,10 +314,26 @@
             "tsConfig": "apps/youtube-overlay/tsconfig.app.json",
             "assets": [
               "apps/youtube-overlay/src/favicon.ico",
-              "apps/youtube-overlay/src/assets"
+              "apps/youtube-overlay/src/assets",
+              {
+                "glob": "**/*.svg",
+                "input": "node_modules/ionicons/dist/ionicons/svg",
+                "output": "./svg"
+              }
             ],
             "styles": [
-              "apps/youtube-overlay/src/styles.css"
+              "apps/youtube-overlay/src/styles.css",
+              "node_modules/@ionic/angular/css/core.css",
+              "node_modules/@ionic/angular/css/normalize.css",
+              "node_modules/@ionic/angular/css/structure.css",
+              "node_modules/@ionic/angular/css/typography.css",
+              "node_modules/@ionic/angular/css/display.css",
+              "node_modules/@ionic/angular/css/padding.css",
+              "node_modules/@ionic/angular/css/float-elements.css",
+              "node_modules/@ionic/angular/css/text-alignment.css",
+              "node_modules/@ionic/angular/css/text-transformation.css",
+              "node_modules/@ionic/angular/css/flex-utils.css",
+              "apps/youtube-overlay/src/theme/variables.css"
             ],
             "scripts": []
           },
@@ -920,6 +936,33 @@
             "lintFilePatterns": [
               "libs/shared/config/src/**/*.ts",
               "libs/shared/config/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "youtube-feature-dashboard": {
+      "projectType": "library",
+      "root": "libs/youtube/feature-dashboard",
+      "sourceRoot": "libs/youtube/feature-dashboard/src",
+      "prefix": "streamkit",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/youtube/feature-dashboard"
+          ],
+          "options": {
+            "jestConfig": "libs/youtube/feature-dashboard/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/youtube/feature-dashboard/src/**/*.ts",
+              "libs/youtube/feature-dashboard/src/**/*.html"
             ]
           }
         }

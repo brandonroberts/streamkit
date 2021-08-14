@@ -23,5 +23,6 @@ module.exports = {
     '<rootDir>/libs/youtube/shared/state/websocket',
     '<rootDir>/libs/youtube/shared/environment',
     '<rootDir>/libs/github/shared/state/alerts',
+    '<rootDir>/libs/youtube/feature-dashboard',
   ],
 };
