@@ -63,6 +63,9 @@
       "@streamkit/shared/config": ["libs/shared/config/src/index.ts"],
       "@streamkit/youtube/feature-dashboard": [
         "libs/youtube/feature-dashboard/src/index.ts"
+      ],
+      "@streamkit/youtube/feature-dashboard-messages": [
+        "libs/youtube/feature-dashboard-messages/src/index.ts"
       ]
     }
   }

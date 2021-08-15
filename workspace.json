@@ -967,6 +967,33 @@
           }
         }
       }
+    },
+    "youtube-feature-dashboard-messages": {
+      "projectType": "library",
+      "root": "libs/youtube/feature-dashboard-messages",
+      "sourceRoot": "libs/youtube/feature-dashboard-messages/src",
+      "prefix": "streamkit",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/youtube/feature-dashboard-messages"
+          ],
+          "options": {
+            "jestConfig": "libs/youtube/feature-dashboard-messages/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/youtube/feature-dashboard-messages/src/**/*.ts",
+              "libs/youtube/feature-dashboard-messages/src/**/*.html"
+            ]
+          }
+        }
+      }
     }
   }
 }

@@ -35,7 +35,7 @@ export const reducer = createReducer(
       };
     }, state)
   ),
-  on(MessageActions.pinMessage, (state, action) => ({
+  on(MessageActions.pinMessage, MessageActions.messagePinned, (state, action) => ({
     ...state,
     pinnedMessageId: action.id,
   })),

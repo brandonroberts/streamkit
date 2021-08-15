@@ -1,16 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
+import { YoutubeSharedStateMessagesModule } from '@streamkit/youtube/shared/state/messages';
+
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
     CommonModule,
     IonicModule,
+    YoutubeSharedStateMessagesModule,
     RouterModule.forChild([
-      { path: '', component: DashboardComponent }
+      { path: '', pathMatch: 'full', redirectTo: 'messages' },
+      { path: 'messages', loadChildren: () => import('@streamkit/youtube/feature-dashboard-messages').then(m => m.YoutubeFeatureDashboardMessagesModule) }
     ])
   ],
   declarations: [

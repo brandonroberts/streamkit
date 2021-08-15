@@ -6,11 +6,7 @@ import {
   animate,
 } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
-
-import { MessageService } from '@streamkit/youtube/data-access-messages';
+import { Store } from '@ngrx/store';;
 
 import {
   MessagesActions,
@@ -21,19 +17,6 @@ import { Message } from '@streamkit/youtube/shared/models';
 @Component({
   selector: 'youtube-overlay-messages',
   template: `
-    <div *ngIf="pinnedMessage$ | async as pinnedMessage">
-      <div>
-        <span [style.color]="pinnedMessage.userColor">{{
-          pinnedMessage.user
-        }}</span
-        >:
-        <span [innerHTML]="pinnedMessage.formattedMessage"></span>
-        <button *ngIf="debug$ | async" (click)="pinMessage()">
-          Unpin Message
-        </button>
-      </div>
-    </div>
-
     <ul>
       <li
         [@messageAnimation]="'in'"
@@ -51,9 +34,6 @@ import { Message } from '@streamkit/youtube/shared/models';
             [style.color]="message.userColor"
             [innerHTML]="message.formattedMessage"
           ></div>
-          <button *ngIf="debug$ | async" (click)="pinMessage(message.id)">
-            Pin Message
-          </button>
         </div>
       </li>
     </ul>
@@ -116,25 +96,12 @@ import { Message } from '@streamkit/youtube/shared/models';
   ],
 })
 export class MessagesComponent implements OnInit {
-  pinnedMessage$ = this.store.select(MessagesSelectors.selectPinnedMessage);
   messages$ = this.store.select(MessagesSelectors.selectAllFormattedMessages);
-  debug$ = this.route.queryParamMap.pipe(
-    map((queryParams) => queryParams.get('debug'))
-  );
 
-  constructor(
-    private store: Store,
-    private messageService: MessageService,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(MessagesActions.enter());
-  }
-
-  pinMessage(id?: string) {
-    this.messageService.pinMessage(id).subscribe();
-    // this.pinnedMessage = message;
   }
 
   trackByFn(index: string, message: Message) {

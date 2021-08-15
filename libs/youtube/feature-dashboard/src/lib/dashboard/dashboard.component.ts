@@ -1,18 +1,39 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'twitch-overlay-dashboard',
+  selector: 'youtube-overlay-dashboard',
   template: `
-    <!-- <ion-toolbar color="tertiary">
-      <ion-buttons slot="start">
-        <ion-menu-button auto-hide="false"></ion-menu-button>
-      </ion-buttons>
+    <ion-header translucent>
+      <ion-toolbar>
+        <ion-title>Dashboard</ion-title>
+      </ion-toolbar>
+    </ion-header>
 
-      <ion-title>Dashboard</ion-title>
-    </ion-toolbar> -->
-    Dashboard
+    <ion-content>
+      <ion-list>
+        <ion-item>
+          <ion-label color="primary">
+            <h1>harry styles</h1>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary">
+            <h1>christmas</h1>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label color="primary">
+            <h1>falling</h1>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-content>
   `,
-  styles: [
+  styles: [`
+    :host {
+      padding-top: 75px;
+    }
+  `
   ]
 })
 export class DashboardComponent implements OnInit {

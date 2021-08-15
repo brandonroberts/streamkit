@@ -91,6 +91,9 @@
     },
     "youtube-feature-dashboard": {
       "tags": []
+    },
+    "youtube-feature-dashboard-messages": {
+      "tags": []
     }
   }
 }

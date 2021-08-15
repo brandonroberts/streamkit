@@ -8,6 +8,6 @@ export class MessageService {
   constructor(private http: HttpClient) {}
 
   pinMessage(id: string) {
-    return this.http.post('/api/pinMessage', { id });
+    return this.http.post('/api/youtube/messages/pin', { id });
   }
 }

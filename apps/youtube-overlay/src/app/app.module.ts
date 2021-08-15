@@ -8,6 +8,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { IonicModule } from '@ionic/angular';
 
+import { YoutubeSharedStateMessagesModule } from '@streamkit/youtube/shared/state/messages';
 import { YoutubeSharedStateWebsocketModule } from '@streamkit/youtube/shared/state/websocket';
 import { YoutubeSharedEnvironmentModule } from '@streamkit/youtube/shared/environment';
 
@@ -55,6 +56,7 @@ import { environment } from '../environments/environment';
     StoreDevtoolsModule.instrument(),
     EffectsModule.forRoot(),
     YoutubeSharedEnvironmentModule.forRoot(environment),
+    YoutubeSharedStateMessagesModule,
     YoutubeSharedStateWebsocketModule,
     IonicModule.forRoot()
   ],

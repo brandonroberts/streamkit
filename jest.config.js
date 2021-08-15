@@ -24,5 +24,6 @@ module.exports = {
     '<rootDir>/libs/youtube/shared/environment',
     '<rootDir>/libs/github/shared/state/alerts',
     '<rootDir>/libs/youtube/feature-dashboard',
+    '<rootDir>/libs/youtube/feature-dashboard-messages',
   ],
 };
