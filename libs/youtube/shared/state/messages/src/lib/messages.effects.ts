@@ -19,7 +19,7 @@ import { MessageActions } from '@streamkit/shared/actions';
 
 @Injectable()
 export class MessagesEffects {
-  startPolling$ = createEffect(
+  loadChatMessages$  = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(
@@ -38,7 +38,7 @@ export class MessagesEffects {
               );
             }),
             mergeMap((liveChatId) =>
-              this.youtubService.start(liveChatId)
+              this.youtubService.getLiveChatMessages(liveChatId)
                 .pipe(
                   map(data => MessagesActions.messagesLoadedSuccess({ data: { liveChatId, messages: data.items } })),
                   catchError(() => EMPTY)
@@ -49,6 +49,37 @@ export class MessagesEffects {
       );
     }
   );
+
+  // startPolling$ = createEffect(
+  //   () => {
+  //     return this.actions$.pipe(
+  //       ofType(
+  //         MessagesActions.enter,
+  //         MessagesActions.enterDashboardPage,
+  //         MessagesActions.pinnedMessageEnter
+  //       ),
+  //       exhaustMap(() => {
+  //         return this.youtubService.getBroadcasts().pipe(
+  //           filter((total) => total.length > 0),
+  //           map((broadcasts) => {
+  //             return (
+  //               this.router.routerState.snapshot.root.queryParamMap.get(
+  //                 'liveChatId'
+  //               ) || broadcasts[0].snippet.liveChatId
+  //             );
+  //           }),
+  //           mergeMap((liveChatId) =>
+  //             this.youtubService.start(liveChatId)
+  //               .pipe(
+  //                 map(data => MessagesActions.messagesLoadedSuccess({ data: { liveChatId, messages: data.items } })),
+  //                 catchError(() => EMPTY)
+  //               )
+  //           )
+  //         );
+  //       })
+  //     );
+  //   }
+  // );
 
   addMessages$ = createEffect(() => {
     return this.actions$.pipe(

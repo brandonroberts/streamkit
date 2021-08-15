@@ -8,6 +8,12 @@ import { map } from 'rxjs/operators';
 export class YouTubeService {
   constructor(private http: HttpClient) {}
 
+  getLiveChatMessages(liveChatId: string, nextPageToken: string = '') {
+    const url = `/api/youtube/liveChatMessages?liveChatId=${liveChatId}&nextPageToken=${nextPageToken};`
+
+    return this.http.get<{ items: any[] }>(url);
+  }
+
   getBroadcasts() {
     return this.http
       .get<{ items: any[] }>('/api/youtube/broadcasts')

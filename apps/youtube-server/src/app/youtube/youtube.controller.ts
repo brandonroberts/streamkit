@@ -69,11 +69,12 @@ export class YoutubeController {
     try {
       const response = await this.youtubeService.getLiveChatMessages(
         liveChatId,
-        nextPageToken
+        undefined
       );
 
       return resp.json(response.data);
     } catch (e) {
+      console.log(`${e}`);
       return resp.status(401).json({ success: false });
     }
   }
