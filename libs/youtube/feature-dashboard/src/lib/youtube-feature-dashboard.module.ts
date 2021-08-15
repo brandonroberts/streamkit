@@ -13,8 +13,14 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     IonicModule,
     YoutubeSharedStateMessagesModule,
     RouterModule.forChild([
-      { path: '', pathMatch: 'full', redirectTo: 'messages' },
-      { path: 'messages', loadChildren: () => import('@streamkit/youtube/feature-dashboard-messages').then(m => m.YoutubeFeatureDashboardMessagesModule) }
+      {
+        path: '',
+        component: DashboardComponent,
+        children: [
+          { path: '', pathMatch: 'full', redirectTo: 'messages' },
+          { path: 'messages', loadChildren: () => import('@streamkit/youtube/feature-dashboard-messages').then(m => m.YoutubeFeatureDashboardMessagesModule) }
+        ]
+      }
     ])
   ],
   declarations: [

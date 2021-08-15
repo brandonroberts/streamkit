@@ -23,7 +23,7 @@ import { MessagesActions, MessagesSelectors } from '@streamkit/youtube/shared/st
 
      .msg {
        color: white;
-       font-size: 32px;
+       font-size: 24px;
      }
   `]
 })
