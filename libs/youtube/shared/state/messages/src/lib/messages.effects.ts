@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { EMPTY } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 import { catchError, concatMap, exhaustMap, filter, map, mergeMap, switchMap } from 'rxjs/operators';
 import randomColor from 'randomcolor';
 
@@ -13,9 +13,9 @@ import { subGif } from '@streamkit/shared/config';
 import { YouTubeService } from '@streamkit/youtube/data-access-youtube';
 import { MessageService } from '@streamkit/youtube/data-access-messages';
 import { AlertsActions } from '@streamkit/youtube/shared/state/alerts';
+import { MessageActions } from '@streamkit/shared/actions';
 
 import * as MessagesActions from './messages.actions';
-import { MessageActions } from '@streamkit/shared/actions';
 
 @Injectable()
 export class MessagesEffects {
@@ -50,36 +50,43 @@ export class MessagesEffects {
     }
   );
 
-  // startPolling$ = createEffect(
-  //   () => {
-  //     return this.actions$.pipe(
-  //       ofType(
-  //         MessagesActions.enter,
-  //         MessagesActions.enterDashboardPage,
-  //         MessagesActions.pinnedMessageEnter
-  //       ),
-  //       exhaustMap(() => {
-  //         return this.youtubService.getBroadcasts().pipe(
-  //           filter((total) => total.length > 0),
-  //           map((broadcasts) => {
-  //             return (
-  //               this.router.routerState.snapshot.root.queryParamMap.get(
-  //                 'liveChatId'
-  //               ) || broadcasts[0].snippet.liveChatId
-  //             );
-  //           }),
-  //           mergeMap((liveChatId) =>
-  //             this.youtubService.start(liveChatId)
-  //               .pipe(
-  //                 map(data => MessagesActions.messagesLoadedSuccess({ data: { liveChatId, messages: data.items } })),
-  //                 catchError(() => EMPTY)
-  //               )
-  //           )
-  //         );
-  //       })
-  //     );
-  //   }
-  // );
+  startPolling$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(MessagesActions.pollingStarted),
+        exhaustMap(() => {
+          return this.youtubService.getBroadcasts().pipe(
+            filter((total) => total.length > 0),
+            map((broadcasts) => {
+              return (
+                this.router.routerState.snapshot.root.queryParamMap.get(
+                  'liveChatId'
+                ) || broadcasts[0].snippet.liveChatId
+              );
+            }),
+            mergeMap((liveChatId) => this.youtubService.start(liveChatId)
+              .pipe(
+                map(() => MessagesActions.pollingStartedSuccess()),
+                catchError(() => of(MessagesActions.pollingStartedFailure()))
+              ))
+          );
+        })
+      );
+    }
+  );
+
+  stopPolling$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(MessagesActions.pollingStopped),
+        exhaustMap(() => {
+          return this.youtubService.stop().pipe(
+            map(() => MessagesActions.pollingStoppedSuccess()),
+            catchError(() => of(MessagesActions.pollingStoppedFailure()))
+          );
+        })
+      );
+    });
 
   addMessages$ = createEffect(() => {
     return this.actions$.pipe(

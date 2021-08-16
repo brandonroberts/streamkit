@@ -60,9 +60,9 @@ export class YouTubePollingService {
         if (first) {
           // console.log(`loaded ${newMessages.length} messages`);
 
-          this._messages$.next(YouTubeWebSocketActions.loadedMessages({
-            data: { liveChatId, messages: newMessages },
-          }));
+          // this._messages$.next(YouTubeWebSocketActions.loadedMessages({
+          //   data: { liveChatId, messages: newMessages },
+          // }));
         } else {
           // console.log(`polled ${newMessages.length} messages`);
 
@@ -111,9 +111,9 @@ export class YouTubePollingService {
         if (first) {
           // console.log(`loaded ${newSubscriptions.length} subscriptions`);
 
-          this._messages$.next(YouTubeWebSocketActions.loadedSubscribers({
-            data: { subscriptions: newSubscriptions },
-          }));
+          // this._messages$.next(YouTubeWebSocketActions.loadedSubscribers({
+          //   data: { subscriptions: newSubscriptions },
+          // }));
         } else {
           // console.log(`polled ${newSubscriptions.length} subscriptions`);
 

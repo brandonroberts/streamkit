@@ -74,7 +74,6 @@ export class YoutubeController {
 
       return resp.json(response.data);
     } catch (e) {
-      console.log(`${e}`);
       return resp.status(401).json({ success: false });
     }
   }
@@ -108,11 +107,11 @@ export class YoutubeController {
     @Query('liveChatId') liveChatId: string,
     @Response() resp
   ) {
-    // this.youtubePollingService.getInitialDataAndStartPolling(
-    //   liveChatId
-    // );
+    this.youtubePollingService.getInitialDataAndStartPolling(
+      liveChatId
+    );
 
-    return this.getLiveChatMessages(liveChatId, undefined, resp);
+    return resp.json({ success: true });
   }
 
   @Get('youtube/stop')
