@@ -11,7 +11,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   imports: [
     CommonModule,
     IonicModule,
-    YoutubeSharedStateMessagesModule,
     RouterModule.forChild([
       {
         path: '',
