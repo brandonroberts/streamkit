@@ -14,27 +14,3 @@ export const messagesLoadedSuccess = createAction(
   '[Messages/API] Messages Loaded Success',
   props<{ data: { liveChatId: string, messages: MessageModel[] } }>()
 );
-
-export const pollingStarted = createAction(
-  '[Dashboard Page] Polling Started'
-);
-
-export const pollingStartedSuccess = createAction(
-  '[Dashboard Page] Polling Started Success'
-);
-
-export const pollingStartedFailure = createAction(
-  '[Dashboard Page] Polling Started Failure'
-);
-
-export const pollingStopped = createAction(
-  '[Dashboard Page] Polling Stopped'
-);
-
-export const pollingStoppedSuccess = createAction(
-  '[Dashboard Page] Polling Stopped Success'
-);
-
-export const pollingStoppedFailure = createAction(
-  '[Dashboard Page] Polling Stopped Failure'
-);

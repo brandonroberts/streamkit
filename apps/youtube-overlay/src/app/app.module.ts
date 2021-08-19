@@ -40,13 +40,6 @@ import { environment } from '../environments/environment';
           ),
       },
       {
-        path: 'broadcasts',
-        loadChildren: () =>
-          import('@streamkit/youtube/feature-broadcasts').then(
-            (m) => m.YoutubeFeatureBroadcastsModule
-          ),
-      },
-      {
         path: 'dashboard',
         loadChildren: () =>
           import('@streamkit/youtube/feature-dashboard').then(

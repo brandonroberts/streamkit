@@ -50,44 +50,6 @@ export class MessagesEffects {
     }
   );
 
-  startPolling$ = createEffect(
-    () => {
-      return this.actions$.pipe(
-        ofType(MessagesActions.pollingStarted),
-        exhaustMap(() => {
-          return this.youtubService.getBroadcasts().pipe(
-            filter((total) => total.length > 0),
-            map((broadcasts) => {
-              return (
-                this.router.routerState.snapshot.root.queryParamMap.get(
-                  'liveChatId'
-                ) || broadcasts[0].snippet.liveChatId
-              );
-            }),
-            mergeMap((liveChatId) => this.youtubService.start(liveChatId)
-              .pipe(
-                map(() => MessagesActions.pollingStartedSuccess()),
-                catchError(() => of(MessagesActions.pollingStartedFailure()))
-              ))
-          );
-        })
-      );
-    }
-  );
-
-  stopPolling$ = createEffect(
-    () => {
-      return this.actions$.pipe(
-        ofType(MessagesActions.pollingStopped),
-        exhaustMap(() => {
-          return this.youtubService.stop().pipe(
-            map(() => MessagesActions.pollingStoppedSuccess()),
-            catchError(() => of(MessagesActions.pollingStoppedFailure()))
-          );
-        })
-      );
-    });
-
   addMessages$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(YouTubeWebSocketActions.polledMessages),
