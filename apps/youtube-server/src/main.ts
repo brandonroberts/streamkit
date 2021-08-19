@@ -10,7 +10,7 @@ async function bootstrap() {
   app.setGlobalPrefix(globalPrefix);
   app.useWebSocketAdapter(new WsAdapter(app));
   app.enableCors();
-  const port = process.env.PORT || 3333;
+  const port = process.env.PORT || 3334;
   await app.listen(port, () => {
     Logger.log('Listening at http://localhost:' + port + '/' + globalPrefix);
   });
