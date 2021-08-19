@@ -13,12 +13,10 @@ import { Store } from '@ngrx/store';
     </ion-toolbar>
 
     <ion-router-outlet></ion-router-outlet>
-  `
+  `,
 })
 export class DashboardComponent implements OnInit {
+  constructor(private store: Store) {}
 
-  constructor(private store: Store) { }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 }

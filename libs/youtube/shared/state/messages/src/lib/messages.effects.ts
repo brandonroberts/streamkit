@@ -2,7 +2,15 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { EMPTY, of } from 'rxjs';
-import { catchError, concatMap, exhaustMap, filter, map, mergeMap, switchMap } from 'rxjs/operators';
+import {
+  catchError,
+  concatMap,
+  exhaustMap,
+  filter,
+  map,
+  mergeMap,
+  switchMap,
+} from 'rxjs/operators';
 import randomColor from 'randomcolor';
 
 import {
@@ -19,36 +27,37 @@ import * as MessagesActions from './messages.actions';
 
 @Injectable()
 export class MessagesEffects {
-  loadChatMessages$  = createEffect(
-    () => {
-      return this.actions$.pipe(
-        ofType(
-          MessagesActions.enter,
-          MessagesActions.enterDashboardPage,
-          MessagesActions.pinnedMessageEnter
-        ),
-        exhaustMap(() => {
-          return this.youtubService.getBroadcasts().pipe(
-            filter((total) => total.length > 0),
-            map((broadcasts) => {
-              return (
-                this.router.routerState.snapshot.root.queryParamMap.get(
-                  'liveChatId'
-                ) || broadcasts[0].snippet.liveChatId
-              );
-            }),
-            mergeMap((liveChatId) =>
-              this.youtubService.getLiveChatMessages(liveChatId)
-                .pipe(
-                  map(data => MessagesActions.messagesLoadedSuccess({ data: { liveChatId, messages: data.items } })),
-                  catchError(() => EMPTY)
-                )
+  loadChatMessages$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(
+        MessagesActions.enter,
+        MessagesActions.enterDashboardPage,
+        MessagesActions.pinnedMessageEnter
+      ),
+      exhaustMap(() => {
+        return this.youtubService.getBroadcasts().pipe(
+          filter((total) => total.length > 0),
+          map((broadcasts) => {
+            return (
+              this.router.routerState.snapshot.root.queryParamMap.get(
+                'liveChatId'
+              ) || broadcasts[0].snippet.liveChatId
+            );
+          }),
+          mergeMap((liveChatId) =>
+            this.youtubService.getLiveChatMessages(liveChatId).pipe(
+              map((data) =>
+                MessagesActions.messagesLoadedSuccess({
+                  data: { liveChatId, messages: data.items },
+                })
+              ),
+              catchError(() => EMPTY)
             )
-          );
-        })
-      );
-    }
-  );
+          )
+        );
+      })
+    );
+  });
 
   addMessages$ = createEffect(() => {
     return this.actions$.pipe(
@@ -90,7 +99,7 @@ export class MessagesEffects {
       })
     );
   });
-  
+
   subscribed$ = createEffect(() =>
     this.actions$.pipe(
       ofType(YouTubeWebSocketActions.polledSubscribers),
@@ -114,11 +123,12 @@ export class MessagesEffects {
   togglePinnedMessage$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(MessageActions.messagePinned),
-      concatMap((action) => 
-        this.messageService.pinMessage(action.id)
+      concatMap((action) =>
+        this.messageService
+          .pinMessage(action.id)
           .pipe(map(() => MessageActions.messagePinnedSuccess()))
       )
-    )
+    );
   });
 
   constructor(
@@ -126,5 +136,5 @@ export class MessagesEffects {
     private youtubService: YouTubeService,
     private router: Router,
     private messageService: MessageService
-  ) { }
+  ) {}
 }

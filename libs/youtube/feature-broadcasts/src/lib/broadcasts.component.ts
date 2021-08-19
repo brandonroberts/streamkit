@@ -15,26 +15,39 @@ import { BroadcastsStore } from './broadcasts.store';
       <ion-list>
         <ion-item *ngFor="let broadcast of broadcasts$ | async">
           <ion-label class="ion-text-wrap">
-            <a [routerLink]="['/dashboard', 'messages']" [queryParams]="{ liveChatId: broadcast.snippet.liveChatId }">{{ broadcast.snippet.title }}</a>
+            <a
+              [routerLink]="['/dashboard', 'messages']"
+              [queryParams]="{ liveChatId: broadcast.snippet.liveChatId }"
+              >{{ broadcast.snippet.title }}</a
+            >
           </ion-label>
 
           <ion-buttons slot="end">
-            <ion-button color="secondary" (click)="onStartPolling(broadcast.snippet.liveChatId)">
-              <ion-icon slot="icon-only" ios="infinite" md="infinite"></ion-icon>
+            <ion-button
+              color="secondary"
+              (click)="onStartPolling(broadcast.snippet.liveChatId)"
+            >
+              <ion-icon
+                slot="icon-only"
+                ios="infinite"
+                md="infinite"
+              ></ion-icon>
             </ion-button>
             <ion-button color="secondary" (click)="onStopPolling()">
               <ion-icon slot="icon-only" ios="stop" md="stop"></ion-icon>
             </ion-button>
-          </ion-buttons>          
+          </ion-buttons>
         </ion-item>
       </ion-list>
-    </ion-content>    
+    </ion-content>
   `,
-  styles: [`
-    :host {
-      padding-top: 75px;
-    }
-  `],
+  styles: [
+    `
+      :host {
+        padding-top: 75px;
+      }
+    `,
+  ],
   providers: [BroadcastsStore],
 })
 export class BroadcastsComponent implements OnInit {

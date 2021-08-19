@@ -15,14 +15,24 @@ import { DashboardComponent } from './dashboard/dashboard.component';
         component: DashboardComponent,
         children: [
           { path: '', pathMatch: 'full', redirectTo: 'broadcasts' },
-          { path: 'messages', loadChildren: () => import('@streamkit/youtube/feature-dashboard-messages').then(m => m.YoutubeFeatureDashboardMessagesModule) },
-          { path: 'broadcasts', loadChildren: () => import('@streamkit/youtube/feature-broadcasts').then(m => m.YoutubeFeatureBroadcastsModule) },
-        ]
-      }
-    ])
+          {
+            path: 'messages',
+            loadChildren: () =>
+              import('@streamkit/youtube/feature-dashboard-messages').then(
+                (m) => m.YoutubeFeatureDashboardMessagesModule
+              ),
+          },
+          {
+            path: 'broadcasts',
+            loadChildren: () =>
+              import('@streamkit/youtube/feature-broadcasts').then(
+                (m) => m.YoutubeFeatureBroadcastsModule
+              ),
+          },
+        ],
+      },
+    ]),
   ],
-  declarations: [
-    DashboardComponent
-  ],
+  declarations: [DashboardComponent],
 })
 export class YoutubeFeatureDashboardModule {}

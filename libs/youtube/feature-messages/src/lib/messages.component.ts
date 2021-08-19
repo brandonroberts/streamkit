@@ -6,7 +6,7 @@ import {
   animate,
 } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';;
+import { Store } from '@ngrx/store';
 
 import {
   MessagesActions,

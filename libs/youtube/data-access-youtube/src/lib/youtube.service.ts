@@ -9,7 +9,7 @@ export class YouTubeService {
   constructor(private http: HttpClient) {}
 
   getLiveChatMessages(liveChatId: string, nextPageToken: string = '') {
-    const url = `/api/youtube/liveChatMessages?liveChatId=${liveChatId}&nextPageToken=${nextPageToken};`
+    const url = `/api/youtube/liveChatMessages?liveChatId=${liveChatId}&nextPageToken=${nextPageToken};`;
 
     return this.http.get<{ items: any[] }>(url);
   }
@@ -33,7 +33,9 @@ export class YouTubeService {
   }
 
   start(liveChatId: string) {
-    return this.http.get<{ items: any[] }>(`/api/youtube/start?liveChatId=${liveChatId}`);
+    return this.http.get<{ items: any[] }>(
+      `/api/youtube/start?liveChatId=${liveChatId}`
+    );
   }
 
   stop() {

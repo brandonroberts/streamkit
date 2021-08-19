@@ -1,6 +1,10 @@
 import { createAction, props } from '@ngrx/store';
 
-import { CommandModel, MessageModel, SubscriptionModel } from '@streamkit/youtube/shared/models';
+import {
+  CommandModel,
+  MessageModel,
+  SubscriptionModel,
+} from '@streamkit/youtube/shared/models';
 
 export const loadedMessages = createAction(
   'messages_loaded',

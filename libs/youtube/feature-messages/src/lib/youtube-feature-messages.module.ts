@@ -13,7 +13,7 @@ import { PinnedMessageComponent } from './pinned-message/pinned-message.componen
     IonicModule,
     RouterModule.forChild([
       { path: 'pinned', component: PinnedMessageComponent },
-      { path: '', component: MessagesComponent }
+      { path: '', component: MessagesComponent },
     ]),
   ],
 })

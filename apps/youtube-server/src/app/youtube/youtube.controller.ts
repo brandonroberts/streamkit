@@ -85,10 +85,7 @@ export class YoutubeController {
     @Response() resp
   ) {
     try {
-      await this.youtubeService.postChatMessage(
-        liveChatId,
-        body.message
-      );
+      await this.youtubeService.postChatMessage(liveChatId, body.message);
       return resp.json({ success: true });
     } catch (e) {
       return resp.status(401).json({ success: false });
@@ -107,9 +104,7 @@ export class YoutubeController {
     @Query('liveChatId') liveChatId: string,
     @Response() resp
   ) {
-    this.youtubePollingService.getInitialDataAndStartPolling(
-      liveChatId
-    );
+    this.youtubePollingService.getInitialDataAndStartPolling(liveChatId);
 
     return resp.json({ success: true });
   }

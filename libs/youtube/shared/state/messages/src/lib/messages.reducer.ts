@@ -35,26 +35,34 @@ export const reducer = createReducer(
       };
     }, state)
   ),
-  on(MessageActions.pinMessage, MessageActions.messagePinned, (state, action) => ({
-    ...state,
-    pinnedMessageId: action.id,
-  })),
-  on(YouTubeWebSocketActions.loadedMessages, MessagesActions.messagesLoadedSuccess, (state, action) => {
-    return adapter.setAll(
-      (action.data.messages || []).map((message) => {
-        return {
-          id: message.id,
-          message: message.snippet.textMessageDetails.messageText,
-          formattedMessage: message.snippet.textMessageDetails.messageText,
-          user: message.authorDetails.displayName,
-          userColor: randomColor(),
-          avatarUrl: message.authorDetails.profileImageUrl,
-          active: true,
-        };
-      }),
-      state
-    );
-  }),
+  on(
+    MessageActions.pinMessage,
+    MessageActions.messagePinned,
+    (state, action) => ({
+      ...state,
+      pinnedMessageId: action.id,
+    })
+  ),
+  on(
+    YouTubeWebSocketActions.loadedMessages,
+    MessagesActions.messagesLoadedSuccess,
+    (state, action) => {
+      return adapter.setAll(
+        (action.data.messages || []).map((message) => {
+          return {
+            id: message.id,
+            message: message.snippet.textMessageDetails.messageText,
+            formattedMessage: message.snippet.textMessageDetails.messageText,
+            user: message.authorDetails.displayName,
+            userColor: randomColor(),
+            avatarUrl: message.authorDetails.profileImageUrl,
+            active: true,
+          };
+        }),
+        state
+      );
+    }
+  ),
   on(YouTubeChatActions.message, (state, action) => {
     return adapter.upsertOne(action.message, state);
   })

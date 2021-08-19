@@ -13,6 +13,9 @@ export class WsGateway {
 
   @SubscribeMessage('subscribe')
   handleMessage() {
-    return merge(this.youtubePollingService.messages$, this.messageService.pinnedMessages$);
+    return merge(
+      this.youtubePollingService.messages$,
+      this.messageService.pinnedMessages$
+    );
   }
 }

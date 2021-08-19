@@ -22,9 +22,12 @@ import * as DashboardMessagesPageSelectors from './messages.selectors';
           *ngFor="let message of vm.messages; trackBy: trackByFn"
           [color]="message.pinned ? 'primary' : undefined"
           button
-          (click)="onTogglePinnedMessage(!message.pinned ? message.id : undefined)">
+          (click)="
+            onTogglePinnedMessage(!message.pinned ? message.id : undefined)
+          "
+        >
           <ion-avatar slot="start">
-            <img src="{{ message.avatarUrl }}">
+            <img src="{{ message.avatarUrl }}" />
           </ion-avatar>
 
           <ion-label class="ion-text-wrap">
@@ -34,16 +37,20 @@ import * as DashboardMessagesPageSelectors from './messages.selectors';
       </ion-list>
     </ion-content>
   `,
-  styles: [`
-    :host {
-      padding-top: 75px;
-    }
-  `]
+  styles: [
+    `
+      :host {
+        padding-top: 75px;
+      }
+    `,
+  ],
 })
 export class MessagesComponent implements OnInit {
-  vm$ = this.store.select(DashboardMessagesPageSelectors.selectMessagesViewModel);
+  vm$ = this.store.select(
+    DashboardMessagesPageSelectors.selectMessagesViewModel
+  );
 
-  constructor(private store: Store) { }
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(MessagesActions.enterDashboardPage());
@@ -54,7 +61,6 @@ export class MessagesComponent implements OnInit {
   }
 
   onTogglePinnedMessage(id?: string) {
-    this.store.dispatch(MessageActions.messagePinned({id}));
+    this.store.dispatch(MessageActions.messagePinned({ id }));
   }
-
 }

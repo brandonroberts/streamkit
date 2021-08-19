@@ -45,7 +45,7 @@ import { environment } from '../environments/environment';
           import('@streamkit/youtube/feature-dashboard').then(
             (m) => m.YoutubeFeatureDashboardModule
           ),
-      },      
+      },
     ]),
     StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument(),
@@ -54,7 +54,7 @@ import { environment } from '../environments/environment';
     YoutubeSharedStateSubscriptionsModule,
     YoutubeSharedStateMessagesModule,
     YoutubeSharedStateWebsocketModule,
-    IonicModule.forRoot()
+    IonicModule.forRoot(),
   ],
   bootstrap: [AppComponent],
 })

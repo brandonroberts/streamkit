@@ -9,12 +9,8 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     IonicModule,
-    RouterModule.forChild([
-      { path: '', component: MessagesComponent }
-    ])
+    RouterModule.forChild([{ path: '', component: MessagesComponent }]),
   ],
-  declarations: [
-    MessagesComponent
-  ],
+  declarations: [MessagesComponent],
 })
 export class YoutubeFeatureDashboardMessagesModule {}
