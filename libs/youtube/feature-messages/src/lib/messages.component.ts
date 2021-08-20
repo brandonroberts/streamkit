@@ -1,3 +1,4 @@
+import { Component, OnInit } from '@angular/core';
 import {
   trigger,
   state,
@@ -5,83 +6,51 @@ import {
   transition,
   animate,
 } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-
+import { Message } from '@streamkit/youtube/shared/models';
 import {
   MessagesActions,
-  MessagesSelectors,
+  MessagesSelectors
 } from '@streamkit/youtube/shared/state/messages';
-import { Message } from '@streamkit/youtube/shared/models';
+
 
 @Component({
   selector: 'youtube-overlay-messages',
   template: `
-    <ul>
-      <li
-        [@messageAnimation]="'in'"
-        class="message"
-        *ngFor="let message of messages$ | async; trackBy: trackByFn"
-      >
-        <div class="content">
-          <img
-            class="avatar"
-            *ngIf="message.avatarUrl"
-            src="{{ message.avatarUrl }}"
-          />
-          <div
-            class="user"
-            [style.color]="message.userColor"
-            [innerHTML]="message.formattedMessage"
-          ></div>
-        </div>
-      </li>
-    </ul>
+    <ion-list>
+      <ion-item
+        @messageAnimation
+        class="bg"
+        *ngFor="let message of messages$ | async; trackBy: trackByFn">
+        <ion-avatar slot="start">
+          <img src="{{ message.avatarUrl }}" />
+        </ion-avatar>
+
+        <ion-label class="ion-text-wrap">
+          <div [style.color]="message.userColor" [innerHTML]="message.formattedMessage"></div>
+        </ion-label>
+      </ion-item>
+    </ion-list>
   `,
-  styles: [
-    `
-      ul {
-        width: 100%;
-        height: 98%;
-        overflow: hidden;
-        padding: 0;
-        word-break: break-word;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        background: transparent;
-      }
+  styles: [`
+    :host {
+      display: flex;
+      flex-direction: row;
+    }
 
-      .message {
-        display: flex;
-        flex-direction: row;
-        padding: 8px;
-      }
+    :host .bg {
+      --background: rgb(0, 0, 0, 0);
+    }
 
-      span.user {
-        white-space: nowrap;
-      }
+    ion-list {
+      background-color: transparent;
+      align-self: flex-end;
+    }
 
-      .user {
-        padding-bottom: 4px;
-        color: white;
-      }
-
-      .content {
-        display: flex;
-      }
-
-      .avatar {
-        width: 24px;
-        height: 24px;
-      }
-
-      img {
-        padding-right: 4px;
-      }
-    `,
-  ],
+    ion-content {
+      padding: 0
+    }
+  `],
   animations: [
     trigger('messageAnimation', [
       state('in', style({ transform: 'translateX(0)' })),
@@ -93,7 +62,7 @@ import { Message } from '@streamkit/youtube/shared/models';
         animate(200, style({ transform: 'translateX(-100%)' })),
       ]),
     ]),
-  ],
+  ]
 })
 export class MessagesComponent implements OnInit {
   messages$ = this.store.select(MessagesSelectors.selectAllFormattedMessages);
